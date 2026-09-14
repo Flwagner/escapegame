@@ -6,7 +6,7 @@
       "description": "Une courte enquête de démonstration pour tester le moteur.",
       "difficulty": "easy",
       "estimatedDurationMinutes": 10,
-      "thumbnail": "assets/images/thumbnail.svg",
+      "thumbnail": "assets/images/thumbnail.jpg",
       "path": "exemple-scenario-1"
     }
   ]
