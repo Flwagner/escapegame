@@ -70,22 +70,6 @@
   inset: 0;
 }
 
-.examineButton {
-  position: absolute;
-  top: var(--eg-space-2);
-  left: var(--eg-space-2);
-  z-index: 5;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgb(255 255 255 / 24%);
-  border-radius: 999px;
-  color: var(--eg-color-text);
-  padding: 0 var(--eg-space-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
 .zoomControls {
   position: absolute;
   top: var(--eg-space-2);

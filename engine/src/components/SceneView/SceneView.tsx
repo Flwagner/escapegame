@@ -4,7 +4,6 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { resolveScenarioAssetUrl } from '../../core/loader/scenarioLoader'
 import { useGameStore } from '../../core/state/gameStore'
 import { clampPan, clampScale } from '../Lightbox/zoomMath'
-import { Lightbox } from '../Lightbox/Lightbox'
 import type { Hotspot, Scene } from '../../types/scenario'
 import { getContainedSize } from './sceneGeometry'
 import styles from './SceneView.module.css'
@@ -24,7 +23,6 @@ interface SceneViewProps {
 
 export function SceneView({ scene, scenarioPath, onHotspotAction }: SceneViewProps) {
   const isHotspotUnlocked = useGameStore((s) => s.isHotspotUnlocked)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
   const viewportRef = useRef<HTMLDivElement | null>(null)
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 })
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -107,8 +105,7 @@ export function SceneView({ scene, scenarioPath, onHotspotAction }: SceneViewPro
   )
 
   return (
-    <>
-      <motion.div
+    <motion.div
         key={scene.id}
         className={styles.scene}
         initial={{ opacity: 0 }}
@@ -175,27 +172,12 @@ export function SceneView({ scene, scenarioPath, onHotspotAction }: SceneViewPro
           {scene.narrative && <p className={styles.narrative}>{scene.narrative}</p>}
         </div>
 
-        {backgroundUrl && (
-          <button
-            type="button"
-            className={styles.examineButton}
-            onClick={() => setLightboxOpen(true)}
-            aria-label="Examiner la scène en détail"
-          >
-            Examiner
-          </button>
-        )}
-
         {backgroundUrl && !debugEnabled && (
           <div className={styles.zoomControls} aria-label="Zoom de la scène">
             <button type="button" onClick={() => setScale(transform.scale - 0.5)} aria-label="Dézoomer">−</button>
             <button type="button" onClick={() => setScale(transform.scale + 0.5)} aria-label="Zoomer">+</button>
           </div>
         )}
-      </motion.div>
-      {lightboxOpen && backgroundUrl && (
-        <Lightbox src={backgroundUrl} alt={scene.title} onClose={() => setLightboxOpen(false)} />
-      )}
-    </>
+    </motion.div>
   )
 }
