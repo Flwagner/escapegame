@@ -1,0 +1,100 @@
+.wrapper {
+  min-height: 100%;
+  padding: var(--eg-space-4) var(--eg-space-3);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: var(--eg-space-4);
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--eg-space-3);
+}
+
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: var(--eg-color-surface);
+  border: 1px solid var(--eg-color-surface-alt);
+  border-radius: var(--eg-radius);
+  overflow: hidden;
+  cursor: pointer;
+  color: inherit;
+  padding: 0;
+  min-height: unset;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailPlaceholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--eg-color-surface-alt), var(--eg-color-bg));
+}
+
+.cardBody {
+  padding: var(--eg-space-3);
+}
+
+.cardTitle {
+  margin: 0 0 var(--eg-space-1);
+  font-size: 1.1rem;
+}
+
+.cardDescription {
+  margin: 0 0 var(--eg-space-2);
+  color: var(--eg-color-text-muted);
+  font-size: 0.9rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eg-space-1);
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--eg-color-surface-alt);
+  color: var(--eg-color-text-muted);
+}
+
+.badgeContinue {
+  composes: badge;
+  background: var(--eg-color-accent);
+  color: #1a1a1a;
+}
+
+.error {
+  color: var(--eg-color-danger);
+}

@@ -1,0 +1,64 @@
+:root {
+  color-scheme: dark;
+  --eg-color-bg: #0f1115;
+  --eg-color-surface: #1b1e26;
+  --eg-color-surface-alt: #262a35;
+  --eg-color-text: #f2f2f2;
+  --eg-color-text-muted: #a6acb8;
+  --eg-color-accent: #e0b34d;
+  --eg-color-danger: #d64545;
+  --eg-color-success: #4caf6f;
+  --eg-radius: 12px;
+  --eg-space-1: 4px;
+  --eg-space-2: 8px;
+  --eg-space-3: 16px;
+  --eg-space-4: 24px;
+  --eg-space-5: 32px;
+  /* Taille minimale recommandée pour toute zone tactile (WCAG ~44px) */
+  --eg-tap-min: 44px;
+  --eg-font-base: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --eg-header-height: 56px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--eg-color-bg);
+  color: var(--eg-color-text);
+  font-family: var(--eg-font-base);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Toute cible interactive du moteur respecte une taille tactile minimale */
+button,
+[role='button'],
+.eg-tap-target {
+  min-height: var(--eg-tap-min);
+  min-width: var(--eg-tap-min);
+}
+
+a {
+  color: var(--eg-color-accent);
+}
+
+/* Breakpoints de référence utilisés dans tout le moteur (mobile-first) */
+/* mobile: par défaut (< 600px) */
+/* tablette: >= 600px */
+/* desktop: >= 1024px */

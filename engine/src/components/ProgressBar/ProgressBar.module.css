@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--eg-space-2);
+  padding: var(--eg-space-2) var(--eg-space-3);
+}
+
+.track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--eg-color-surface-alt);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--eg-color-accent);
+  transition: width 0.3s ease;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: var(--eg-color-text-muted);
+  white-space: nowrap;
+}

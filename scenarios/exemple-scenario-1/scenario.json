@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "exemple-scenario-1",
+  "title": "Le Bureau Disparu",
+  "description": "Un antiquaire a disparu de son bureau. Retrouvez les indices qu'il a laissés et ouvrez son coffre avant qu'il ne soit trop tard.",
+  "author": "Équipe Escape Game",
+  "difficulty": "easy",
+  "estimatedDurationMinutes": 10,
+  "thumbnail": "assets/images/thumbnail.svg",
+  "theme": "theme.css",
+  "introSceneId": "bureau",
+  "items": [
+    {
+      "id": "cle-armoire",
+      "name": "Clé de l'armoire",
+      "description": "Une petite clé rouillée trouvée dans le tiroir du bureau.",
+      "icon": "assets/images/thumbnail.svg"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "bureau",
+      "title": "Le bureau",
+      "narrative": "Vous entrez dans le bureau de l'antiquaire. Tout semble en ordre, mais quelque chose cloche.",
+      "background": "assets/images/bureau.svg",
+      "hotspots": [
+        {
+          "id": "hotspot-tiroir",
+          "x": 42,
+          "y": 60,
+          "width": 16,
+          "height": 12,
+          "label": "Tiroir du bureau",
+          "action": { "kind": "open-puzzle", "puzzleId": "puzzle-tiroir" }
+        },
+        {
+          "id": "hotspot-armoire",
+          "x": 76,
+          "y": 25,
+          "width": 12,
+          "height": 20,
+          "label": "Armoire fermée",
+          "action": { "kind": "show-clue", "clueId": "clue-note" },
+          "requiresItemIds": ["cle-armoire"]
+        },
+        {
+          "id": "hotspot-vers-cave",
+          "x": 5,
+          "y": 5,
+          "width": 10,
+          "height": 10,
+          "label": "Descendre à la cave",
+          "action": { "kind": "go-to-scene", "sceneId": "cave" }
+        }
+      ],
+      "clues": [
+        {
+          "id": "clue-note",
+          "type": "image",
+          "title": "Note manuscrite",
+          "content": "assets/images/note-indice.svg",
+          "alt": "Une note indiquant que le code du coffre est l'année de fondation, 1892"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "puzzle-tiroir",
+          "type": "text-match",
+          "prompt": "Le tiroir est verrouillé par un mot gravé à moitié effacé : \"_ L E _ H A N T\". Complétez le mot pour l'ouvrir.",
+          "hint": "Un animal à la mémoire légendaire...",
+          "answers": ["elephant"],
+          "caseSensitive": false,
+          "rewards": {
+            "unlockItems": ["cle-armoire"]
+          }
+        }
+      ],
+      "exitConditions": {
+        "requiresSolvedPuzzleIds": ["puzzle-tiroir"]
+      }
+    },
+    {
+      "id": "cave",
+      "title": "La cave",
+      "narrative": "Un vieux coffre trône au centre de la pièce, verrouillé par un cadenas à trois chiffres.",
+      "background": "assets/images/coffre.svg",
+      "hotspots": [
+        {
+          "id": "hotspot-coffre",
+          "x": 40,
+          "y": 40,
+          "width": 20,
+          "height": 25,
+          "label": "Coffre à cadenas",
+          "action": { "kind": "open-puzzle", "puzzleId": "puzzle-coffre" }
+        },
+        {
+          "id": "hotspot-retour-bureau",
+          "x": 5,
+          "y": 5,
+          "width": 10,
+          "height": 10,
+          "label": "Remonter au bureau",
+          "action": { "kind": "go-to-scene", "sceneId": "bureau" }
+        }
+      ],
+      "clues": [],
+      "puzzles": [
+        {
+          "id": "puzzle-coffre",
+          "type": "combination-lock",
+          "prompt": "Réglez les trois derniers chiffres de l'année de fondation indiquée sur la note (1892 -> 8, 9, 2).",
+          "hint": "Relisez la note trouvée dans l'armoire.",
+          "wheels": 3,
+          "combination": [8, 9, 2],
+          "rewards": {
+            "unlockScenes": ["fin"]
+          }
+        }
+      ]
+    }
+  ]
+}

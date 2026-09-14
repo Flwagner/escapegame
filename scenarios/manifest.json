@@ -1,0 +1,13 @@
+{
+  "scenarios": [
+    {
+      "id": "exemple-scenario-1",
+      "title": "Le Bureau Disparu",
+      "description": "Une courte enquête de démonstration pour tester le moteur.",
+      "difficulty": "easy",
+      "estimatedDurationMinutes": 10,
+      "thumbnail": "assets/images/thumbnail.svg",
+      "path": "exemple-scenario-1"
+    }
+  ]
+}

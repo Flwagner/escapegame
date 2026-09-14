@@ -1,0 +1,12 @@
+/*
+ * Thème visuel du scénario "Le Bureau Disparu".
+ * Scopé à la classe racine .scenario-exemple-scenario-1 injectée par le
+ * PlayScreen du moteur, pour ne jamais fuiter sur d'autres scénarios.
+ */
+.scenario-exemple-scenario-1 {
+  --eg-color-accent: #b8863b;
+  --eg-color-bg: #150f0a;
+  --eg-color-surface: #241a12;
+  --eg-color-surface-alt: #33241a;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}

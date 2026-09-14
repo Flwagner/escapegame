@@ -1,0 +1,74 @@
+.centered {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--eg-space-3);
+  padding: var(--eg-space-4);
+  text-align: center;
+}
+
+.error {
+  color: var(--eg-color-danger);
+}
+
+.startScreen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--eg-space-3);
+  padding: var(--eg-space-4);
+  text-align: center;
+}
+
+.description {
+  max-width: 480px;
+  color: var(--eg-color-text-muted);
+}
+
+.startButton {
+  padding: var(--eg-space-3) var(--eg-space-5);
+  border-radius: var(--eg-radius);
+  border: none;
+  background: var(--eg-color-accent);
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--eg-space-2);
+  background: var(--eg-color-surface);
+  min-height: var(--eg-header-height);
+  padding: 0 var(--eg-space-2);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.backButton {
+  flex: 0 0 auto;
+  background: transparent;
+  border: none;
+  color: var(--eg-color-text);
+  cursor: pointer;
+  padding: var(--eg-space-2);
+}
+
+.main {
+  flex: 1;
+  position: relative;
+  padding-bottom: calc(var(--eg-tap-min) + var(--eg-space-3));
+}
