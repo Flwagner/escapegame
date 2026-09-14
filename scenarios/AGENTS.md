@@ -31,6 +31,18 @@ suivre. En résumé :
    apparaître sur l'écran d'accueil et être jouable jusqu'au bout.
 5. Vérifier le rendu en largeur mobile (~375px) en plus du desktop.
 
+## Médias
+
+Pour les fonds, illustrations décoratives et ambiances sonores, privilégier
+des médias téléchargés depuis des banques libres plutôt que des générations
+approximatives. Utiliser d'abord le domaine public ou CC0, puis CC BY avec
+attribution ; exclure NC, ND, SA et les licences propriétaires de banques
+gratuites. Conserver les fichiers localement et documenter chaque source dans
+`scenarios/<id>/ASSET-SOURCES.md` selon le skill `create-scenario`.
+
+Une création originale reste adaptée aux documents et indices qui doivent
+contenir une information précise propre à l'énigme.
+
 ## Format de référence
 
 Voir `../docs/scenario-format.md` pour le détail exhaustif des scènes,

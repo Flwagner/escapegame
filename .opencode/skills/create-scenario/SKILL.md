@@ -184,9 +184,33 @@ une source d'assets exploitable n'est pas disponible, s'arreter et demander a
 l'utilisateur comment proceder. Ne pas finaliser un scenario incomplet et ne
 pas remplacer silencieusement les medias par des placeholders.
 
-Ne telecharger ou reutiliser un contenu externe qu'avec une provenance et une
-licence compatibles. Ajouter `ASSET-SOURCES.md` dans le dossier du scenario
-lorsqu'une attribution ou une trace de provenance est pertinente.
+Pour les images decoratives, les fonds de scene et les ambiances sonores,
+chercher d'abord des medias existants de qualite dans des banques libres. Ne
+produire un media original que lorsqu'aucun media libre coherent n'existe ou
+qu'il doit transmettre une information precise propre a une enigme (document,
+symbole, portrait annote, narration, etc.). Ne jamais utiliser une creation
+generique de moindre qualite uniquement pour eviter la recherche de sources.
+
+Accepter uniquement, dans cet ordre de preference :
+
+1. domaine public ou CC0 ;
+2. CC BY, avec attribution complete.
+
+Refuser les licences NC, ND et SA, les licences gratuites propres aux banques
+d'images, les contenus dont l'auteur ou la licence ne peuvent pas etre
+verifies et les resultats fournis uniquement par un moteur de recherche. Pour
+chaque media, verifier la licence sur sa page source canonique. Un agregateur
+comme Openverse peut servir a la recherche, mais pas de preuve de licence.
+
+Telecharger le fichier dans le scenario : ne jamais utiliser de hotlink ni
+d'URL distante dans `scenario.json` ou `theme.css`. Adapter le cadrage, la
+colorimetrie, la duree ou le format si la licence le permet, puis optimiser la
+copie pour le Web sans degrader visiblement le media.
+
+Creer systematiquement `ASSET-SOURCES.md` des qu'un media externe est utilise.
+Pour chaque fichier, indiquer le titre, l'auteur, la page source canonique, la
+licence exacte avec son lien, la date de telechargement et les transformations
+effectuees. Identifier aussi explicitement les medias produits localement.
 
 Arborescence recommandee :
 
@@ -208,9 +232,6 @@ scenarios/<id>/
         |-- document-*.webp
         `-- document-*.pdf
 ```
-
-`ASSET-SOURCES.md` n'est necessaire que si les assets ont une provenance ou
-des conditions d'utilisation a documenter.
 
 Exigences minimales :
 

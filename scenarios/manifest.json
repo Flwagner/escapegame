@@ -6,7 +6,7 @@
       "description": "Une séance spirite improvisée réveille Élise Valombre. Avant que la dernière bougie ne s'éteigne, achevez le rituel et libérez l'esprit prisonnier du manoir.",
       "difficulty": "medium",
       "estimatedDurationMinutes": 15,
-      "thumbnail": "assets/images/thumbnail.svg",
+      "thumbnail": "assets/images/thumbnail.webp",
       "path": "le-dernier-cercle"
     }
   ]

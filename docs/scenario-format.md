@@ -248,3 +248,12 @@ utilisé dans n'importe quelle scène :
 9. Valider le JSON généré face au schéma avant de considérer le travail
    terminé (voir README du moteur pour lancer `npm run dev` et tester en
    conditions réelles).
+10. Pour les décors et ambiances, privilégier des médias téléchargés sous
+    domaine public/CC0, puis CC BY. Exclure NC, ND, SA et les licences
+    propriétaires de banques gratuites. Vérifier la licence sur la page
+    canonique, conserver le fichier dans le scénario et consigner titre,
+    auteur, source, licence, date et transformations dans
+    `ASSET-SOURCES.md`.
+11. Réserver les créations originales aux médias qui doivent porter une
+    information spécifique au scénario, notamment les documents et indices
+    d'énigme pour lesquels aucun contenu libre adapté n'existe.

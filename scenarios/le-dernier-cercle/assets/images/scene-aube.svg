@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Le manoir à l'aube</title><desc id="desc">Le vestibule du manoir baigné par une lumière dorée, la porte ouverte sur le jour.</desc>
-  <defs><linearGradient id="morning" y2="1"><stop stop-color="#b9c7c2"/><stop offset=".52" stop-color="#e4c995"/><stop offset="1" stop-color="#473d30"/></linearGradient><linearGradient id="ray"><stop stop-color="#fff4c7" stop-opacity=".78"/><stop offset="1" stop-color="#fff4c7" stop-opacity="0"/></linearGradient></defs>
-  <rect width="1600" height="900" fill="url(#morning)"/><path d="M0 0h380v900H0zm1220 0h380v900h-380z" fill="#1d2421"/><path d="M380 0h840v135H380z" fill="#252a26"/><path d="M420 900V125h760v775" fill="#5b594c" stroke="#252a26" stroke-width="25"/><path d="M495 900V205h610v695" fill="#d7d7bd"/>
-  <path d="M800 205v695M495 520h610" stroke="#7b806f" stroke-width="14"/><path d="M495 205l305 695H230zM1105 205L800 900h570z" fill="url(#ray)"/>
-  <path d="M0 780h1600v120H0z" fill="#2d2922" opacity=".8"/><ellipse cx="800" cy="790" rx="245" ry="55" fill="none" stroke="#ece4c7" stroke-width="7" stroke-dasharray="18 16" opacity=".48"/>
-  <g fill="#d7c58e"><circle cx="690" cy="745" r="7"/><circle cx="840" cy="685" r="5"/><circle cx="955" cy="755" r="8"/></g>
-</svg>
