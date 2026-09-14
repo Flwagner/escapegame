@@ -43,14 +43,23 @@ class AudioManager {
   stopAmbient(fadeMs = 500): void {
     if (!this.ambient) return
     const current = this.ambient
-    current.fade(current.volume(), 0, fadeMs)
-    window.setTimeout(() => current.stop(), fadeMs)
+    if (fadeMs > 0) {
+      current.fade(current.volume(), 0, fadeMs)
+      window.setTimeout(() => {
+        current.stop()
+        current.unload()
+      }, fadeMs)
+    } else {
+      current.stop()
+      current.unload()
+    }
     this.ambient = null
     this.ambientSrc = null
   }
 
   playSfx(src: string, { volume = 0.8 }: { volume?: number } = {}): void {
     const howl = new Howl({ src: [src], volume })
+    howl.once('end', () => howl.unload())
     howl.play()
   }
 

@@ -18,9 +18,10 @@ export function isHotspotVisible(hotspot: Hotspot, state: UnlockState): boolean 
 
 /** Un indice est visible s'il n'a pas de condition, ou si ses conditions sont remplies. */
 export function isClueVisible(
-  clue: { unlockedByPuzzleIds?: string[]; unlockedByItemIds?: string[] },
+  clue: { id: string; unlockedByPuzzleIds?: string[]; unlockedByItemIds?: string[] },
   state: UnlockState,
 ): boolean {
+  if (state.unlockedClueIds.has(clue.id)) return true
   const requiresPuzzles = clue.unlockedByPuzzleIds ?? []
   const requiresItems = clue.unlockedByItemIds ?? []
   if (requiresPuzzles.length === 0 && requiresItems.length === 0) return true

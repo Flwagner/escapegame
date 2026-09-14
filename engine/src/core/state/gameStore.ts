@@ -73,7 +73,22 @@ export const useGameStore = create<GameState>()(
       loadScenario: (scenario, scenarioPath) => {
         set((state) => {
           const existing = state.progressByScenario[scenario.id]
-          const progress = existing ?? createEmptyProgress(scenario.introSceneId)
+          const sceneIds = new Set(scenario.scenes.map((scene) => scene.id))
+          const puzzleIds = new Set(scenario.scenes.flatMap((scene) => scene.puzzles.map((puzzle) => puzzle.id)))
+          const clueIds = new Set(scenario.scenes.flatMap((scene) => scene.clues.map((clue) => clue.id)))
+          const itemIds = new Set(scenario.items.map((item) => item.id))
+          const progress = existing
+            ? {
+                ...existing,
+                currentSceneId: sceneIds.has(existing.currentSceneId) ? existing.currentSceneId : scenario.introSceneId,
+                solvedPuzzleIds: existing.solvedPuzzleIds.filter((id) => puzzleIds.has(id)),
+                collectedItemIds: existing.collectedItemIds.filter((id) => itemIds.has(id)),
+                unlockedClueIds: existing.unlockedClueIds.filter((id) => clueIds.has(id)),
+                attemptsByPuzzleId: Object.fromEntries(
+                  Object.entries(existing.attemptsByPuzzleId).filter(([id]) => puzzleIds.has(id)),
+                ),
+              }
+            : createEmptyProgress(scenario.introSceneId)
           return {
             scenario,
             scenarioPath,
@@ -99,7 +114,10 @@ export const useGameStore = create<GameState>()(
       },
 
       goToScene: (sceneId) =>
-        set((state) => updateCurrentProgress(state, (p) => ({ ...p, currentSceneId: sceneId }))),
+        set((state) => {
+          if (!state.scenario || !findScene(state.scenario.scenes, sceneId)) return {}
+          return updateCurrentProgress(state, (p) => ({ ...p, currentSceneId: sceneId }))
+        }),
 
       attemptPuzzle: (puzzleId, answer) => {
         const state = get()
@@ -109,13 +127,14 @@ export const useGameStore = create<GameState>()(
         const puzzle = scene?.puzzles.find((p) => p.id === puzzleId)
         if (!puzzle || !progress) return { success: false }
 
-        const result = checkPuzzleAnswer(puzzle, answer)
         const alreadySolved = progress.solvedPuzzleIds.includes(puzzleId)
+        if (alreadySolved) return { success: true }
+        const result = checkPuzzleAnswer(puzzle, answer)
 
         set((s) =>
           updateCurrentProgress(s, (p) => {
             const attempts = { ...p.attemptsByPuzzleId, [puzzleId]: (p.attemptsByPuzzleId[puzzleId] ?? 0) + 1 }
-            if (!result.success || alreadySolved) {
+            if (!result.success) {
               return { ...p, attemptsByPuzzleId: attempts }
             }
             const rewards = puzzle.rewards

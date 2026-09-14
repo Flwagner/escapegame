@@ -40,8 +40,16 @@ export const TextMatchPuzzleSchema = BasePuzzleSchema.extend({
 
 export const MultipleChoicePuzzleSchema = BasePuzzleSchema.extend({
   type: z.literal('multiple-choice'),
-  options: z.array(z.object({ id: z.string(), label: z.string() })).min(2),
-  correctOptionIds: z.array(z.string()).min(1),
+  options: z.array(z.object({ id: z.string().min(1), label: z.string().min(1) })).min(2),
+  correctOptionIds: z.array(z.string().min(1)).min(1),
+}).superRefine((puzzle, ctx) => {
+  const optionIds = puzzle.options.map((option) => option.id)
+  if (new Set(optionIds).size !== optionIds.length) {
+    ctx.addIssue({ code: 'custom', path: ['options'], message: 'Les ids des options doivent être uniques' })
+  }
+  if (puzzle.correctOptionIds.some((id) => !optionIds.includes(id))) {
+    ctx.addIssue({ code: 'custom', path: ['correctOptionIds'], message: 'Une réponse référence une option inconnue' })
+  }
 })
 
 export const CodePadPuzzleSchema = BasePuzzleSchema.extend({
@@ -51,8 +59,18 @@ export const CodePadPuzzleSchema = BasePuzzleSchema.extend({
 
 export const SequencePuzzleSchema = BasePuzzleSchema.extend({
   type: z.literal('sequence'),
-  items: z.array(z.object({ id: z.string(), label: z.string() })).min(2),
-  correctOrder: z.array(z.string()).min(2),
+  items: z.array(z.object({ id: z.string().min(1), label: z.string().min(1) })).min(2),
+  correctOrder: z.array(z.string().min(1)).min(2),
+}).superRefine((puzzle, ctx) => {
+  const itemIds = puzzle.items.map((item) => item.id)
+  const expected = new Set(itemIds)
+  const actual = new Set(puzzle.correctOrder)
+  if (expected.size !== itemIds.length) {
+    ctx.addIssue({ code: 'custom', path: ['items'], message: 'Les ids des éléments doivent être uniques' })
+  }
+  if (actual.size !== puzzle.correctOrder.length || actual.size !== expected.size || [...actual].some((id) => !expected.has(id))) {
+    ctx.addIssue({ code: 'custom', path: ['correctOrder'], message: 'L’ordre doit contenir chaque élément exactement une fois' })
+  }
 })
 
 export const CombinationLockPuzzleSchema = BasePuzzleSchema.extend({
@@ -60,6 +78,9 @@ export const CombinationLockPuzzleSchema = BasePuzzleSchema.extend({
   /** ex: nombre de roues et valeur attendue par roue */
   wheels: z.number().int().min(1).max(6),
   combination: z.array(z.number().int().min(0).max(9)),
+}).refine((puzzle) => puzzle.combination.length === puzzle.wheels, {
+  path: ['combination'],
+  message: 'La combinaison doit contenir une valeur par roue',
 })
 
 export const PuzzleSchema = z.discriminatedUnion('type', [

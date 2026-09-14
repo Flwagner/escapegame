@@ -53,6 +53,11 @@ export async function loadScenario(entry: ManifestEntry): Promise<Scenario> {
       result.error,
     )
   }
+  if (result.data.id !== entry.id) {
+    throw new ScenarioLoadError(
+      `scenario.json invalide pour "${entry.id}" : l'id déclaré est "${result.data.id}".`,
+    )
+  }
   return result.data
 }
 
