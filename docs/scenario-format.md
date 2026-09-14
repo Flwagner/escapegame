@@ -257,3 +257,39 @@ utilisé dans n'importe quelle scène :
 11. Réserver les créations originales aux médias qui doivent porter une
     information spécifique au scénario, notamment les documents et indices
     d'énigme pour lesquels aucun contenu libre adapté n'existe.
+
+## Production et calibration des scènes
+
+Une photo de scène n'est pas seulement une illustration d'ambiance : elle
+constitue le repère spatial de toutes les interactions. Chaque hotspot doit
+donc correspondre à un objet ou à un passage réellement identifiable dans
+l'image finale.
+
+Ordre de production recommandé :
+
+1. Lister les objets interactifs indispensables et leur rôle narratif.
+2. Chercher une image qui contient déjà la majorité de ces objets, puis
+   adapter les interactions aux éléments réellement visibles.
+3. Réserver le photomontage aux accessoires indispensables absents de la
+   source. Harmoniser perspective, lumière, ombres, grain et colorimétrie.
+4. Exporter le décor final en WebP ou JPEG. Les SVG restent adaptés aux
+   documents et aux indices examinés séparément, pas aux décors
+   photoréalistes complets.
+5. Calibrer les hotspots uniquement sur le fichier final.
+6. Vérifier le résultat au format desktop et à environ 375 px de large.
+
+Le moteur affiche l'image complète sans la rogner et place les hotspots dans
+le même canevas. Le joueur peut zoomer et déplacer ce canevas : l'image et les
+zones interactives restent ainsi alignées à toutes les tailles d'écran.
+
+En développement, ajouter `?hotspots=1` à la route du jeu affiche une grille,
+tous les hotspots (même verrouillés) et leurs identifiants. Faire glisser le
+pointeur sur un objet mesure un rectangle et fournit les coordonnées JSON en
+pourcentage. Par exemple :
+
+`#/play/mon-scenario?hotspots=1`
+
+Conserver les objets obligatoires loin des bords, éviter les zones qui se
+chevauchent et viser au minimum une cible tactile d'environ 44 px. Le moteur
+agrandit la surface tactile autour d'une petite zone sans modifier ses
+coordonnées visuelles.

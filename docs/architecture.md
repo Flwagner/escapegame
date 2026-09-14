@@ -78,6 +78,11 @@ scénario = réinitialiser uniquement son entrée dans cette map.
   variable CSS `--eg-tap-min`).
 - Les hotspots de scène sont positionnés en pourcentage (jamais en pixels
   fixes) pour s'adapter à toutes les tailles d'écran.
+- Le fond et les hotspots sont rendus dans un canevas commun aux proportions
+  intrinsèques de l'image. Le canevas est affiché sans rognage et peut être
+  zoomé/déplacé ; toutes ses couches conservent donc le même repère spatial.
+- En développement, `?hotspots=1` active la grille de calibration des zones
+  interactives et permet de mesurer leurs coordonnées en pourcentage.
 - L'audio ne démarre jamais automatiquement : il attend une interaction
   utilisateur explicite (bouton "Commencer l'enquête"), condition requise
   par les navigateurs mobiles.

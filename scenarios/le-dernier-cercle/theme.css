@@ -22,3 +22,18 @@
 .scenario-le-dernier-cercle button {
   letter-spacing: 0.035em;
 }
+
+.scenario-le-dernier-cercle [data-scene-id="salon-spirite"],
+.scenario-le-dernier-cercle [data-scene-id="galerie-portraits"] {
+  --eg-scene-image-filter: sepia(0.24) contrast(1.08) brightness(0.82);
+  --eg-scene-backdrop-filter: blur(20px) sepia(0.35) brightness(0.28);
+}
+
+.scenario-le-dernier-cercle [data-scene-id="caveau-familial"] {
+  --eg-scene-image-filter: contrast(1.08) brightness(0.82) saturate(0.82);
+  --eg-scene-backdrop-filter: blur(20px) brightness(0.24) saturate(0.7);
+}
+
+.scenario-le-dernier-cercle [data-scene-id="scene-aube"] {
+  --eg-scene-image-filter: contrast(1.04) saturate(0.88);
+}
