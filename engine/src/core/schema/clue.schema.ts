@@ -8,6 +8,17 @@ import { z } from 'zod'
 export const ClueTypeSchema = z.enum(['text', 'image', 'audio', 'document'])
 export type ClueType = z.infer<typeof ClueTypeSchema>
 
+/**
+ * Style visuel du rendu "papier" pour les indices texte/document.
+ * - `letter` : lettre manuscrite (police cursive, papier légèrement froissé)
+ * - `typed` : rapport tapé à la machine (police monospace/typewriter)
+ * - `scan` : scan/photo de document posé sur un fond papier
+ * Optionnel : si absent, le moteur choisit un style par défaut selon le
+ * type d'indice (letter pour `text`, scan pour `document`).
+ */
+export const DocumentStyleSchema = z.enum(['letter', 'typed', 'scan'])
+export type DocumentStyle = z.infer<typeof DocumentStyleSchema>
+
 export const ClueSchema = z.object({
   id: z.string().min(1),
   type: ClueTypeSchema,
@@ -16,6 +27,8 @@ export const ClueSchema = z.object({
   content: z.string().min(1),
   /** Texte alternatif pour l'accessibilité (images/documents) */
   alt: z.string().optional(),
+  /** Style de rendu "papier" optionnel pour les indices text/document (voir DocumentStyleSchema) */
+  documentStyle: DocumentStyleSchema.optional(),
   unlockedByPuzzleIds: z.array(z.string()).optional(),
   unlockedByItemIds: z.array(z.string()).optional(),
 })

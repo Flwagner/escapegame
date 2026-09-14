@@ -37,11 +37,19 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
   function submit(answer: unknown) {
     const result = attemptPuzzle(puzzle!.id, answer)
     if (result.success) {
-      audioManager.playSfx(`${import.meta.env.BASE_URL}sfx/success.mp3`)
+      audioManager.playEngineSfx('success')
+      const hasRewards =
+        puzzle!.rewards &&
+        ((puzzle!.rewards.unlockClues?.length ?? 0) > 0 ||
+          (puzzle!.rewards.unlockItems?.length ?? 0) > 0 ||
+          (puzzle!.rewards.unlockScenes?.length ?? 0) > 0)
+      if (hasRewards) {
+        window.setTimeout(() => audioManager.playEngineSfx('unlock'), 350)
+      }
       resetLocalState()
       onSolved()
     } else {
-      audioManager.playSfx(`${import.meta.env.BASE_URL}sfx/error.mp3`)
+      audioManager.playEngineSfx('error')
       setFeedback('error')
     }
   }

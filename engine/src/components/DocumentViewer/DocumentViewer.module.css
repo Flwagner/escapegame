@@ -1,0 +1,87 @@
+.paper {
+  position: relative;
+  margin: 0 auto;
+  padding: var(--eg-space-4);
+  max-width: 560px;
+  background: var(--eg-doc-paper-bg, #f4ecd8);
+  color: var(--eg-doc-paper-text, #2b2416);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  /* Bords légèrement irréguliers façon feuille froissée/découpée */
+  clip-path: polygon(
+    0.5% 1%,
+    99.3% 0%,
+    100% 98.5%,
+    1.2% 100%
+  );
+}
+
+.paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.04), transparent 40%);
+  background-size: 3px 3px, 100% 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.letter {
+  font-family: var(--eg-font-document, 'Segoe Script', 'Bradley Hand', cursive);
+  transform: rotate(-0.4deg);
+  font-size: 1.05rem;
+}
+
+.typed {
+  font-family: var(--eg-font-document-typed, 'Courier New', 'Courier', monospace);
+  background: var(--eg-doc-paper-bg, #ece7da);
+}
+
+.scan {
+  background: var(--eg-doc-paper-bg, #ddd8cc);
+  padding: var(--eg-space-2);
+}
+
+.text {
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.scanButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.scanImage {
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset;
+}
+
+.expandHint {
+  display: block;
+  margin-top: var(--eg-space-1);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--eg-color-text-muted);
+}
+
+.docLink {
+  display: inline-block;
+  padding: var(--eg-space-2) var(--eg-space-3);
+  background: var(--eg-color-accent);
+  color: #1a1a1a;
+  border-radius: var(--eg-radius);
+  text-decoration: none;
+  font-weight: 600;
+}

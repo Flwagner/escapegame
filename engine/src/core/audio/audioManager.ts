@@ -14,6 +14,7 @@ class AudioManager {
   private ambient: Howl | null = null
   private ambientSrc: string | null = null
   private unlocked = false
+  private muted = false
 
   /** À appeler depuis un handler de clic/tap utilisateur (ex: bouton Start). */
   unlockAudioContext(): void {
@@ -53,9 +54,25 @@ class AudioManager {
     howl.play()
   }
 
+  /**
+   * Joue un effet sonore générique fourni par le moteur (public/sfx/*.wav),
+   * indépendant de tout scénario. Voir `public/sfx/LICENSE.md`.
+   */
+  playEngineSfx(name: EngineSfxName, options?: { volume?: number }): void {
+    this.playSfx(`${import.meta.env.BASE_URL}sfx/${name}.wav`, options)
+  }
+
   muteAll(muted: boolean): void {
+    this.muted = muted
     Howler.mute(muted)
   }
+
+  isMuted(): boolean {
+    return this.muted
+  }
 }
+
+/** Effets sonores génériques fournis par le moteur (engine/public/sfx). */
+export type EngineSfxName = 'click' | 'success' | 'error' | 'unlock' | 'pickup' | 'reveal'
 
 export const audioManager = new AudioManager()

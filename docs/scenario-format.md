@@ -130,10 +130,27 @@ Types d'action possibles :
   "title": "Note manuscrite",
   "content": "Texte de l'indice, ou chemin relatif vers l'asset selon le type",
   "alt": "Texte alternatif pour l'accessibilité (image/document)",
+  "documentStyle": "letter | typed | scan",  // optionnel, voir ci-dessous
   "unlockedByPuzzleIds": ["puzzle-1"],   // optionnel
   "unlockedByItemIds": ["cle-armoire"]   // optionnel
 }
 ```
+
+Rendu par type :
+- `text` et `document` sont affichés dans un cadre "papier" stylisé
+  (texture, ombre, bords irréguliers) plutôt qu'un simple paragraphe ou
+  lien. Le champ optionnel `documentStyle` permet de choisir le rendu :
+  - `letter` (défaut pour `text`) : lettre manuscrite, police cursive.
+  - `typed` : rapport tapé à la machine, police monospace.
+  - `scan` (défaut pour `document`) : scan/photo posée sur un fond papier ;
+    si `content` pointe vers une image (png/jpg/webp/gif/svg/avif), elle
+    s'affiche inline avec un bouton "Agrandir" (zoom/pan plein écran) ;
+    sinon (ex: PDF), un bouton "Ouvrir le document" ouvre le fichier dans
+    un nouvel onglet.
+- `image` s'affiche dans la modale d'indice avec un zoom/pan plein écran
+  au tap (pinch, molette, double-tap/double-clic pour zoomer).
+- `audio` utilise le lecteur natif du navigateur (`<audio controls>`),
+  jamais de lecture automatique.
 
 ### Énigmes (puzzles)
 

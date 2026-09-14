@@ -67,6 +67,17 @@
   padding: var(--eg-space-2);
 }
 
+.muteButton {
+  flex: 0 0 auto;
+  background: transparent;
+  border: none;
+  color: var(--eg-color-text);
+  cursor: pointer;
+  padding: var(--eg-space-2);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
 .main {
   flex: 1;
   position: relative;

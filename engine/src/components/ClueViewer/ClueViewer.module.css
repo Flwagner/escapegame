@@ -36,27 +36,22 @@
   padding-right: var(--eg-space-4);
 }
 
-.text {
-  line-height: 1.5;
-  white-space: pre-wrap;
+.imageButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
 }
 
 .image {
   max-width: 100%;
   border-radius: var(--eg-radius);
   touch-action: pinch-zoom;
+  display: block;
 }
 
 .audio {
   width: 100%;
-}
-
-.docLink {
-  display: inline-block;
-  padding: var(--eg-space-2) var(--eg-space-3);
-  background: var(--eg-color-accent);
-  color: #1a1a1a;
-  border-radius: var(--eg-radius);
-  text-decoration: none;
-  font-weight: 600;
 }

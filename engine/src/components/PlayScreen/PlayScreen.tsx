@@ -30,6 +30,7 @@ export function PlayScreen() {
   const [started, setStarted] = useState(false)
   const [activePuzzle, setActivePuzzle] = useState<Puzzle | null>(null)
   const [activeClue, setActiveClue] = useState<Clue | null>(null)
+  const [muted, setMuted] = useState(false)
 
   useEffect(() => {
     if (!scenarioId) return
@@ -93,9 +94,16 @@ export function PlayScreen() {
     setStarted(true)
   }
 
+  function handleToggleMute() {
+    const next = !muted
+    audioManager.muteAll(next)
+    setMuted(next)
+  }
+
   function handleHotspotAction(hotspot: Hotspot) {
     const scene = currentScene!
     const action = hotspot.action
+    audioManager.playEngineSfx('click')
     switch (action.kind) {
       case 'open-puzzle': {
         const puzzle = scene.puzzles.find((p) => p.id === action.puzzleId)
@@ -107,6 +115,7 @@ export function PlayScreen() {
         if (clue) {
           revealClue(clue.id)
           setActiveClue(clue)
+          audioManager.playEngineSfx('reveal')
         }
         break
       }
@@ -118,6 +127,7 @@ export function PlayScreen() {
       }
       case 'collect-item': {
         collectItem(action.itemId)
+        audioManager.playEngineSfx('pickup')
         break
       }
     }
@@ -147,6 +157,15 @@ export function PlayScreen() {
           ← Quitter
         </button>
         <ProgressBar solvedCount={progress.solvedPuzzleIds.length} totalCount={totalPuzzles} />
+        <button
+          type="button"
+          className={`${styles.muteButton} eg-tap-target`}
+          onClick={handleToggleMute}
+          aria-label={muted ? 'Réactiver le son' : 'Couper le son'}
+          aria-pressed={muted}
+        >
+          {muted ? '🔇' : '🔊'}
+        </button>
       </header>
 
       <main className={styles.main}>

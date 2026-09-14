@@ -30,6 +30,22 @@
   inset: 0;
 }
 
+.zoomButton {
+  position: absolute;
+  top: var(--eg-space-2);
+  right: var(--eg-space-2);
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  border-radius: 50%;
+  color: var(--eg-color-text);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .hotspot {
   position: absolute;
   background: rgba(224, 179, 77, 0.12);
