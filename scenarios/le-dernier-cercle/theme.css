@@ -1,0 +1,24 @@
+.scenario-le-dernier-cercle {
+  --eg-color-bg: #090b0d;
+  --eg-color-surface: #17191a;
+  --eg-color-surface-raised: #242321;
+  --eg-color-text: #e8dfca;
+  --eg-color-text-muted: #aaa18f;
+  --eg-color-accent: #b68a4a;
+  --eg-color-accent-hover: #d1ad70;
+  --eg-color-danger: #8e3f3f;
+  --eg-color-border: #514836;
+  --eg-font-body: Georgia, "Times New Roman", serif;
+  --eg-font-heading: "Palatino Linotype", Palatino, Georgia, serif;
+  --eg-radius: 2px;
+  --eg-shadow: 0 16px 42px rgb(0 0 0 / 55%);
+}
+
+.scenario-le-dernier-cercle :focus-visible {
+  outline-color: #e2bd76;
+  outline-offset: 4px;
+}
+
+.scenario-le-dernier-cercle button {
+  letter-spacing: 0.035em;
+}

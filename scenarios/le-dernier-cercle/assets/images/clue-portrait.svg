@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait des enfants Valombre</title><desc id="desc">Lucien 1879, Élise sans date lisible, et Margot 1906.</desc>
+  <rect width="1000" height="700" fill="#3b3025"/><rect x="35" y="35" width="930" height="630" fill="#756045" stroke="#b49a6c" stroke-width="22"/><rect x="75" y="75" width="850" height="550" fill="#28302a"/>
+  <g fill="#a99980" stroke="#4a4034" stroke-width="8"><circle cx="260" cy="245" r="83"/><circle cx="500" cy="225" r="88"/><circle cx="740" cy="245" r="78"/></g>
+  <g fill="#4f554e"><path d="M125 520q25-215 135-215t135 215z"/><path d="M350 520q30-230 150-230t150 230z"/><path d="M620 520q25-210 120-210t125 210z"/></g>
+  <path d="M440 95l125 410M570 95L430 505" stroke="#231f1b" stroke-width="28" opacity=".7"/>
+  <g fill="#dfd2ad" font-family="Georgia,serif" text-anchor="middle"><text x="260" y="570" font-size="38">LUCIEN</text><text x="260" y="612" font-size="31">né en 1879</text><text x="500" y="570" font-size="38">ÉLISE</text><text x="500" y="612" font-size="31">née en 18??</text><text x="740" y="570" font-size="38">MARGOT</text><text x="740" y="612" font-size="31">née en 1906</text></g>
+</svg>

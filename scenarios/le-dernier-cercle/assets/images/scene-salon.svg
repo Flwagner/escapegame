@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Salon spirite abandonné</title><desc id="desc">Un journal à gauche, une table de rituel au centre, un phonographe et une porte à droite.</desc>
+  <defs><linearGradient id="wall" y2="1"><stop stop-color="#26302d"/><stop offset="1" stop-color="#101312"/></linearGradient><radialGradient id="light"><stop stop-color="#d59a42" stop-opacity=".48"/><stop offset="1" stop-color="#392816" stop-opacity="0"/></radialGradient><pattern id="paper" width="90" height="110" patternUnits="userSpaceOnUse"><path d="M0 20Q45 3 90 20M0 70Q45 54 90 70" fill="none" stroke="#3a413d" stroke-width="3"/></pattern></defs>
+  <rect width="1600" height="900" fill="url(#wall)"/><rect x="70" y="65" width="1460" height="655" fill="url(#paper)" opacity=".5"/><path d="M0 720H1600V900H0z" fill="#17120f"/><path d="M0 720h1600" stroke="#66533c" stroke-width="12"/>
+  <g opacity=".65" stroke="#111" stroke-width="14"><path d="M183 0q-5 180 100 290t-12 260"/><path d="M1200 0q-20 150 45 230t-31 200"/></g>
+  <g transform="translate(180 485)"><path d="M0 210h310l-28-170H30z" fill="#3a291d" stroke="#16100c" stroke-width="12"/><path d="M55 45l102-29 103 27-98 46z" fill="#d2c09a" stroke="#77654a" stroke-width="7"/><path d="M157 17v72" stroke="#77654a" stroke-width="3"/></g>
+  <g transform="translate(555 470)"><ellipse cx="245" cy="216" rx="295" ry="75" fill="#211611" stroke="#694a2d" stroke-width="15"/><ellipse cx="245" cy="190" rx="208" ry="66" fill="#191b17" stroke="#b3a377" stroke-width="6" stroke-dasharray="13 12"/><path d="M105 189q140-110 280 0q-140 105-280 0z" fill="none" stroke="#897a57" stroke-width="4"/><circle cx="245" cy="188" r="24" fill="#b7a378" opacity=".35"/>
+    <g fill="#d7c79e"><rect x="82" y="102" width="16" height="98"/><rect x="390" y="102" width="16" height="98"/><rect x="237" y="68" width="16" height="100"/></g><g fill="#f0b551"><path d="M80 101q10-34 20 0q-10 18-20 0"/><path d="M388 101q10-34 20 0q-10 18-20 0"/><path d="M235 67q10-34 20 0q-10 18-20 0"/></g>
+  </g>
+  <ellipse cx="800" cy="540" rx="370" ry="330" fill="url(#light)"/>
+  <g transform="translate(1110 360)"><rect x="25" y="125" width="170" height="240" rx="8" fill="#342319" stroke="#755537" stroke-width="10"/><path d="M73 135V40h34v95" fill="#493322"/><path d="M85 65q110-100 137 26q-79-25-137-26z" fill="#745c36" stroke="#231b12" stroke-width="8"/><circle cx="92" cy="151" r="36" fill="#171512" stroke="#a78855" stroke-width="7"/></g>
+  <g transform="translate(1350 145)"><path d="M0 555V0h210v555" fill="#121516" stroke="#675542" stroke-width="13"/><path d="M42 555V65h126v490" fill="#202321" stroke="#493e32" stroke-width="8"/><circle cx="144" cy="310" r="9" fill="#b88d4f"/></g>
+  <g fill="#c1c7bb" opacity=".28"><circle cx="260" cy="180" r="5"/><circle cx="460" cy="300" r="4"/><circle cx="980" cy="180" r="6"/><circle cx="1280" cy="240" r="4"/></g>
+</svg>

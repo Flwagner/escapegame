@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" role="img" aria-labelledby="title desc">
+  <title id="title">Registre funéraire Valombre</title><desc id="desc">Trois lignes donnent les symboles, dates et âges d'Élise, Lucien et Margot.</desc><rect x="25" y="25" width="1050" height="750" fill="#cbc09e" stroke="#5d5343" stroke-width="12"/>
+  <g stroke="#756a56" stroke-width="4"><path d="M70 180h960M70 350h960M70 520h960M70 690h960M250 180v510M535 180v510M850 180v510"/></g>
+  <g fill="#312d27" font-family="Courier New,monospace"><text x="550" y="110" text-anchor="middle" font-size="48">REGISTRE DU CAVEAU VALOMBRE</text><text x="105" y="155" font-size="27">SYMBOLE</text><text x="330" y="155" font-size="27">NOM</text><text x="595" y="155" font-size="27">DATES</text><text x="895" y="155" font-size="27">ÂGE</text>
+  <text x="105" y="282" font-size="42">FLAMME</text><text x="310" y="282" font-size="42">ÉLISE</text><text x="575" y="282" font-size="42">1898—1916</text><text x="910" y="282" font-size="42">18</text>
+  <text x="105" y="452" font-size="42">CLOCHE</text><text x="310" y="452" font-size="42">LUCIEN</text><text x="575" y="452" font-size="42">1879—1906</text><text x="910" y="452" font-size="42">27</text>
+  <text x="105" y="622" font-size="42">ŒIL</text><text x="310" y="622" font-size="42">MARGOT</text><text x="575" y="622" font-size="42">1906—1917</text><text x="910" y="622" font-size="42">11</text></g>
+  <g fill="none" stroke="#70443a" stroke-width="7"><path d="M170 220q-42 58 0 88q42-30 0-88z"/><path d="M142 390h56v60q-28 35-56 0z"/><path d="M126 571q44-50 88 0q-44 50-88 0z"/><circle cx="170" cy="571" r="13"/></g>
+</svg>

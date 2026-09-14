@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "id": "le-dernier-cercle",
+  "title": "Le Dernier Cercle",
+  "description": "Une séance spirite improvisée réveille Élise Valombre. Avant que la dernière bougie ne s'éteigne, achevez le rituel et libérez l'esprit prisonnier du manoir.",
+  "author": "Escape Game",
+  "difficulty": "medium",
+  "estimatedDurationMinutes": 15,
+  "thumbnail": "assets/images/thumbnail.svg",
+  "theme": "theme.css",
+  "introSceneId": "salon-spirite",
+  "items": [
+    {
+      "id": "medaillon-elise",
+      "name": "Médaillon d'Élise",
+      "description": "Un portrait miniature. Le revers porte une flamme gravée.",
+      "icon": "assets/images/item-medaillon.svg"
+    },
+    {
+      "id": "cle-caveau",
+      "name": "Clé du caveau",
+      "description": "Une lourde clé de fer noir, glacée malgré la chaleur des bougies.",
+      "icon": "assets/images/item-cle.svg"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "salon-spirite",
+      "title": "Le salon spirite",
+      "narrative": "La porte vient de se refermer. Les flammes penchent toutes vers la table, où le verre s'est mis à trembler. Quelqu'un attend que le cercle soit repris correctement.",
+      "background": "assets/images/scene-salon.svg",
+      "ambientSound": "assets/audio/ambiance-salon.wav",
+      "hotspots": [
+        {
+          "id": "hotspot-journal",
+          "x": 14,
+          "y": 54,
+          "width": 16,
+          "height": 18,
+          "label": "Journal ouvert",
+          "action": { "kind": "show-clue", "clueId": "journal-medium" }
+        },
+        {
+          "id": "hotspot-table-rituel",
+          "x": 39,
+          "y": 56,
+          "width": 23,
+          "height": 22,
+          "label": "Cercle interrompu",
+          "action": { "kind": "open-puzzle", "puzzleId": "rituel-ordre" }
+        },
+        {
+          "id": "hotspot-phonographe",
+          "x": 68,
+          "y": 43,
+          "width": 15,
+          "height": 22,
+          "label": "Phonographe réveillé",
+          "action": { "kind": "show-clue", "clueId": "voix-elise" },
+          "requiresSolvedPuzzleIds": ["rituel-ordre"]
+        },
+        {
+          "id": "hotspot-passage-galerie",
+          "x": 84,
+          "y": 22,
+          "width": 13,
+          "height": 56,
+          "label": "Porte de la galerie",
+          "action": { "kind": "go-to-scene", "sceneId": "galerie-portraits" },
+          "requiresItemIds": ["medaillon-elise"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "journal-medium",
+          "type": "document",
+          "title": "Journal de la médium",
+          "content": "assets/documents/journal-medium.svg",
+          "alt": "Page manuscrite décrivant les quatre étapes du rituel : tracer le cercle, allumer les bougies, faire tinter la cloche, puis prononcer le nom d'Élise.",
+          "documentStyle": "scan"
+        },
+        {
+          "id": "voix-elise",
+          "type": "audio",
+          "title": "Voix dans le pavillon",
+          "content": "assets/audio/voix-elise.wav",
+          "unlockedByPuzzleIds": ["rituel-ordre"]
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "rituel-ordre",
+          "type": "sequence",
+          "prompt": "Le cercle réagit, mais chaque geste doit suivre l'ordre consigné par la médium.",
+          "hint": "Le journal ouvert à gauche décrit les gestes dans quatre paragraphes numérotés.",
+          "items": [
+            { "id": "cercle", "label": "Tracer le cercle de sel" },
+            { "id": "bougies", "label": "Allumer les quatre bougies" },
+            { "id": "cloche", "label": "Faire tinter la cloche" },
+            { "id": "nom", "label": "Prononcer le nom d'Élise" }
+          ],
+          "correctOrder": ["cercle", "bougies", "cloche", "nom"],
+          "rewards": {
+            "unlockClues": ["voix-elise"],
+            "unlockItems": ["medaillon-elise"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "galerie-portraits",
+      "title": "La galerie des Valombre",
+      "narrative": "Les visages peints ont été lacérés, sauf celui d'une jeune fille. Au fond, une horloge sans aiguilles protège l'escalier du caveau.",
+      "background": "assets/images/scene-galerie.svg",
+      "ambientSound": "assets/audio/ambiance-galerie.wav",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-salon",
+          "x": 2,
+          "y": 25,
+          "width": 13,
+          "height": 51,
+          "label": "Retour au salon",
+          "action": { "kind": "go-to-scene", "sceneId": "salon-spirite" }
+        },
+        {
+          "id": "hotspot-portrait-famille",
+          "x": 24,
+          "y": 24,
+          "width": 18,
+          "height": 34,
+          "label": "Portrait des enfants",
+          "action": { "kind": "show-clue", "clueId": "portrait-enfants" }
+        },
+        {
+          "id": "hotspot-transcription",
+          "x": 48,
+          "y": 56,
+          "width": 15,
+          "height": 18,
+          "label": "Notes de séance",
+          "action": { "kind": "show-clue", "clueId": "transcription-voix" }
+        },
+        {
+          "id": "hotspot-horloge",
+          "x": 66,
+          "y": 25,
+          "width": 16,
+          "height": 45,
+          "label": "Cadran sans aiguilles",
+          "action": { "kind": "open-puzzle", "puzzleId": "annee-elise" }
+        },
+        {
+          "id": "hotspot-escalier-caveau",
+          "x": 84,
+          "y": 22,
+          "width": 13,
+          "height": 56,
+          "label": "Escalier du caveau",
+          "action": { "kind": "go-to-scene", "sceneId": "caveau-familial" },
+          "requiresItemIds": ["cle-caveau"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "portrait-enfants",
+          "type": "image",
+          "title": "Les enfants Valombre",
+          "content": "assets/images/clue-portrait.svg",
+          "alt": "Portrait de Lucien, né en 1879, et Margot, née en 1906, encadrant une silhouette d'Élise dont l'année de naissance est effacée."
+        },
+        {
+          "id": "transcription-voix",
+          "type": "text",
+          "title": "Transcription de la voix",
+          "content": "La voix du phonographe murmure : « Je suis née dix-neuf ans après Lucien, et huit ans avant Margot. Rendez mon année à l'horloge. »",
+          "documentStyle": "typed",
+          "unlockedByPuzzleIds": ["rituel-ordre"]
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "annee-elise",
+          "type": "code-pad",
+          "prompt": "Quelle année de naissance faut-il rendre à Élise ?",
+          "hint": "Comparez le portrait avec la transcription : 1879 + 19 donne la même année que 1906 - 8.",
+          "code": "1898",
+          "rewards": {
+            "unlockItems": ["cle-caveau"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "caveau-familial",
+      "title": "Le caveau familial",
+      "narrative": "Sous le manoir, trois niches encerclent une dalle scellée. Une inscription ordonne les symboles : « La flamme ouvre la marche, la cloche la suit, l'œil la ferme. »",
+      "background": "assets/images/scene-caveau.svg",
+      "ambientSound": "assets/audio/ambiance-caveau.wav",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-galerie",
+          "x": 2,
+          "y": 24,
+          "width": 13,
+          "height": 52,
+          "label": "Remonter à la galerie",
+          "action": { "kind": "go-to-scene", "sceneId": "galerie-portraits" }
+        },
+        {
+          "id": "hotspot-registre",
+          "x": 20,
+          "y": 54,
+          "width": 18,
+          "height": 19,
+          "label": "Registre funéraire",
+          "action": { "kind": "show-clue", "clueId": "registre-valombre" }
+        },
+        {
+          "id": "hotspot-dalle",
+          "x": 42,
+          "y": 54,
+          "width": 22,
+          "height": 24,
+          "label": "Serrure de la dalle",
+          "action": { "kind": "open-puzzle", "puzzleId": "sceau-caveau" }
+        },
+        {
+          "id": "hotspot-adieu-elise",
+          "x": 68,
+          "y": 27,
+          "width": 15,
+          "height": 26,
+          "label": "Lettre révélée",
+          "action": { "kind": "show-clue", "clueId": "lettre-elise" },
+          "requiresSolvedPuzzleIds": ["sceau-caveau"]
+        },
+        {
+          "id": "hotspot-sortie-aube",
+          "x": 84,
+          "y": 21,
+          "width": 13,
+          "height": 57,
+          "label": "Lueur de l'aube",
+          "action": { "kind": "go-to-scene", "sceneId": "scene-aube" },
+          "requiresSolvedPuzzleIds": ["sceau-caveau"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "registre-valombre",
+          "type": "document",
+          "title": "Registre funéraire des Valombre",
+          "content": "assets/documents/registre-funeraire.svg",
+          "alt": "Registre indiquant Élise, symbole flamme, 1898-1916, 18 ans ; Lucien, symbole cloche, 1879-1906, 27 ans ; Margot, symbole œil, 1906-1917, 11 ans.",
+          "documentStyle": "scan"
+        },
+        {
+          "id": "lettre-elise",
+          "type": "text",
+          "title": "Derniers mots d'Élise",
+          "content": "Vous avez rendu leurs noms aux morts et brisé le sceau qui me retenait. Quand la dalle s'ouvrira, ne regardez pas derrière vous. Suivez seulement la lumière.",
+          "documentStyle": "letter",
+          "unlockedByPuzzleIds": ["sceau-caveau"]
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "sceau-caveau",
+          "type": "combination-lock",
+          "prompt": "Entrez les âges des trois défunts, dans l'ordre des symboles gravé sur la dalle : flamme, cloche, œil.",
+          "hint": "Le registre donne chaque âge et son symbole. Juxtaposez les trois nombres à deux chiffres.",
+          "wheels": 6,
+          "combination": [1, 8, 2, 7, 1, 1],
+          "rewards": {
+            "unlockClues": ["lettre-elise"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-aube",
+      "title": "Le jour se lève",
+      "narrative": "La première lumière traverse les fenêtres du manoir. Derrière vous, le silence est enfin naturel. Élise est libre, et le cercle de craie s'est effacé.",
+      "background": "assets/images/scene-aube.svg",
+      "hotspots": [],
+      "clues": [],
+      "puzzles": []
+    }
+  ]
+}
