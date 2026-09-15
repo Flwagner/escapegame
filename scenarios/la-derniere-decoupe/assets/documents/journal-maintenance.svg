@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#77736a"/>
+  <rect x="50" y="50" width="800" height="1100" fill="#e7e0cf" stroke="#2f302d" stroke-width="6"/>
+  <text x="450" y="125" text-anchor="middle" font-family="monospace" font-size="37" font-weight="bold" fill="#272824">JOURNAL DE MAINTENANCE</text>
+  <text x="450" y="175" text-anchor="middle" font-family="monospace" font-size="23" fill="#6d1818">INSTALLATION CF-2</text>
+  <g font-family="monospace" font-size="25" fill="#292a26">
+    <text x="105" y="285">03/02/2025 - Eclairage L-17</text>
+    <text x="125" y="330">Controle, reference inchangee.</text>
+    <line x1="100" y1="375" x2="800" y2="375" stroke="#666" stroke-width="2"/>
+    <text x="105" y="455">19/06/2025 - Ventilation</text>
+    <text x="125" y="500">Moteur V-03 depose apres grippage.</text>
+    <text x="125" y="545" fill="#7b1717">Remplacement en service : V-08.</text>
+    <line x1="100" y1="590" x2="800" y2="590" stroke="#666" stroke-width="2"/>
+    <text x="105" y="670">08/01/2026 - Degivrage R-26</text>
+    <text x="125" y="715">Controle, reference inchangee.</text>
+    <line x1="100" y1="760" x2="800" y2="760" stroke="#666" stroke-width="2"/>
+    <text x="105" y="840">11/08/2026 - Compresseur C-41</text>
+    <text x="125" y="885">Controle, reference inchangee.</text>
+  </g>
+  <rect x="110" y="970" width="680" height="90" fill="#e9d5c5" stroke="#7b1717" stroke-width="4"/>
+  <text x="450" y="1025" text-anchor="middle" font-family="monospace" font-size="24" fill="#7b1717">RETIRER V-03 DES RELEVES ACTIFS</text>
+</svg>

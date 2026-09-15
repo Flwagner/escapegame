@@ -25,10 +25,15 @@ Freesound pour les enregistrements indiqués.
 
 ## Créations originales
 
-- `assets/images/clue-portrait.svg`, `assets/images/item-cle.svg` et
-  `assets/images/item-medaillon.svg` sont des illustrations vectorielles
-  originales portant des informations propres au scénario.
-- `assets/documents/journal-medium.svg` et
-  `assets/documents/registre-funeraire.svg` sont des documents vectoriels
-  originaux conçus pour les énigmes.
+- `assets/images/clue-portrait.svg`, `assets/images/item-cle.svg`,
+  `assets/images/item-medaillon.svg`, `assets/images/item-bougie-noire.svg`,
+  `assets/images/item-petite-cle.svg`, `assets/images/item-jeton-cuivre.svg` et
+  `assets/images/item-battant-cloche.svg` sont des illustrations vectorielles
+  originales portant des informations propres au scénario. Le médaillon et
+  les quatre nouvelles icônes ont été créés ou refondus le 15 septembre 2026.
+- `assets/documents/journal-medium.svg`,
+  `assets/documents/registre-funeraire.svg`,
+  `assets/documents/marques-cercle.svg` et
+  `assets/documents/coupure-gazette.svg` sont des documents vectoriels
+  originaux conçus ou refondus le 15 septembre 2026 pour les énigmes.
 - `assets/audio/voix-elise.wav` est une synthèse sonore procédurale originale.

@@ -6,53 +6,115 @@
   "author": "Escape Game",
   "difficulty": "medium",
   "atmosphere": "Occulte et gothique",
-  "estimatedDurationMinutes": 15,
+  "estimatedDurationMinutes": 20,
   "thumbnail": "assets/images/thumbnail.webp",
   "theme": "theme.css",
   "timer": {
-    "durationSeconds": 900,
+    "durationSeconds": 1200,
     "victorySceneId": "scene-aube"
   },
   "introSceneId": "salon-spirite",
   "items": [
     {
+      "id": "bougie-noire",
+      "name": "Bougie noire",
+      "description": "Une bougie courte, déjà brûlée sur un côté.",
+      "icon": "assets/images/item-bougie-noire.svg"
+    },
+    {
+      "id": "petite-cle-ouvragee",
+      "name": "Petite clé ouvragée",
+      "description": "Une clé de laiton fine, décorée de ronces.",
+      "icon": "assets/images/item-petite-cle.svg"
+    },
+    {
+      "id": "jeton-cuivre",
+      "name": "Jeton de cuivre",
+      "description": "Un disque numéroté 27, frappé des mots « vestiaire des invités ».",
+      "icon": "assets/images/item-jeton-cuivre.svg"
+    },
+    {
       "id": "medaillon-elise",
-      "name": "Médaillon d'Élise",
-      "description": "Un portrait miniature. Le revers porte une flamme gravée.",
+      "name": "Médaillon ancien",
+      "description": "Au revers : flamme — E, cloche — L, œil — M.",
       "icon": "assets/images/item-medaillon.svg"
     },
     {
       "id": "cle-caveau",
-      "name": "Clé du caveau",
-      "description": "Une lourde clé de fer noir, glacée malgré la chaleur des bougies.",
+      "name": "Clé de fer",
+      "description": "Une lourde clé noire, glacée malgré la chaleur des bougies.",
       "icon": "assets/images/item-cle.svg"
+    },
+    {
+      "id": "battant-cloche",
+      "name": "Battant de cloche",
+      "description": "Une pièce de bronze suspendue à un anneau usé.",
+      "icon": "assets/images/item-battant-cloche.svg"
     }
   ],
   "scenes": [
     {
       "id": "salon-spirite",
       "title": "Le salon spirite",
-      "narrative": "Les doubles portes viennent de se refermer. Sur les tables chargées d'objets, un verre s'est mis à trembler. Puis un souffle froid descend de la grande cheminée.",
+      "narrative": "Les doubles portes viennent de se refermer. Plusieurs objets ont été abandonnés parmi les bibelots. Sur la table ronde, un cercle incomplet attend un dernier geste.",
       "background": "assets/images/scene-salon.webp",
       "ambientSound": "assets/audio/ambiance-salon-loop.mp3",
       "hotspots": [
         {
           "id": "hotspot-journal",
-          "x": 19,
-          "y": 71,
+          "x": 18,
+          "y": 66,
           "width": 14,
-          "height": 16,
-          "label": "Carnet sur la table gauche",
+          "height": 15,
+          "label": "Carnet ouvert sur la table",
           "action": { "kind": "show-clue", "clueId": "journal-medium" }
         },
         {
+          "id": "hotspot-marques-cercle",
+          "x": 21,
+          "y": 83,
+          "width": 13,
+          "height": 13,
+          "label": "Marques autour du cercle",
+          "action": { "kind": "show-clue", "clueId": "marques-cercle" }
+        },
+        {
+          "id": "hotspot-bougie-noire",
+          "x": 86,
+          "y": 39,
+          "width": 12,
+          "height": 21,
+          "label": "Bougie sombre sur la cheminée",
+          "action": { "kind": "collect-item", "itemId": "bougie-noire" }
+        },
+        {
+          "id": "hotspot-petite-cle",
+          "x": 50,
+          "y": 70,
+          "width": 13,
+          "height": 14,
+          "label": "Éclat de laiton sur le guéridon",
+          "action": { "kind": "collect-item", "itemId": "petite-cle-ouvragee" }
+        },
+        {
+          "id": "hotspot-jeton-cuivre",
+          "x": 5,
+          "y": 76,
+          "width": 13,
+          "height": 15,
+          "label": "Disque sous un fauteuil",
+          "action": { "kind": "collect-item", "itemId": "jeton-cuivre" }
+        },
+        {
           "id": "hotspot-table-rituel",
-          "x": 31,
-          "y": 78,
-          "width": 15,
-          "height": 19,
-          "label": "Objets du rituel",
-          "action": { "kind": "open-puzzle", "puzzleId": "rituel-ordre" }
+          "x": 35,
+          "y": 84,
+          "width": 14,
+          "height": 14,
+          "label": "Emplacement vide du cercle",
+          "action": { "kind": "open-puzzle", "puzzleId": "rituel-ordre" },
+          "requiresItemIds": ["bougie-noire", "petite-cle-ouvragee", "jeton-cuivre"],
+          "useItemId": "bougie-noire"
         },
         {
           "id": "hotspot-cheminee",
@@ -81,7 +143,15 @@
           "type": "document",
           "title": "Journal de la médium",
           "content": "assets/documents/journal-medium.svg",
-          "alt": "Page manuscrite décrivant les quatre étapes du rituel : tracer le cercle, allumer les bougies, faire tinter la cloche, puis prononcer le nom d'Élise.",
+          "alt": "Page manuscrite associant le croissant au sel, les rayons à la flamme, les ondes au son et le monogramme au nom.",
+          "documentStyle": "scan"
+        },
+        {
+          "id": "marques-cercle",
+          "type": "document",
+          "title": "Relevé des marques du cercle",
+          "content": "assets/documents/marques-cercle.svg",
+          "alt": "Relevé indiquant de suivre depuis l'encoche, dans le sens de la flèche, les signes croissant, rayons, ondes puis monogramme.",
           "documentStyle": "scan"
         },
         {
@@ -96,8 +166,8 @@
         {
           "id": "rituel-ordre",
           "type": "sequence",
-          "prompt": "Le cercle réagit, mais chaque geste doit suivre l'ordre consigné par la médium.",
-          "hint": "Le journal ouvert à gauche décrit les gestes dans quatre paragraphes numérotés.",
+          "prompt": "La bougie tient dans l'encoche. Croisez le journal avec les marques du cercle pour exécuter les quatre gestes dans le bon ordre.",
+          "hint": "Attribuez d'abord un geste à chaque signe grâce au journal, puis seulement suivez le sens indiqué sur le relevé.",
           "items": [
             { "id": "cercle", "label": "Tracer le cercle de sel" },
             { "id": "bougies", "label": "Allumer les quatre bougies" },
@@ -115,24 +185,24 @@
     {
       "id": "galerie-portraits",
       "title": "La galerie des Valombre",
-      "narrative": "La longue galerie est bordée de cadres assombris et de vitrines. Un portrait d'enfants a échappé aux lacérations ; plus loin, une porte ferme l'aile du caveau.",
+      "narrative": "La galerie est bordée de cadres assombris et de vitrines. Un coffret de voyage repose sous le seul portrait intact ; une porte ferrée ferme l'extrémité de l'aile.",
       "background": "assets/images/scene-galerie.webp",
       "ambientSound": "assets/audio/ambiance-galerie-loop.mp3",
       "hotspots": [
         {
           "id": "hotspot-retour-salon",
-          "x": 0,
+          "x": 1,
           "y": 35,
-          "width": 8,
+          "width": 12,
           "height": 48,
-          "label": "Porte du salon",
+          "label": "Ouverture vers le salon",
           "action": { "kind": "go-to-scene", "sceneId": "salon-spirite" }
         },
         {
           "id": "hotspot-portrait-famille",
           "x": 30,
           "y": 32,
-          "width": 11,
+          "width": 12,
           "height": 33,
           "label": "Portrait des enfants",
           "action": { "kind": "show-clue", "clueId": "portrait-enfants" }
@@ -147,13 +217,24 @@
           "action": { "kind": "show-clue", "clueId": "transcription-voix" }
         },
         {
+          "id": "hotspot-coupure",
+          "x": 44,
+          "y": 48,
+          "width": 12,
+          "height": 17,
+          "label": "Coupure glissée sous un cadre",
+          "action": { "kind": "show-clue", "clueId": "coupure-gazette" }
+        },
+        {
           "id": "hotspot-coffret",
           "x": 29,
           "y": 69,
           "width": 14,
           "height": 26,
-          "label": "Coffret dans la vitrine",
-          "action": { "kind": "open-puzzle", "puzzleId": "annee-elise" }
+          "label": "Petite serrure du coffret",
+          "action": { "kind": "open-puzzle", "puzzleId": "annee-elise" },
+          "requiresItemIds": ["petite-cle-ouvragee", "jeton-cuivre", "medaillon-elise"],
+          "useItemId": "petite-cle-ouvragee"
         },
         {
           "id": "hotspot-porte-caveau",
@@ -161,9 +242,10 @@
           "y": 54,
           "width": 16,
           "height": 31,
-          "label": "Porte au fond de la galerie",
+          "label": "Serrure de la porte ferrée",
           "action": { "kind": "go-to-scene", "sceneId": "caveau-familial" },
-          "requiresItemIds": ["cle-caveau"]
+          "requiresItemIds": ["cle-caveau", "battant-cloche", "medaillon-elise", "jeton-cuivre"],
+          "useItemId": "cle-caveau"
         }
       ],
       "clues": [
@@ -181,17 +263,25 @@
           "content": "La voix entendue dans la cheminée murmurait : « Je suis née dix-neuf ans après Lucien, et huit ans avant Margot. Rendez mon année au coffret. »",
           "documentStyle": "typed",
           "unlockedByPuzzleIds": ["rituel-ordre"]
+        },
+        {
+          "id": "coupure-gazette",
+          "type": "document",
+          "title": "Coupure de la Gazette",
+          "content": "assets/documents/coupure-gazette.svg",
+          "alt": "Gazette publiée le 12 octobre 1901 annonçant la disparition d'Élise Valombre, âgée de trois ans.",
+          "documentStyle": "scan"
         }
       ],
       "puzzles": [
         {
           "id": "annee-elise",
           "type": "code-pad",
-          "prompt": "Quel millésime ouvre le coffret de la galerie ?",
-          "hint": "Comparez le portrait avec la transcription : 1879 + 19 donne la même année que 1906 - 8.",
+          "prompt": "La clé libère les molettes du coffret. Quel millésime faut-il composer ?",
+          "hint": "Distinguez la date d'un événement de l'année de naissance. Vérifiez que votre calcul satisfait à la fois les deux écarts familiaux et l'âge donné par la coupure.",
           "code": "1898",
           "rewards": {
-            "unlockItems": ["cle-caveau"]
+            "unlockItems": ["cle-caveau", "battant-cloche"]
           }
         }
       ]
@@ -199,7 +289,7 @@
     {
       "id": "caveau-familial",
       "title": "Le caveau familial",
-      "narrative": "Sous le manoir, les hautes arches encerclent une dalle scellée. Sur un registre posé à gauche, trois symboles reviennent : la flamme, la cloche et l'œil.",
+      "narrative": "Sous le manoir, les arches encerclent une dalle scellée. Un registre, une inscription et une cloche privée de son semblent avoir été laissés pour qu'on les rapproche.",
       "background": "assets/images/scene-caveau.webp",
       "ambientSound": "assets/audio/ambiance-caveau-loop.mp3",
       "hotspots": [
@@ -209,32 +299,43 @@
           "y": 31,
           "width": 16,
           "height": 48,
-          "label": "Arche vers la galerie",
+          "label": "Grande arche vers la galerie",
           "action": { "kind": "go-to-scene", "sceneId": "galerie-portraits" }
         },
         {
           "id": "hotspot-registre",
           "x": 1,
-          "y": 84,
-          "width": 13,
-          "height": 14,
+          "y": 82,
+          "width": 14,
+          "height": 16,
           "label": "Registre sur le lutrin",
           "action": { "kind": "show-clue", "clueId": "registre-valombre" }
         },
         {
+          "id": "hotspot-inscription-seuil",
+          "x": 56,
+          "y": 76,
+          "width": 14,
+          "height": 17,
+          "label": "Inscription au bord de la dalle",
+          "action": { "kind": "show-clue", "clueId": "inscription-seuil" }
+        },
+        {
           "id": "hotspot-dalle",
           "x": 39,
-          "y": 78,
-          "width": 27,
+          "y": 76,
+          "width": 17,
           "height": 20,
-          "label": "Serrure de la dalle",
-          "action": { "kind": "open-puzzle", "puzzleId": "sceau-caveau" }
+          "label": "Cloche muette du mécanisme",
+          "action": { "kind": "open-puzzle", "puzzleId": "sceau-caveau" },
+          "requiresItemIds": ["battant-cloche", "medaillon-elise", "jeton-cuivre"],
+          "useItemId": "battant-cloche"
         },
         {
           "id": "hotspot-adieu-elise",
-          "x": 88,
+          "x": 87,
           "y": 66,
-          "width": 10,
+          "width": 12,
           "height": 25,
           "label": "Feuillet dans la niche",
           "action": { "kind": "show-clue", "clueId": "lettre-elise" },
@@ -257,14 +358,21 @@
           "type": "document",
           "title": "Registre funéraire des Valombre",
           "content": "assets/documents/registre-funeraire.svg",
-          "alt": "Registre indiquant Élise, symbole flamme, 1898-1916, 18 ans ; Lucien, symbole cloche, 1879-1906, 27 ans ; Margot, symbole œil, 1906-1917, 11 ans.",
+          "alt": "Registre indiquant les dates et âges d'Élise, Lucien et Margot, sans symbole rituel.",
           "documentStyle": "scan"
+        },
+        {
+          "id": "inscription-seuil",
+          "type": "text",
+          "title": "Inscription du seuil",
+          "content": "« Que la plus brève veille ouvre le passage ; que la veille du milieu lui réponde ; que la plus longue le referme. »",
+          "documentStyle": "typed"
         },
         {
           "id": "lettre-elise",
           "type": "text",
           "title": "Derniers mots d'Élise",
-          "content": "Vous avez rendu leurs noms aux morts et brisé le sceau qui me retenait. Quand la dalle s'ouvrira, ne regardez pas derrière vous. Suivez seulement la lumière.",
+          "content": "Vous avez rendu leurs signes aux morts et brisé le sceau qui me retenait. Quand la dalle s'ouvrira, ne regardez pas derrière vous. Suivez seulement la lumière.",
           "documentStyle": "letter",
           "unlockedByPuzzleIds": ["sceau-caveau"]
         }
@@ -272,11 +380,15 @@
       "puzzles": [
         {
           "id": "sceau-caveau",
-          "type": "combination-lock",
-          "prompt": "Entrez les âges des trois défunts, dans l'ordre des symboles gravé sur la dalle : flamme, cloche, œil.",
-          "hint": "Le registre donne chaque âge et son symbole. Juxtaposez les trois nombres à deux chiffres.",
-          "wheels": 6,
-          "combination": [1, 8, 2, 7, 1, 1],
+          "type": "sequence",
+          "prompt": "Le battant rend sa voix à la cloche et trois signes s'éclairent. Ordonnez-les en croisant les initiales du médaillon, les durées du registre et l'inscription du seuil.",
+          "hint": "Établissez d'abord quel défunt correspond à chaque signe du médaillon. Classez ensuite leurs âges selon les trois qualificatifs de l'inscription.",
+          "items": [
+            { "id": "flamme", "label": "Flamme" },
+            { "id": "cloche", "label": "Cloche" },
+            { "id": "oeil", "label": "Œil" }
+          ],
+          "correctOrder": ["oeil", "flamme", "cloche"],
           "rewards": {
             "unlockClues": ["lettre-elise"]
           }

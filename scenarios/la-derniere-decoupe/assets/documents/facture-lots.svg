@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#c9c7be"/>
+  <rect x="50" y="50" width="800" height="1100" fill="#f2f0e7" stroke="#393936" stroke-width="5"/>
+  <text x="450" y="125" text-anchor="middle" font-family="monospace" font-size="38" font-weight="bold" fill="#252522">ETAT COMPTABLE</text>
+  <text x="450" y="175" text-anchor="middle" font-family="monospace" font-size="23" fill="#6f1717">CLOTURE DU 12/11/2026</text>
+  <g stroke="#444" stroke-width="3" fill="none">
+    <rect x="105" y="245" width="690" height="590"/>
+    <line x1="105" y1="335" x2="795" y2="335"/>
+    <line x1="105" y1="435" x2="795" y2="435"/>
+    <line x1="105" y1="535" x2="795" y2="535"/>
+    <line x1="105" y1="635" x2="795" y2="635"/>
+    <line x1="105" y1="735" x2="795" y2="735"/>
+    <line x1="390" y1="245" x2="390" y2="835"/>
+  </g>
+  <g font-family="monospace" font-size="27" fill="#292825">
+    <text x="155" y="302">FACTURE</text><text x="500" y="302">STATUT</text>
+    <text x="175" y="402">F-204</text><text x="475" y="402">ACQUITTEE</text>
+    <text x="175" y="502">F-188</text><text x="475" y="502" fill="#831919">BLOQUEE</text>
+    <text x="175" y="602">F-219</text><text x="475" y="602" fill="#831919">CONTESTEE</text>
+    <text x="175" y="702">F-207</text><text x="475" y="702">ACQUITTEE</text>
+    <text x="175" y="802">F-231</text><text x="475" y="802" fill="#831919">REJETEE</text>
+  </g>
+  <text x="450" y="955" text-anchor="middle" font-family="monospace" font-size="24" fill="#6f1717">SEULE UNE FACTURE ACQUITTEE</text>
+  <text x="450" y="1000" text-anchor="middle" font-family="monospace" font-size="24" fill="#6f1717">AUTORISE LA RECEPTION DU LOT.</text>
+</svg>

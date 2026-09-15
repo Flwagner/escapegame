@@ -159,6 +159,8 @@ Avant d'ecrire les fichiers finaux, etablir un plan interne comprenant :
 - direction visuelle, palette, style des documents et direction sonore ;
 - liste des scenes et duree cible de chacune ;
 - liste des enigmes, solutions, indices et objets ;
+- pour chaque enigme, sources necessaires, raisonnement attendu et fausses
+  pistes eventuelles ;
 - graphe des transitions et des dependances ;
 - scene terminale et conclusion ;
 - inventaire exhaustif des images, pistes audio et documents a produire.
@@ -177,6 +179,37 @@ Chaque solution doit etre deduisible a partir d'elements accessibles avant
 l'enigme. Ne jamais utiliser une connaissance externe indispensable sauf si le
 contexte demande explicitement une culture generale.
 
+### Calibration de la difficulte
+
+Ne pas confondre difficulte et obscurite. Une enigme difficile demande un
+raisonnement plus riche, mais tous les elements necessaires restent
+accessibles, lisibles et logiquement relies a la solution.
+
+- Pour une enigme structurante `medium`, demander en principe le recoupement
+  d'au moins deux sources ou observations distinctes.
+- Pour une enigme structurante `hard`, demander en principe deux a trois
+  sources et, lorsque la duree le permet, un raisonnement en plusieurs etapes.
+- Ne pas placer dans un meme indice la regle, toutes les donnees et leur ordre
+  d'application. Repartir l'information sans la fragmenter artificiellement.
+- Un indice d'echec doit orienter vers une source ou une methode, sans donner
+  le calcul, l'ordre, les chiffres ou la reponse finale. Tenir compte du fait
+  que le moteur affiche `hint` des la premiere erreur.
+- Eviter qu'un objet soit obtenu immediatement avant son unique destination.
+  Pour les interactions obligatoires d'un scenario `medium` ou `hard`, viser
+  deux ou trois objets plausibles simultanement disponibles dans l'inventaire.
+- Ne pas reveler la destination d'un objet par son nom ou sa description :
+  preferer par exemple « petite cle en laiton » a « cle du bureau ».
+- Les objets alternatifs doivent etre credibles dans le decor. La plupart
+  doivent avoir une utilite ulterieure ; un objet leurre sans usage est
+  acceptable avec parcimonie s'il enrichit l'enquete sans bloquer le joueur.
+- Une fausse piste doit etre narrative, plausible et refutable par un detail
+  accessible : date, statut, provenance, contradiction ou information plus
+  fiable. Ne jamais opposer deux informations indiscernables dont une seule
+  serait arbitrairement correcte.
+- Ne pas multiplier les fausses pistes dans chaque enigme. Une ou deux sur le
+  parcours suffisent souvent ; elles doivent creer un doute temporaire, pas
+  du bruit documentaire permanent.
+
 ## Audit du graphe de progression
 
 Pour chaque element, verifier avant generation :
@@ -184,8 +217,13 @@ Pour chaque element, verifier avant generation :
 - comment chaque scene est atteinte pour la premiere fois ;
 - quel hotspot ouvre chaque enigme ;
 - quels elements permettent de deduire chaque solution ;
+- quelles sources doivent etre recoupees et quelles etapes de raisonnement
+  menent a la solution ;
+- comment chaque fausse piste peut etre ecartee sans essai arbitraire ;
 - quel hotspot affiche chaque indice ;
 - comment chaque objet est obtenu ;
+- quels autres objets plausibles sont presents lors de chaque usage
+  obligatoire et si leurs noms evitent de reveler leur destination ;
 - quels predecesseurs satisfont chaque condition ;
 - quelles transitions permettent d'avancer et, si necessaire, de revenir ;
 - comment le joueur atteint la scene terminale.
@@ -367,6 +405,11 @@ scenario est valide uniquement parce que `npm run build` reussit.
 - Verifier les contraintes locales de `open-puzzle` et `show-clue`.
 - Verifier que le graphe complet est atteignable sans cycle bloquant.
 - Verifier que chaque solution est deduisible avec les indices disponibles.
+- Verifier qu'aucun indice unique ne livre a lui seul une enigme structurante
+  `medium` ou `hard`, sauf justification explicite dans le plan de conception.
+- Verifier que les `hint` guident le raisonnement sans devoiler la solution.
+- Verifier que les fausses pistes sont rares, refutables et non obligatoires
+  pour deviner arbitrairement la bonne reponse.
 - Verifier que chaque enigme, indice et objet prevu est accessible.
 
 ### Assets
@@ -392,6 +435,13 @@ scenario est valide uniquement parce que `npm run build` reussit.
 - Tester les mauvaises et bonnes reponses, les deblocages, la collecte et
   l'utilisation des objets, leur disparition de l'inventaire, la reutilisation
   des hotspots actives, toutes les transitions et la scene finale.
+- Tester au moins une selection de mauvais objet sur chaque interaction
+  obligatoire et verifier que plusieurs choix plausibles existent aux moments
+  prevus par la conception.
+- Verifier en jouant qu'aucune enigme structurante ne se resout par la simple
+  lecture du dernier indice obtenu, sans effectuer le recoupement prevu.
+- Suivre volontairement chaque fausse piste et confirmer qu'un element du jeu
+  permet de l'ecarter proprement.
 - Pour un scenario chronometre, tester le compte a rebours, les penalites, la
   pause/reprise, la defaite a zero et l'arret dans la scene finale.
 - Jouer le scenario de bout en bout sur desktop et a environ 375 px de large.

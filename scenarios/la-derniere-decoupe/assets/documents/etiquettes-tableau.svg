@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#b9b7ad"/>
+  <rect x="55" y="55" width="790" height="1090" fill="#e9e7dc" stroke="#30322f" stroke-width="6"/>
+  <text x="450" y="130" text-anchor="middle" font-family="monospace" font-size="35" font-weight="bold" fill="#242622">RELEVE DU COFFRET CF-2</text>
+  <text x="450" y="180" text-anchor="middle" font-family="monospace" font-size="23" fill="#6b1818">ETIQUETTES DE COMMANDE</text>
+  <g font-family="monospace" font-size="29" fill="#252722">
+    <rect x="105" y="250" width="690" height="125" fill="#dad8cd" stroke="#555" stroke-width="3"/>
+    <text x="145" y="325">ECLAIRAGE</text><text x="635" y="325">L-17</text>
+    <rect x="105" y="415" width="690" height="125" fill="#dad8cd" stroke="#555" stroke-width="3"/>
+    <text x="145" y="490">VENTILATION</text><text x="635" y="490">V-03</text>
+    <rect x="105" y="580" width="690" height="125" fill="#dad8cd" stroke="#555" stroke-width="3"/>
+    <text x="145" y="655">DEGIVRAGE</text><text x="635" y="655">R-26</text>
+    <rect x="105" y="745" width="690" height="125" fill="#dad8cd" stroke="#555" stroke-width="3"/>
+    <text x="145" y="820">COMPRESSEUR</text><text x="635" y="820">C-41</text>
+  </g>
+  <text x="450" y="990" text-anchor="middle" font-family="monospace" font-size="24" fill="#6b1818">COMMANDER PAR FONCTION.</text>
+  <text x="450" y="1035" text-anchor="middle" font-family="monospace" font-size="24" fill="#6b1818">POSITIONS NON NORMALISEES.</text>
+</svg>

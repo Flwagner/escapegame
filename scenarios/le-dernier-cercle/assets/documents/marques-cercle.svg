@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">Relevé des marques du cercle</title>
+  <desc id="desc">Depuis une encoche, une flèche parcourt le croissant, les rayons, les ondes et le monogramme.</desc>
+  <rect x="28" y="28" width="844" height="844" fill="#c8b78e" stroke="#66543a" stroke-width="12"/>
+  <text x="450" y="92" text-anchor="middle" fill="#352b20" font-family="Georgia,serif" font-size="42">RELEVÉ DU PAVILLON</text>
+  <circle cx="450" cy="475" r="285" fill="none" stroke="#4d4030" stroke-width="12" stroke-dasharray="1720 70"/>
+  <path d="M452 170c145 2 263 108 282 247" fill="none" stroke="#7a382f" stroke-width="9"/>
+  <path d="M717 386l22 45 31-40" fill="none" stroke="#7a382f" stroke-width="9"/>
+  <g fill="#352b20" font-family="Georgia,serif" font-size="92" text-anchor="middle">
+    <text x="450" y="245">☾</text>
+    <text x="690" y="505">✦</text>
+    <text x="450" y="750">≋</text>
+    <text x="205" y="505">E</text>
+  </g>
+  <path d="M420 185l30-42 30 42" fill="none" stroke="#7a382f" stroke-width="9"/>
+  <text x="450" y="835" text-anchor="middle" fill="#352b20" font-family="Georgia,serif" font-size="30">Partir de l'encoche. Ne pas contrarier la flèche.</text>
+</svg>

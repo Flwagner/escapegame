@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title"><title id="title">Médaillon ovale d'Élise</title><rect width="512" height="512" fill="#171916"/><path d="M256 58c-95 0-165 89-165 205s70 191 165 191 165-75 165-191S351 58 256 58z" fill="#5b472c" stroke="#c2a36a" stroke-width="22"/><ellipse cx="256" cy="260" rx="122" ry="157" fill="#27302c" stroke="#89724b" stroke-width="10"/><circle cx="256" cy="215" r="54" fill="#b5a488"/><path d="M170 386q20-130 86-130t87 130" fill="#60655c"/><path d="M232 58q24-57 48 0" fill="none" stroke="#c2a36a" stroke-width="18"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 512" role="img" aria-labelledby="title desc">
+  <title id="title">Médaillon ancien ouvert</title>
+  <desc id="desc">Le portrait d'Élise fait face à un revers associant flamme E, cloche L et œil M.</desc>
+  <rect width="760" height="512" fill="#171916"/>
+  <g stroke="#c2a36a" stroke-width="18">
+    <ellipse cx="205" cy="270" rx="145" ry="190" fill="#5b472c"/>
+    <ellipse cx="555" cy="270" rx="145" ry="190" fill="#5b472c"/>
+  </g>
+  <ellipse cx="205" cy="270" rx="112" ry="155" fill="#27302c" stroke="#89724b" stroke-width="9"/>
+  <circle cx="205" cy="225" r="48" fill="#b5a488"/><path d="M128 390q18-125 77-125t78 125" fill="#60655c"/>
+  <g fill="none" stroke="#d0b274" stroke-width="8">
+    <path d="M555 122q-42 55 0 86q42-31 0-86z"/>
+    <path d="M520 260h70v58q-35 42-70 0z"/>
+    <path d="M510 391q45-48 90 0q-45 48-90 0z"/><circle cx="555" cy="391" r="12"/>
+  </g>
+  <g fill="#ead7a4" font-family="Georgia,serif" font-size="30" font-weight="bold"><text x="615" y="176">E</text><text x="615" y="310">L</text><text x="615" y="402">M</text></g>
+  <path d="M350 255h60" stroke="#c2a36a" stroke-width="15"/>
+</svg>

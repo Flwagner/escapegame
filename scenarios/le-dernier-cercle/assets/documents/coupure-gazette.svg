@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Coupure de la Gazette</title>
+  <desc id="desc">Journal du 12 octobre 1901 rapportant la disparition d'Élise Valombre, trois ans.</desc>
+  <path d="M35 35h830v1015l-34-14-38 18-37-16-41 17-39-18-44 15-40-16-43 18-40-19-42 17-40-16-43 18-39-20-42 18-38-17-40 16-39-18-38 14z" fill="#d2c7a9" stroke="#625b4e" stroke-width="8"/>
+  <g fill="#292722" font-family="Georgia,serif">
+    <text x="450" y="125" text-anchor="middle" font-size="68">LA GAZETTE</text>
+    <path d="M90 155h720M90 218h720" stroke="#292722" stroke-width="5"/>
+    <text x="450" y="198" text-anchor="middle" font-size="29">SAMEDI 12 OCTOBRE 1901 — ÉDITION DU SOIR</text>
+    <text x="450" y="300" text-anchor="middle" font-size="48">DISPARITION AU MANOIR</text>
+    <text x="105" y="385" font-size="31">La famille Valombre signale depuis jeudi</text>
+    <text x="105" y="435" font-size="31">la disparition de la jeune Élise, âgée de</text>
+    <text x="105" y="485" font-size="31">trois ans. L'enfant aurait été aperçue près</text>
+    <text x="105" y="535" font-size="31">du pavillon avant la tombée de la nuit.</text>
+    <text x="105" y="635" font-size="31">Toute information doit être remise au garde</text>
+    <text x="105" y="685" font-size="31">du domaine. La famille dément les rumeurs</text>
+    <text x="105" y="735" font-size="31">entourant les réunions tenues dans le salon.</text>
+    <path d="M100 805h700" stroke="#5b5548" stroke-width="3"/>
+    <text x="110" y="875" font-size="27" font-style="italic">Note au crayon : « L'en-tête date le récit,</text>
+    <text x="110" y="920" font-size="27" font-style="italic">pas la naissance. »</text>
+  </g>
+</svg>

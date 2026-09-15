@@ -1,5 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-labelledby="title desc">
-  <title id="title">Journal de la médium</title><desc id="desc">Instructions numérotées pour accomplir le rituel.</desc><defs><filter id="rough"><feTurbulence baseFrequency=".02" numOctaves="3" result="n"/><feBlend in="SourceGraphic" in2="n" mode="multiply"/></filter></defs>
-  <rect x="35" y="25" width="830" height="1150" rx="12" fill="#d5c49a" stroke="#725e40" stroke-width="10"/><path d="M90 160h720M90 300h720M90 440h720M90 580h720M90 720h720M90 860h720M90 1000h720" stroke="#aa956d" stroke-width="2"/>
-  <g fill="#33291f" font-family="Georgia,serif"><text x="450" y="110" text-anchor="middle" font-size="52">Séance du 14 septembre</text><text x="105" y="215" font-size="35">Pour rappeler Élise sans ouvrir la voie aux autres :</text><text x="115" y="360" font-size="42">I. Tracer d'abord le cercle de sel.</text><text x="115" y="500" font-size="42">II. Allumer ensuite les quatre bougies.</text><text x="115" y="640" font-size="42">III. Faire tinter la cloche une seule fois.</text><text x="115" y="780" font-size="42">IV. Enfin, prononcer son nom : ÉLISE.</text><text x="105" y="925" font-size="34">Si l'ordre est rompu, le pavillon restera muet</text><text x="105" y="975" font-size="34">et le médaillon ne reparaîtra pas.</text><text x="630" y="1090" font-size="39" transform="rotate(-6 630 1090)">A. Delorme</text></g>
+  <title id="title">Journal de la médium</title>
+  <desc id="desc">Notes permettant d'associer quatre signes aux gestes du rituel.</desc>
+  <rect x="35" y="25" width="830" height="1150" rx="12" fill="#d5c49a" stroke="#725e40" stroke-width="10"/>
+  <path d="M90 165h720M90 345h720M90 525h720M90 705h720M90 885h720" stroke="#aa956d" stroke-width="2"/>
+  <g fill="#33291f" font-family="Georgia,serif">
+    <text x="450" y="108" text-anchor="middle" font-size="50">Séance du 14 septembre</text>
+    <text x="105" y="225" font-size="34">Les marques seules gardent l'ordre. Se souvenir :</text>
+    <text x="115" y="405" font-size="39">☾ Le croissant retient le sel du cercle.</text>
+    <text x="115" y="585" font-size="39">✦ Les rayons réclament les quatre flammes.</text>
+    <text x="115" y="765" font-size="39">≋ Les ondes ne naissent que du tintement.</text>
+    <text x="115" y="945" font-size="39">E Le monogramme appelle enfin son nom.</text>
+    <text x="105" y="1050" font-size="31">Ne jamais suivre l'ordre de mes notes : suivre la pierre.</text>
+    <text x="630" y="1120" font-size="38" transform="rotate(-6 630 1120)">A. Delorme</text>
+  </g>
 </svg>

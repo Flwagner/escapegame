@@ -11,7 +11,11 @@ Source visuelle : `assets/images/scene-salon.webp`.
 | Interaction | Ancre visible |
 |---|---|
 | Journal de la médium | Table chargée de papiers, à gauche |
-| Rituel | Table ronde et objets, au premier plan |
+| Marques du cercle | Bord inférieur de la table ronde, au premier plan |
+| Bougie noire | Chandeliers et objets posés sur la cheminée, à droite |
+| Petite clé ouvragée | Guéridon central chargé de petits objets |
+| Jeton de cuivre | Sol sous le fauteuil de gauche |
+| Rituel | Table ronde et emplacement parmi les objets, au premier plan |
 | Voix d'Élise | Grande cheminée sculptée, à droite |
 | Galerie | Doubles portes au fond de la pièce |
 
@@ -24,8 +28,9 @@ Source visuelle : `assets/images/scene-galerie.webp`.
 | Retour au salon | Ouverture sur le bord gauche |
 | Portrait des enfants | Cadre vertical sur le mur gauche |
 | Transcription | Feuillets sur la console centrale |
+| Coupure de la Gazette | Papier glissé sous le cadre central |
 | Coffret | Vitrine en bois sous le portrait |
-| Caveau | Porte sombre au fond de la galerie |
+| Caveau | Porte sombre et ferrures au fond de la galerie |
 
 ## Caveau familial
 
@@ -35,7 +40,8 @@ Source visuelle : `assets/images/scene-caveau.webp`.
 |---|---|
 | Retour à la galerie | Grande arche de gauche |
 | Registre | Petit lutrin au premier plan gauche |
-| Sceau | Dalle sombre au sol, au centre |
+| Inscription | Bord droit de la dalle sombre, au centre |
+| Mécanisme à cloche | Dalle sombre au sol, au centre |
 | Lettre révélée | Niche basse à droite |
 | Sortie | Haute arche dans la moitié droite |
 

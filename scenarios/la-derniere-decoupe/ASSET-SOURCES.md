@@ -26,8 +26,11 @@ projet pour `le-dernier-cercle`. Leur licence a été revérifiée sur Freesound
 
 ## Créations originales
 
-- `assets/documents/protocole-froid.svg`, `fiche-securite-rail.svg` et
-  `bordereau-crochets.svg` sont des documents vectoriels originaux conçus
+- `assets/documents/protocole-froid.svg`, `etiquettes-tableau.svg`,
+  `fiche-securite-rail.svg`, `rapport-incident-rail.svg`,
+  `bordereau-crochets.svg`, `registre-lots.svg`, `facture-lots.svg` et
+  `journal-maintenance.svg` sont des documents vectoriels originaux conçus
   pour les énigmes.
-- `assets/images/item-pince.svg`, `item-cle-bureau.svg`, `item-fusible.svg`
-  et `item-cle-sortie.svg` sont des icônes vectorielles originales.
+- `assets/images/item-pince.svg`, `item-tournevis.svg`, `item-cle-plate.svg`,
+  `item-cle-dentee.svg`, `item-cle-bureau.svg`, `item-fusible.svg` et
+  `item-cle-sortie.svg` sont des icônes vectorielles originales.

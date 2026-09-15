@@ -1,24 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
-  <rect width="900" height="1200" fill="#d3ccb8"/>
-  <rect x="45" y="45" width="810" height="1110" fill="#f1ead6" stroke="#36332d" stroke-width="5"/>
-  <text x="450" y="125" text-anchor="middle" font-family="monospace" font-size="38" font-weight="bold" fill="#292621">BORDEREAU - LOT 13</text>
-  <text x="450" y="172" text-anchor="middle" font-family="monospace" font-size="23" fill="#6d1717">PESAGE / RAIL NORD</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1200" viewBox="0 0 1000 1200">
+  <rect width="1000" height="1200" fill="#d3ccb8"/>
+  <rect x="45" y="45" width="910" height="1110" fill="#f1ead6" stroke="#36332d" stroke-width="5"/>
+  <text x="500" y="120" text-anchor="middle" font-family="monospace" font-size="37" font-weight="bold" fill="#292621">BORDEREAU DE RECEPTION</text>
+  <text x="500" y="168" text-anchor="middle" font-family="monospace" font-size="23" fill="#6d1717">QUAI NORD - 12/11/2026</text>
   <g stroke="#444" stroke-width="3" fill="none">
-    <rect x="95" y="235" width="710" height="520"/>
-    <line x1="95" y1="320" x2="805" y2="320"/>
-    <line x1="95" y1="430" x2="805" y2="430"/>
-    <line x1="95" y1="540" x2="805" y2="540"/>
-    <line x1="95" y1="650" x2="805" y2="650"/>
-    <line x1="430" y1="235" x2="430" y2="755"/>
-    <line x1="620" y1="235" x2="620" y2="755"/>
+    <rect x="75" y="235" width="850" height="610"/>
+    <line x1="75" y1="325" x2="925" y2="325"/>
+    <line x1="75" y1="425" x2="925" y2="425"/>
+    <line x1="75" y1="525" x2="925" y2="525"/>
+    <line x1="75" y1="625" x2="925" y2="625"/>
+    <line x1="75" y1="725" x2="925" y2="725"/>
+    <line x1="300" y1="235" x2="300" y2="845"/>
+    <line x1="675" y1="235" x2="675" y2="845"/>
   </g>
   <g font-family="monospace" font-size="27" fill="#292621">
-    <text x="130" y="290">PIECE</text><text x="485" y="290">POIDS</text><text x="665" y="290">CROCHET</text>
-    <text x="130" y="390">JARRET</text><text x="500" y="390">5 kg</text><text x="700" y="390">7</text>
-    <text x="130" y="500">EPAULE</text><text x="500" y="500">8 kg</text><text x="700" y="500">3</text>
-    <text x="130" y="610">POITRINE</text><text x="485" y="610">11 kg</text><text x="700" y="610">1</text>
-    <text x="130" y="720">FLANC</text><text x="485" y="720">13 kg</text><text x="700" y="720">9</text>
+    <text x="120" y="292">LOT</text><text x="390" y="292">FOURNISSEUR</text><text x="735" y="292">FACTURE</text>
+    <text x="125" y="390">A17</text><text x="355" y="390">MOREL</text><text x="750" y="390">F-204</text>
+    <text x="125" y="490">B06</text><text x="355" y="490">DUMAS</text><text x="750" y="490">F-188</text>
+    <text x="125" y="590">C41</text><text x="355" y="590">MOREL</text><text x="750" y="590">F-219</text>
+    <text x="125" y="690">D23</text><text x="355" y="690">VALETTE</text><text x="750" y="690">F-207</text>
+    <text x="125" y="790">E12</text><text x="355" y="790">DUMAS</text><text x="750" y="790">F-231</text>
   </g>
-  <text x="450" y="875" text-anchor="middle" font-family="cursive" font-size="36" fill="#791515" transform="rotate(-2 450 875)">Du plus leger au plus lourd.</text>
-  <text x="450" y="940" text-anchor="middle" font-family="cursive" font-size="30" fill="#791515" transform="rotate(-2 450 940)">Toujours dans cet ordre.</text>
+  <text x="500" y="945" text-anchor="middle" font-family="cursive" font-size="34" fill="#791515" transform="rotate(-2 500 945)">Controle fournisseur + comptabilite obligatoire.</text>
+  <text x="500" y="1010" text-anchor="middle" font-family="cursive" font-size="30" fill="#791515" transform="rotate(-2 500 1010)">Ne rien valider depuis ce seul bordereau.</text>
 </svg>
