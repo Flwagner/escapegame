@@ -85,3 +85,19 @@
   position: relative;
   padding-bottom: calc(var(--eg-tap-min) + var(--eg-space-3));
 }
+
+.status {
+  position: fixed;
+  top: calc(var(--eg-header-height) + var(--eg-space-2));
+  left: 50%;
+  z-index: 25;
+  max-width: calc(100vw - 2 * var(--eg-space-3));
+  padding: var(--eg-space-2) var(--eg-space-3);
+  transform: translateX(-50%);
+  border-radius: var(--eg-radius);
+  background: var(--eg-color-surface);
+  color: var(--eg-color-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  text-align: center;
+}

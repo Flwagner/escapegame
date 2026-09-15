@@ -105,4 +105,107 @@ describe('ScenarioSchema', () => {
     })
     expect(result.success).toBe(false)
   })
+
+  it('accepte un hotspot qui utilise un objet déclaré', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo',
+      title: 'Démo',
+      introSceneId: 'scene-1',
+      items: [{ id: 'cle', name: 'Clé' }],
+      scenes: [{
+        id: 'scene-1',
+        title: 'S1',
+        hotspots: [{
+          id: 'porte',
+          x: 10,
+          y: 10,
+          width: 20,
+          height: 20,
+          action: { kind: 'go-to-scene', sceneId: 'scene-1' },
+          useItemId: 'cle',
+        }],
+      }],
+    })
+
+    expect(result.success).toBe(true)
+  })
+
+  it('rejette un hotspot qui utilise un objet inconnu', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo',
+      title: 'Démo',
+      introSceneId: 'scene-1',
+      scenes: [{
+        id: 'scene-1',
+        title: 'S1',
+        hotspots: [{
+          id: 'porte',
+          x: 10,
+          y: 10,
+          width: 20,
+          height: 20,
+          action: { kind: 'go-to-scene', sceneId: 'scene-1' },
+          useItemId: 'cle-inconnue',
+        }],
+      }],
+    })
+
+    expect(result.success).toBe(false)
+  })
+
+  it('rejette plusieurs hotspots qui consomment le même objet', () => {
+    const hotspot = {
+      x: 10,
+      y: 10,
+      width: 20,
+      height: 20,
+      action: { kind: 'go-to-scene', sceneId: 'scene-1' },
+      useItemId: 'cle',
+    }
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo',
+      title: 'Démo',
+      introSceneId: 'scene-1',
+      items: [{ id: 'cle', name: 'Clé' }],
+      scenes: [{
+        id: 'scene-1',
+        title: 'S1',
+        hotspots: [
+          { ...hotspot, id: 'porte-1' },
+          { ...hotspot, id: 'porte-2' },
+        ],
+      }],
+    })
+
+    expect(result.success).toBe(false)
+  })
+
+  it('rejette les identifiants dupliqués parmi les hotspots utilisant un objet', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo',
+      title: 'Démo',
+      introSceneId: 'scene-1',
+      items: [{ id: 'cle-1', name: 'Clé 1' }, { id: 'cle-2', name: 'Clé 2' }],
+      scenes: [{
+        id: 'scene-1',
+        title: 'S1',
+        hotspots: [
+          {
+            id: 'porte', x: 0, y: 0, width: 10, height: 10,
+            action: { kind: 'go-to-scene', sceneId: 'scene-1' }, useItemId: 'cle-1',
+          },
+          {
+            id: 'porte', x: 20, y: 20, width: 10, height: 10,
+            action: { kind: 'go-to-scene', sceneId: 'scene-1' }, useItemId: 'cle-2',
+          },
+        ],
+      }],
+    })
+
+    expect(result.success).toBe(false)
+  })
 })

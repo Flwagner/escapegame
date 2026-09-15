@@ -111,7 +111,8 @@ moins équivalents à ~44px sur un écran de 375px de large, soit environ
     "puzzleId": "puzzle-1"
   },
   "requiresItemIds": ["cle-armoire"],           // optionnel
-  "requiresSolvedPuzzleIds": ["puzzle-0"]       // optionnel
+  "requiresSolvedPuzzleIds": ["puzzle-0"],      // optionnel
+  "useItemId": "pied-de-biche"                  // optionnel : objet à sélectionner et consommer
 }
 ```
 
@@ -120,6 +121,19 @@ Types d'action possibles :
 - `{ "kind": "show-clue", "clueId": "..." }`
 - `{ "kind": "go-to-scene", "sceneId": "..." }`
 - `{ "kind": "collect-item", "itemId": "..." }`
+
+`requiresItemIds` est uniquement une condition d'affichage : le hotspot
+apparaît lorsque les objets concernés ont été trouvés, même s'ils ont ensuite
+été consommés. `useItemId` décrit une interaction explicite : le joueur doit
+sélectionner cet objet dans l'inventaire puis toucher le hotspot. L'objet
+disparaît alors de l'inventaire et le hotspot reste durablement activé. Lors
+des interactions suivantes, son action peut être déclenchée sans posséder à
+nouveau l'objet.
+
+Un objet consommable étant unique, un même `useItemId` ne peut apparaître que
+sur un seul hotspot. Les identifiants des hotspots utilisant un objet doivent
+également être uniques dans tout le scénario. Le schéma rejette ces
+configurations ambiguës.
 
 ### Indices (clues)
 
@@ -222,6 +236,12 @@ utilisé dans n'importe quelle scène :
   "icon": "assets/images/cle.png"   // optionnel
 }
 ```
+
+Un objet rejoint l'inventaire grâce à une action de hotspot `collect-item` ou
+à une récompense d'énigme `unlockItems`. Un hotspot de collecte disparaît dès
+que l'objet a été trouvé. Pour utiliser un objet, le joueur le sélectionne
+dans l'inventaire puis active un hotspot dont `useItemId` correspond. Une fois
+consommé, l'objet ne peut pas être collecté une seconde fois.
 
 ## Bonnes pratiques pour la génération IA
 

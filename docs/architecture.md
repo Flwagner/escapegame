@@ -70,6 +70,13 @@ Clé localStorage unique `escapegame-save`, contenant une map
 scénario a donc sa propre sauvegarde indépendante ; recommencer un
 scénario = réinitialiser uniquement son entrée dans cette map.
 
+Pour l'inventaire, la progression distingue les objets trouvés
+(`collectedItemIds`), les objets consommés (`consumedItemIds`) et les hotspots
+activés avec un objet (`usedHotspotIds`). Cette séparation conserve les
+déblocages historiques tout en retirant un objet utilisé de l'inventaire. La
+sauvegarde Zustand est versionnée et migre les progressions antérieures à
+l'ajout de ces champs.
+
 ## Responsive & tactile
 
 - CSS mobile-first (`engine/src/styles/global.css`), breakpoints à 600px

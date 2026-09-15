@@ -26,6 +26,7 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
   const loadScenarioIntoStore = useGameStore((s) => s.loadScenario)
   const goToScene = useGameStore((s) => s.goToScene)
   const collectItem = useGameStore((s) => s.collectItem)
+  const activateHotspotWithItem = useGameStore((s) => s.activateHotspotWithItem)
   const revealClue = useGameStore((s) => s.revealClue)
   const isSceneExitAllowed = useGameStore((s) => s.isSceneExitAllowed)
   const isClueUnlocked = useGameStore((s) => s.isClueUnlocked)
@@ -39,6 +40,8 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
   const [started, setStarted] = useState(false)
   const [activePuzzle, setActivePuzzle] = useState<Puzzle | null>(null)
   const [activeClue, setActiveClue] = useState<Clue | null>(null)
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+  const [statusMessage, setStatusMessage] = useState('')
   const [muted, setMuted] = useState(() => audioManager.isMuted())
 
   useEffect(() => {
@@ -84,6 +87,12 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
 
   useEffect(() => () => audioManager.stopAmbient(0), [])
 
+  useEffect(() => {
+    if (!statusMessage) return
+    const timeout = window.setTimeout(() => setStatusMessage(''), 3500)
+    return () => window.clearTimeout(timeout)
+  }, [statusMessage])
+
   if (error) {
     return (
       <div className={styles.centered}>
@@ -118,8 +127,57 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
 
   function handleHotspotAction(hotspot: Hotspot) {
     const scene = currentScene!
+    const loadedScenario = scenario!
+    const currentProgress = progress!
     const action = hotspot.action
     audioManager.playEngineSfx('click')
+
+    const actionAvailable = (() => {
+      switch (action.kind) {
+        case 'open-puzzle':
+          return scene.puzzles.some((puzzle) => puzzle.id === action.puzzleId)
+        case 'show-clue':
+          return scene.clues.some((clue) => clue.id === action.clueId) && isClueUnlocked(action.clueId)
+        case 'go-to-scene':
+          return Boolean(findScene(loadedScenario.scenes, action.sceneId)) && isSceneExitAllowed()
+        case 'collect-item':
+          return (
+            loadedScenario.items.some((item) => item.id === action.itemId) &&
+            !currentProgress.collectedItemIds.includes(action.itemId) &&
+            !currentProgress.consumedItemIds.includes(action.itemId)
+          )
+      }
+    })()
+
+    if (!actionAvailable) {
+      setStatusMessage('Cette action n’est pas encore possible.')
+      audioManager.playEngineSfx('error')
+      return
+    }
+
+    const alreadyUsed = currentProgress.usedHotspotIds.includes(hotspot.id)
+    if (hotspot.useItemId && !alreadyUsed) {
+      if (!selectedItemId) {
+        setStatusMessage('Sélectionnez un objet dans l’inventaire.')
+        audioManager.playEngineSfx('error')
+        return
+      }
+      if (selectedItemId !== hotspot.useItemId) {
+        setStatusMessage('Cet objet ne convient pas ici.')
+        audioManager.playEngineSfx('error')
+        return
+      }
+      const item = loadedScenario.items.find((candidate) => candidate.id === selectedItemId)
+      if (!activateHotspotWithItem(hotspot.id, selectedItemId)) {
+        setStatusMessage('Cet objet ne peut pas être utilisé ici.')
+        audioManager.playEngineSfx('error')
+        return
+      }
+      setSelectedItemId(null)
+      setStatusMessage(`${item?.name ?? 'Objet'} utilisé.`)
+      audioManager.playEngineSfx('unlock')
+    }
+
     switch (action.kind) {
       case 'open-puzzle': {
         const puzzle = scene.puzzles.find((p) => p.id === action.puzzleId)
@@ -138,14 +196,16 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
         break
       }
       case 'go-to-scene': {
-        if (isSceneExitAllowed()) {
-          goToScene(action.sceneId)
-        }
+        setSelectedItemId(null)
+        goToScene(action.sceneId)
         break
       }
       case 'collect-item': {
-        collectItem(action.itemId)
-        audioManager.playEngineSfx('pickup')
+        if (collectItem(action.itemId)) {
+          const item = loadedScenario.items.find((candidate) => candidate.id === action.itemId)
+          setStatusMessage(`${item?.name ?? 'Objet'} ajouté à l’inventaire.`)
+          audioManager.playEngineSfx('pickup')
+        }
         break
       }
     }
@@ -191,7 +251,24 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
         <SceneView scene={currentScene} scenarioPath={scenarioPath} onHotspotAction={handleHotspotAction} />
       </main>
 
-      <Inventory items={scenario.items} collectedItemIds={progress.collectedItemIds} scenarioPath={scenarioPath} />
+      {statusMessage && (
+        <div className={styles.status} role="status" aria-live="polite">
+          {statusMessage}
+        </div>
+      )}
+
+      <Inventory
+        items={scenario.items}
+        collectedItemIds={progress.collectedItemIds}
+        consumedItemIds={progress.consumedItemIds}
+        scenarioPath={scenarioPath}
+        selectedItemId={selectedItemId}
+        onSelectItem={(itemId) => {
+          setSelectedItemId(itemId)
+          const item = scenario.items.find((candidate) => candidate.id === itemId)
+          setStatusMessage(item ? `${item.name} sélectionné.` : 'Objet désélectionné.')
+        }}
+      />
 
       <PuzzleModal
         puzzle={activePuzzle}

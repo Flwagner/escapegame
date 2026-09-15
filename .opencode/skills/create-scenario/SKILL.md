@@ -99,6 +99,15 @@ Un hotspot conditionnel est invisible tant que ses conditions ne sont pas
 remplies. La mise en scene doit rendre son apparition comprehensible sans
 compter sur un message de verrouillage du moteur.
 
+Pour demander l'utilisation explicite d'un objet, ajouter `useItemId` au
+hotspot. Le joueur selectionne l'objet dans l'inventaire puis active ce
+hotspot. L'objet est consomme et disparait de l'inventaire ; le hotspot reste
+ensuite durablement active et son action peut etre repetee sans l'objet. Le
+schema refuse qu'un meme objet soit utilise par plusieurs hotspots et exige
+des identifiants uniques pour les hotspots utilisant un objet. Ne pas
+confondre `useItemId` avec `requiresItemIds`, qui controle seulement
+l'apparition du hotspot a partir de l'historique des objets trouves.
+
 ### Indices, objets et recompenses
 
 Les indices peuvent etre de type `text`, `image`, `audio` ou `document`.
@@ -109,9 +118,12 @@ Les indices peuvent etre de type `text`, `image`, `audio` ou `document`.
 - Un indice `text` contient son texte directement dans le JSON ; il ne charge
   pas le contenu d'un fichier `.txt`.
 
-Les objets d'inventaire sont des marqueurs passifs : ils peuvent etre
-collectes, affiches et testes par `requiresItemIds`. Ils ne peuvent pas etre
-selectionnes, combines, consommes, inspectes ou glisses sur une zone.
+Les objets d'inventaire peuvent etre collectes par `collect-item` ou
+`rewards.unlockItems`, selectionnes dans l'inventaire et consommes par un
+hotspot portant le meme `useItemId`. Un objet consomme ne peut pas etre
+collecte une seconde fois. Ne pas reutiliser un meme objet consommable sur
+plusieurs hotspots concurrents. Le moteur ne gere pas la combinaison de
+plusieurs objets ni le glisser-deposer.
 
 Les recompenses `unlockClues` et `unlockItems` fonctionnent. Ne jamais utiliser
 `rewards.unlockScenes`, qui est accepte par le schema mais n'est pas applique
@@ -330,6 +342,8 @@ scenario est valide uniquement parce que `npm run build` reussit.
 - Charger le scenario dans l'application pour executer Zod.
 - Verifier l'unicite de tous les identifiants.
 - Verifier `introSceneId` et toutes les references croisees.
+- Verifier que chaque `useItemId` cible un objet declare et accessible avant
+  son hotspot, sans usage concurrent du meme objet consommable.
 - Verifier les contraintes locales de `open-puzzle` et `show-clue`.
 - Verifier que le graphe complet est atteignable sans cycle bloquant.
 - Verifier que chaque solution est deduisible avec les indices disponibles.
@@ -352,8 +366,9 @@ scenario est valide uniquement parce que `npm run build` reussit.
   `http://localhost:5173/escapegame/#/play/<id>`.
 - Reinitialiser la progression locale avant le test afin qu'une ancienne
   sauvegarde ne masque pas un blocage.
-- Tester les mauvaises et bonnes reponses, les deblocages, l'inventaire,
-  toutes les transitions et la scene finale.
+- Tester les mauvaises et bonnes reponses, les deblocages, la collecte et
+  l'utilisation des objets, leur disparition de l'inventaire, la reutilisation
+  des hotspots actives, toutes les transitions et la scene finale.
 - Jouer le scenario de bout en bout sur desktop et a environ 375 px de large.
 - Controler l'alignement des hotspots, les zones tactiles et les debordements
   de texte.

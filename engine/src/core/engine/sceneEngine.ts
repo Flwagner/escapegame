@@ -8,6 +8,9 @@ export interface UnlockState {
 
 /** Un hotspot est visible si toutes ses conditions de déblocage sont remplies. */
 export function isHotspotVisible(hotspot: Hotspot, state: UnlockState): boolean {
+  if (hotspot.action.kind === 'collect-item' && state.collectedItemIds.has(hotspot.action.itemId)) {
+    return false
+  }
   const requiresItems = hotspot.requiresItemIds ?? []
   const requiresPuzzles = hotspot.requiresSolvedPuzzleIds ?? []
   return (

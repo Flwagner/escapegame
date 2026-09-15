@@ -7,7 +7,10 @@ import { checkPuzzleAnswer } from '../engine/puzzleEngine'
 export interface ScenarioProgress {
   currentSceneId: string
   solvedPuzzleIds: string[]
+  /** Historique des objets trouvés, y compris ceux qui ont ensuite été utilisés. */
   collectedItemIds: string[]
+  consumedItemIds: string[]
+  usedHotspotIds: string[]
   unlockedClueIds: string[]
   attemptsByPuzzleId: Record<string, number>
   startedAt: number
@@ -19,6 +22,8 @@ function createEmptyProgress(introSceneId: string): ScenarioProgress {
     currentSceneId: introSceneId,
     solvedPuzzleIds: [],
     collectedItemIds: [],
+    consumedItemIds: [],
+    usedHotspotIds: [],
     unlockedClueIds: [],
     attemptsByPuzzleId: {},
     startedAt: Date.now(),
@@ -38,13 +43,42 @@ export interface GameState {
 
   goToScene: (sceneId: string) => void
   attemptPuzzle: (puzzleId: string, answer: unknown) => { success: boolean }
-  collectItem: (itemId: string) => void
+  collectItem: (itemId: string) => boolean
+  activateHotspotWithItem: (hotspotId: string, itemId: string) => boolean
   revealClue: (clueId: string) => void
 
   isSceneExitAllowed: () => boolean
   isHotspotUnlocked: (hotspotId: string) => boolean
   isClueUnlocked: (clueId: string) => boolean
   getCurrentProgress: () => ScenarioProgress | null
+}
+
+type PersistedScenarioProgress = Omit<ScenarioProgress, 'consumedItemIds' | 'usedHotspotIds'> & {
+  consumedItemIds?: string[]
+  usedHotspotIds?: string[]
+}
+
+interface PersistedGameState {
+  scenarioPath: string | null
+  progressByScenario: Record<string, PersistedScenarioProgress>
+}
+
+export function migratePersistedGameState(state: unknown, version: number): PersistedGameState {
+  const persisted = state as PersistedGameState
+  if (version >= 1) return persisted
+  return {
+    ...persisted,
+    progressByScenario: Object.fromEntries(
+      Object.entries(persisted.progressByScenario ?? {}).map(([scenarioId, progress]) => [
+        scenarioId,
+        {
+          ...progress,
+          consumedItemIds: progress.consumedItemIds ?? [],
+          usedHotspotIds: progress.usedHotspotIds ?? [],
+        },
+      ]),
+    ),
+  }
 }
 
 function updateCurrentProgress(
@@ -77,17 +111,30 @@ export const useGameStore = create<GameState>()(
           const puzzleIds = new Set(scenario.scenes.flatMap((scene) => scene.puzzles.map((puzzle) => puzzle.id)))
           const clueIds = new Set(scenario.scenes.flatMap((scene) => scene.clues.map((clue) => clue.id)))
           const itemIds = new Set(scenario.items.map((item) => item.id))
+          const hotspotIds = new Set(scenario.scenes.flatMap((scene) => scene.hotspots.map((hotspot) => hotspot.id)))
           const progress = existing
-            ? {
-                ...existing,
-                currentSceneId: sceneIds.has(existing.currentSceneId) ? existing.currentSceneId : scenario.introSceneId,
-                solvedPuzzleIds: existing.solvedPuzzleIds.filter((id) => puzzleIds.has(id)),
-                collectedItemIds: existing.collectedItemIds.filter((id) => itemIds.has(id)),
-                unlockedClueIds: existing.unlockedClueIds.filter((id) => clueIds.has(id)),
-                attemptsByPuzzleId: Object.fromEntries(
-                  Object.entries(existing.attemptsByPuzzleId).filter(([id]) => puzzleIds.has(id)),
-                ),
-              }
+            ? (() => {
+                const consumedItemIds = [...new Set((existing.consumedItemIds ?? []).filter((id) => itemIds.has(id)))]
+                return {
+                  ...existing,
+                  currentSceneId: sceneIds.has(existing.currentSceneId) ? existing.currentSceneId : scenario.introSceneId,
+                  solvedPuzzleIds: existing.solvedPuzzleIds.filter((id) => puzzleIds.has(id)),
+                  collectedItemIds: [
+                    ...new Set([
+                      ...existing.collectedItemIds.filter((id) => itemIds.has(id)),
+                      ...consumedItemIds,
+                    ]),
+                  ],
+                  consumedItemIds,
+                  usedHotspotIds: [
+                    ...new Set((existing.usedHotspotIds ?? []).filter((id) => hotspotIds.has(id))),
+                  ],
+                  unlockedClueIds: existing.unlockedClueIds.filter((id) => clueIds.has(id)),
+                  attemptsByPuzzleId: Object.fromEntries(
+                    Object.entries(existing.attemptsByPuzzleId).filter(([id]) => puzzleIds.has(id)),
+                  ),
+                }
+              })()
             : createEmptyProgress(scenario.introSceneId)
           return {
             scenario,
@@ -143,20 +190,63 @@ export const useGameStore = create<GameState>()(
               attemptsByPuzzleId: attempts,
               solvedPuzzleIds: [...p.solvedPuzzleIds, puzzleId],
               unlockedClueIds: [...new Set([...p.unlockedClueIds, ...(rewards?.unlockClues ?? [])])],
-              collectedItemIds: [...new Set([...p.collectedItemIds, ...(rewards?.unlockItems ?? [])])],
+              collectedItemIds: [
+                ...new Set([
+                  ...p.collectedItemIds,
+                  ...(rewards?.unlockItems ?? []).filter((id) => !p.consumedItemIds.includes(id)),
+                ]),
+              ],
             }
           }),
         )
         return { success: result.success }
       },
 
-      collectItem: (itemId) =>
-        set((state) =>
-          updateCurrentProgress(state, (p) => ({
+      collectItem: (itemId) => {
+        const state = get()
+        const progress = state.getCurrentProgress()
+        if (
+          !state.scenario?.items.some((item) => item.id === itemId) ||
+          !progress ||
+          progress.collectedItemIds.includes(itemId) ||
+          progress.consumedItemIds.includes(itemId)
+        ) {
+          return false
+        }
+        set((currentState) =>
+          updateCurrentProgress(currentState, (p) => ({
             ...p,
-            collectedItemIds: [...new Set([...p.collectedItemIds, itemId])],
+            collectedItemIds: [...p.collectedItemIds, itemId],
           })),
-        ),
+        )
+        return true
+      },
+
+      activateHotspotWithItem: (hotspotId, itemId) => {
+        const state = get()
+        const progress = state.getCurrentProgress()
+        const scene =
+          state.scenario && progress ? findScene(state.scenario.scenes, progress.currentSceneId) : undefined
+        const hotspot = scene?.hotspots.find((candidate) => candidate.id === hotspotId)
+        if (
+          !progress ||
+          !hotspot ||
+          hotspot.useItemId !== itemId ||
+          progress.usedHotspotIds.includes(hotspotId) ||
+          !progress.collectedItemIds.includes(itemId) ||
+          progress.consumedItemIds.includes(itemId)
+        ) {
+          return false
+        }
+        set((currentState) =>
+          updateCurrentProgress(currentState, (p) => ({
+            ...p,
+            consumedItemIds: [...p.consumedItemIds, itemId],
+            usedHotspotIds: [...p.usedHotspotIds, hotspotId],
+          })),
+        )
+        return true
+      },
 
       revealClue: (clueId) =>
         set((state) =>
@@ -216,6 +306,8 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'escapegame-save',
+      version: 1,
+      migrate: migratePersistedGameState,
       storage: createJSONStorage(() => localStorage),
       // Le scénario complet (JSON) n'est pas persisté : seule la progression
       // l'est. Au retour sur le site, le scénario est rechargé depuis

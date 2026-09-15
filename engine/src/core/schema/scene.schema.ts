@@ -25,6 +25,8 @@ export const HotspotSchema = z.object({
   /** Condition d'affichage : nécessite un item ou un puzzle résolu avant d'apparaître */
   requiresItemIds: z.array(z.string()).optional(),
   requiresSolvedPuzzleIds: z.array(z.string()).optional(),
+  /** Objet que le joueur doit sélectionner pour activer durablement ce hotspot */
+  useItemId: z.string().min(1).optional(),
 })
 export type Hotspot = z.infer<typeof HotspotSchema>
 
