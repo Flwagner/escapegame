@@ -4,6 +4,7 @@ import { useGameStore } from '../../core/state/gameStore'
 import { audioManager } from '../../core/audio/audioManager'
 import type { Puzzle } from '../../types/scenario'
 import styles from './PuzzleModal.module.css'
+import { shuffleSequenceItems } from './shuffleSequenceItems'
 
 interface PuzzleModalProps {
   puzzle: Puzzle | null
@@ -207,7 +208,7 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
           )}
 
           {puzzle.type === 'sequence' && (
-            <SequencePuzzleForm puzzle={puzzle} onSubmit={submit} />
+            <SequencePuzzleForm key={puzzle.id} puzzle={puzzle} onSubmit={submit} />
           )}
 
           {feedback === 'error' && (
@@ -222,14 +223,17 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
   )
 }
 
+type SequencePuzzle = Extract<Puzzle, { type: 'sequence' }>
+
 function SequencePuzzleForm({
   puzzle,
   onSubmit,
 }: {
-  puzzle: Extract<Puzzle, { type: 'sequence' }>
+  puzzle: SequencePuzzle
   onSubmit: (answer: string[]) => void
 }) {
   const [order, setOrder] = useState<string[]>([])
+  const [displayedItems] = useState(() => shuffleSequenceItems(puzzle.items, puzzle.correctOrder))
 
   function toggle(id: string) {
     setOrder((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
@@ -238,7 +242,7 @@ function SequencePuzzleForm({
   return (
     <div>
       <ul className={styles.optionList}>
-        {puzzle.items.map((item) => {
+        {displayedItems.map((item) => {
           const position = order.indexOf(item.id)
           return (
             <li key={item.id}>
