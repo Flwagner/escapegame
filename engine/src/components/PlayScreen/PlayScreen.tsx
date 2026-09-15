@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { loadManifest, loadScenario, resolveScenarioAssetUrl, resolveScenarioThemeUrl } from '../../core/loader/scenarioLoader'
 import { useGameStore } from '../../core/state/gameStore'
+import { hasSavedProgress } from '../../core/state/persist'
 import { audioManager } from '../../core/audio/audioManager'
 import { findScene } from '../../core/engine/sceneEngine'
 import { ThemeInjector } from '../../theming/ThemeInjector'
@@ -11,6 +12,7 @@ import { ClueViewer } from '../ClueViewer/ClueViewer'
 import { Inventory } from '../Inventory/Inventory'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
 import { GameTimer } from '../GameTimer/GameTimer'
+import { formatRemainingTime, getRemainingSeconds } from '../GameTimer/timerUtils'
 import type { Clue, Hotspot, Puzzle } from '../../types/scenario'
 import styles from './PlayScreen.module.css'
 
@@ -51,6 +53,8 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
   const [statusMessage, setStatusMessage] = useState('')
   const [muted, setMuted] = useState(() => audioManager.isMuted())
+  const [hadSavedProgress, setHadSavedProgress] = useState(() => Boolean(scenarioId && hasSavedProgress(scenarioId)))
+  const [currentTime, setCurrentTime] = useState(() => Date.now())
 
   useEffect(() => {
     if (!scenarioId) return
@@ -96,6 +100,15 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
   useEffect(() => () => audioManager.stopAmbient(0), [])
 
   useEffect(() => {
+    const pauseOnExit = () => useGameStore.getState().pauseTimer()
+    window.addEventListener('pagehide', pauseOnExit)
+    return () => {
+      window.removeEventListener('pagehide', pauseOnExit)
+      pauseOnExit()
+    }
+  }, [])
+
+  useEffect(() => {
     if (!progress?.timerDeadlineAt) return
     checkTimerExpired()
   }, [checkTimerExpired, progress?.timerDeadlineAt])
@@ -110,6 +123,14 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
     const timeout = window.setTimeout(() => setStatusMessage(''), 3500)
     return () => window.clearTimeout(timeout)
   }, [statusMessage])
+
+  useEffect(() => {
+    if (started || !progress?.timerDeadlineAt || progress.pausedAt !== null || progress.outcome !== null) return
+    const update = () => setCurrentTime(Date.now())
+    update()
+    const interval = window.setInterval(update, 250)
+    return () => window.clearInterval(interval)
+  }, [started, progress?.outcome, progress?.pausedAt, progress?.timerDeadlineAt])
 
   if (error) {
     return (
@@ -131,6 +152,9 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
   }
 
   const themeHref = scenario.theme ? resolveScenarioThemeUrl(scenarioPath, scenario.theme) : null
+  const remainingTime = progress.timerDeadlineAt === null
+    ? null
+    : formatRemainingTime(getRemainingSeconds(progress.timerDeadlineAt, progress.pausedAt ?? currentTime))
 
   function handleStart() {
     audioManager.unlockAudioContext()
@@ -151,10 +175,21 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
     setStarted(true)
   }
 
+  function handleQuit() {
+    pauseTimer()
+    navigate('/')
+  }
+
   function handleRestart() {
     audioManager.stopAmbient()
     resetProgress()
+    setHadSavedProgress(false)
     setStarted(false)
+  }
+
+  function handleConfirmedRestart() {
+    if (!window.confirm('Recommencer depuis le début ? Votre progression sera effacée.')) return
+    handleRestart()
   }
 
   function handleToggleMute() {
@@ -264,7 +299,7 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
           <button type="button" className={`${styles.primaryButton} eg-tap-target`} onClick={handleRestart}>
             Recommencer
           </button>
-          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={() => navigate('/')}>
+          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleQuit}>
             Retour à l'accueil
           </button>
         </div>
@@ -287,9 +322,12 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
         <p>Le jeu et le minuteur sont suspendus.</p>
         <div className={styles.endActions}>
           <button type="button" className={`${styles.primaryButton} eg-tap-target`} onClick={handleResume}>
-            Reprendre
+            Reprendre l'enquête{remainingTime ? ` (${remainingTime})` : ''}
           </button>
-          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={() => navigate('/')}>
+          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleConfirmedRestart}>
+            Recommencer
+          </button>
+          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleQuit}>
             Quitter
           </button>
         </div>
@@ -312,9 +350,18 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
             onExpire={checkTimerExpired}
           />
         )}
-        <button type="button" className={`${styles.startButton} eg-tap-target`} onClick={handleStart}>
-          {progress.timerDeadlineAt === null ? "Commencer l'enquête" : "Reprendre l'enquête"}
-        </button>
+        <div className={styles.endActions}>
+          <button type="button" className={`${styles.startButton} eg-tap-target`} onClick={handleStart}>
+            {hadSavedProgress
+              ? `Reprendre l'enquête${remainingTime ? ` (${remainingTime})` : ''}`
+              : "Commencer l'enquête"}
+          </button>
+          {hadSavedProgress && (
+            <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleConfirmedRestart}>
+              Recommencer depuis le début
+            </button>
+          )}
+        </div>
       </div>
     )
   }
@@ -324,7 +371,7 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
       {themeHref && <ThemeInjector href={themeHref} />}
 
       <header className={styles.header}>
-        <button type="button" className={`${styles.backButton} eg-tap-target`} onClick={() => navigate('/')}>
+        <button type="button" className={`${styles.backButton} eg-tap-target`} onClick={handleQuit}>
           ← Quitter
         </button>
         <div className={styles.hud}>

@@ -32,19 +32,27 @@
 .card {
   display: flex;
   flex-direction: column;
-  text-align: left;
   background: var(--eg-color-surface);
   border: 1px solid var(--eg-color-surface-alt);
   border-radius: var(--eg-radius);
   overflow: hidden;
+}
+
+.cardLink {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-align: left;
+  background: transparent;
+  border: 0;
   cursor: pointer;
   color: inherit;
   padding: 0;
   min-height: unset;
 }
 
-.card:active {
-  transform: scale(0.98);
+.cardLink:active {
+  opacity: 0.85;
 }
 
 .thumbnail {
@@ -61,7 +69,21 @@
 }
 
 .cardBody {
+  flex: 1;
   padding: var(--eg-space-3);
+}
+
+.restartButton {
+  margin: 0 var(--eg-space-3) var(--eg-space-3);
+  border: 1px solid var(--eg-color-danger);
+  border-radius: calc(var(--eg-radius) / 2);
+  background: transparent;
+  color: var(--eg-color-text);
+  cursor: pointer;
+}
+
+.restartButton:active {
+  background: var(--eg-color-danger);
 }
 
 .cardTitle {
