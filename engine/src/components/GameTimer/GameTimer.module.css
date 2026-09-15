@@ -1,0 +1,49 @@
+.timer {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--eg-space-2);
+  min-width: 108px;
+  color: var(--eg-color-text);
+}
+
+.label {
+  color: var(--eg-color-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 1.18rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.critical .label,
+.critical .value {
+  color: var(--eg-color-danger);
+}
+
+.complete .label,
+.complete .value {
+  color: var(--eg-color-success);
+}
+
+@media (max-width: 599px) {
+  .timer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    min-width: 72px;
+  }
+
+  .label {
+    font-size: 0.55rem;
+  }
+
+  .value {
+    font-size: 1.05rem;
+  }
+}

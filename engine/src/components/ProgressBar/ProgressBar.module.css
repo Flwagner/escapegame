@@ -1,12 +1,15 @@
 .wrapper {
   display: flex;
+  flex: 1;
   align-items: center;
   gap: var(--eg-space-2);
-  padding: var(--eg-space-2) var(--eg-space-3);
+  min-width: 0;
+  padding: var(--eg-space-1);
 }
 
 .track {
   flex: 1;
+  min-width: 24px;
   height: 6px;
   border-radius: 999px;
   background: var(--eg-color-surface-alt);

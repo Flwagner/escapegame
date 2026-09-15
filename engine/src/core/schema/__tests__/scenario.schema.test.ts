@@ -208,4 +208,65 @@ describe('ScenarioSchema', () => {
 
     expect(result.success).toBe(false)
   })
+
+  it('accepte un minuteur et une pénalité associés à une scène finale existante', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo-chrono',
+      title: 'Démo chronométrée',
+      introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-finale' },
+      scenes: [
+        {
+          id: 'scene-1',
+          title: 'S1',
+          puzzles: [{
+            id: 'enigme',
+            type: 'text-match',
+            prompt: 'Réponse ?',
+            answers: ['oui'],
+            failurePenaltySeconds: 30,
+          }],
+        },
+        { id: 'scene-finale', title: 'Fin' },
+      ],
+    })
+
+    expect(result.success).toBe(true)
+  })
+
+  it('rejette un minuteur dont la scène finale est inconnue', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo-chrono',
+      title: 'Démo chronométrée',
+      introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-inconnue' },
+      scenes: [{ id: 'scene-1', title: 'S1' }],
+    })
+
+    expect(result.success).toBe(false)
+  })
+
+  it('rejette une pénalité de temps sans minuteur', () => {
+    const result = ScenarioSchema.safeParse({
+      schemaVersion: 1,
+      id: 'demo',
+      title: 'Démo',
+      introSceneId: 'scene-1',
+      scenes: [{
+        id: 'scene-1',
+        title: 'S1',
+        puzzles: [{
+          id: 'enigme',
+          type: 'text-match',
+          prompt: 'Réponse ?',
+          answers: ['oui'],
+          failurePenaltySeconds: 30,
+        }],
+      }],
+    })
+
+    expect(result.success).toBe(false)
+  })
 })

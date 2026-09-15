@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Scenario } from '../../../types/scenario'
 import { migratePersistedGameState, useGameStore } from '../gameStore'
 
@@ -51,8 +51,35 @@ const inventoryScenario: Scenario = {
   ],
 }
 
+const timedScenario: Scenario = {
+  schemaVersion: 1,
+  id: 'timed-demo',
+  title: 'Chronomètre',
+  introSceneId: 'scene-1',
+  timer: { durationSeconds: 60, victorySceneId: 'scene-finale' },
+  items: [],
+  scenes: [
+    {
+      id: 'scene-1',
+      title: 'Scène 1',
+      hotspots: [],
+      clues: [],
+      puzzles: [{
+        id: 'enigme-chrono',
+        type: 'text-match',
+        prompt: 'Réponse ?',
+        answers: ['oui'],
+        caseSensitive: false,
+        failurePenaltySeconds: 15,
+      }],
+    },
+    { id: 'scene-finale', title: 'Fin', hotspots: [], clues: [], puzzles: [] },
+  ],
+}
+
 describe('gameStore', () => {
   beforeEach(() => {
+    vi.useRealTimers()
     localStorage.clear()
     useGameStore.setState({ scenario: null, scenarioPath: null, progressByScenario: {} })
   })
@@ -84,6 +111,9 @@ describe('gameStore', () => {
           attemptsByPuzzleId: {},
           startedAt: 1,
           finishedAt: null,
+          timerDeadlineAt: null,
+          pausedAt: null,
+          outcome: null,
         },
       },
     })
@@ -143,5 +173,97 @@ describe('gameStore', () => {
 
     expect(migrated.progressByScenario.demo.consumedItemIds).toEqual([])
     expect(migrated.progressByScenario.demo.usedHotspotIds).toEqual([])
+    expect(migrated.progressByScenario.demo.timerDeadlineAt).toBeNull()
+    expect(migrated.progressByScenario.demo.pausedAt).toBeNull()
+    expect(migrated.progressByScenario.demo.outcome).toBeNull()
+  })
+
+  it('démarre le minuteur une seule fois au début explicite de la partie', () => {
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    expect(useGameStore.getState().progressByScenario['timed-demo'].timerDeadlineAt).toBeNull()
+
+    useGameStore.getState().startTimer(1_000)
+    useGameStore.getState().startTimer(5_000)
+
+    const progress = useGameStore.getState().progressByScenario['timed-demo']
+    expect(progress.startedAt).toBe(1_000)
+    expect(progress.timerDeadlineAt).toBe(61_000)
+  })
+
+  it('décale l’échéance de toute la durée d’une pause persistée', () => {
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer(1_000)
+    useGameStore.getState().pauseTimer(11_000)
+    useGameStore.getState().unloadScenario()
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+
+    expect(useGameStore.getState().progressByScenario['timed-demo'].pausedAt).toBe(11_000)
+    useGameStore.getState().resumeTimer(31_000)
+
+    const progress = useGameStore.getState().progressByScenario['timed-demo']
+    expect(progress.pausedAt).toBeNull()
+    expect(progress.timerDeadlineAt).toBe(81_000)
+  })
+
+  it('applique une pénalité à une mauvaise réponse sans pénaliser une bonne réponse', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(10_000)
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer()
+
+    const failure = useGameStore.getState().attemptPuzzle('enigme-chrono', 'non')
+    expect(failure).toEqual({ success: false, penaltySeconds: 15, outcome: null })
+    expect(useGameStore.getState().progressByScenario['timed-demo'].timerDeadlineAt).toBe(55_000)
+
+    const success = useGameStore.getState().attemptPuzzle('enigme-chrono', 'oui')
+    expect(success).toEqual({ success: true, penaltySeconds: 0, outcome: null })
+    expect(useGameStore.getState().progressByScenario['timed-demo'].timerDeadlineAt).toBe(55_000)
+  })
+
+  it('fait perdre immédiatement si une pénalité consomme le temps restant', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(10_000)
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer()
+    vi.setSystemTime(56_000)
+
+    const result = useGameStore.getState().attemptPuzzle('enigme-chrono', 'non')
+
+    expect(result.outcome).toBe('lost')
+    expect(useGameStore.getState().progressByScenario['timed-demo'].finishedAt).toBe(56_000)
+  })
+
+  it('fait perdre lorsque l’échéance exacte est atteinte', () => {
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer(1_000)
+
+    expect(useGameStore.getState().checkTimerExpired(60_999)).toBe(false)
+    expect(useGameStore.getState().checkTimerExpired(61_000)).toBe(true)
+    expect(useGameStore.getState().progressByScenario['timed-demo'].outcome).toBe('lost')
+  })
+
+  it('refuse les interactions pendant la pause', () => {
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer(1_000)
+    useGameStore.getState().pauseTimer(2_000)
+
+    const result = useGameStore.getState().attemptPuzzle('enigme-chrono', 'oui')
+
+    expect(result.success).toBe(false)
+    expect(useGameStore.getState().progressByScenario['timed-demo'].attemptsByPuzzleId).toEqual({})
+  })
+
+  it('arrête le minuteur en entrant dans la scène finale', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(10_000)
+    useGameStore.getState().loadScenario(timedScenario, 'timed-demo')
+    useGameStore.getState().startTimer()
+    vi.setSystemTime(20_000)
+
+    useGameStore.getState().goToScene('scene-finale')
+
+    const progress = useGameStore.getState().progressByScenario['timed-demo']
+    expect(progress.outcome).toBe('won')
+    expect(progress.finishedAt).toBe(20_000)
   })
 })

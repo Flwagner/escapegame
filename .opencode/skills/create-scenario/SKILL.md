@@ -138,11 +138,18 @@ commencer le jeu. Les indices audio restent controles manuellement. Ne pas
 promettre de playlist, de fondu, de narration automatique ou d'effet sonore
 personnalise declenche par un evenement.
 
-Le moteur ne possede pas d'ecran de victoire ni de mecanisme de fin reconnu.
 Conclure le scenario avec une scene terminale contenant une conclusion
-narrative explicite et aucune sortie obligatoire. Toutes les enigmes doivent
-etre atteignables et destinees a etre resolues afin que la barre de progression
-puisse etre complete.
+narrative explicite et aucune sortie obligatoire. Pour une partie limitee dans
+le temps, declarer `timer.durationSeconds` et faire pointer
+`timer.victorySceneId` vers cette scene terminale. Le minuteur continue hors du
+jeu, mais le joueur peut le mettre explicitement en pause. Il s'arrete a
+l'entree dans la scene finale et atteindre zero fait perdre la partie.
+
+Dans un scenario chronometre, `failurePenaltySeconds` peut etre ajoute aux
+enigmes dont chaque mauvaise reponse doit retirer du temps. Utiliser ces
+penalites avec parcimonie, principalement en difficulte elevee, et annoncer
+clairement leur application au joueur. `estimatedDurationMinutes` reste une
+estimation et n'active jamais le minuteur.
 
 ## Preproduction obligatoire
 
@@ -280,6 +287,10 @@ restrictions comportementales de ce skill.
   URL distantes.
 - Faire pointer `introSceneId` vers une scene existante.
 - Verifier les references de toutes les actions, conditions et recompenses.
+- Si `timer` est present, faire pointer `victorySceneId` vers la scene
+  terminale et calibrer `durationSeconds` par rapport au parcours complet.
+- Ne declarer `failurePenaltySeconds` que sur les enigmes d'un scenario
+  chronometre.
 - Garder `open-puzzle` et `show-clue` strictement locaux a leur scene.
 - Ne pas ajouter de champ personnalise ou inconnu au schema.
 - Fournir un `alt` pertinent pour les images et documents.
@@ -369,6 +380,8 @@ scenario est valide uniquement parce que `npm run build` reussit.
 - Tester les mauvaises et bonnes reponses, les deblocages, la collecte et
   l'utilisation des objets, leur disparition de l'inventaire, la reutilisation
   des hotspots actives, toutes les transitions et la scene finale.
+- Pour un scenario chronometre, tester le compte a rebours, les penalites, la
+  pause/reprise, la defaite a zero et l'arret dans la scene finale.
 - Jouer le scenario de bout en bout sur desktop et a environ 375 px de large.
 - Controler l'alignement des hotspots, les zones tactiles et les debordements
   de texte.
@@ -389,8 +402,7 @@ Une fois le travail termine, indiquer clairement :
 - la difficulte et la duree cible ;
 - les images, pistes audio et documents produits ;
 - les validations reellement effectuees ;
-- toute limite restante, notamment la conclusion par scene terminale plutot
-  que par un ecran de victoire du moteur.
+- toute limite restante ou verification manuelle non effectuee.
 
 Ne jamais annoncer qu'un scenario est complet si un media manque, si une
 verification n'a pas ete effectuee ou si la progression n'a pas ete testee de

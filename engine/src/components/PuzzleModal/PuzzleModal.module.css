@@ -133,6 +133,9 @@
 }
 
 .errorText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eg-space-1);
   color: var(--eg-color-danger);
   margin-top: var(--eg-space-2);
 }

@@ -17,15 +17,40 @@ export const ScenarioSchema = z
     thumbnail: z.string().optional(),
     /** Chemin relatif au CSS custom du scénario (ex: "theme.css") */
     theme: z.string().optional(),
+    /** Limite de temps et scène qui arrête le minuteur en cas de victoire */
+    timer: z
+      .object({
+        durationSeconds: z.number().int().positive(),
+        victorySceneId: z.string().min(1),
+      })
+      .optional(),
     introSceneId: z.string().min(1),
     items: z.array(InventoryItemSchema).default([]),
     scenes: z.array(SceneSchema).min(1),
   })
   .superRefine((scenario, ctx) => {
+    const sceneIds = new Set(scenario.scenes.map((scene) => scene.id))
+    if (scenario.timer && !sceneIds.has(scenario.timer.victorySceneId)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `La scène finale "${scenario.timer.victorySceneId}" n'est pas déclarée.`,
+        path: ['timer', 'victorySceneId'],
+      })
+    }
+
     const itemIds = new Set(scenario.items.map((item) => item.id))
     const usedItemIds = new Set<string>()
     const itemUseHotspotIds = new Set<string>()
     scenario.scenes.forEach((scene, sceneIndex) => {
+      scene.puzzles.forEach((puzzle, puzzleIndex) => {
+        if (puzzle.failurePenaltySeconds && !scenario.timer) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Une pénalité de temps nécessite un minuteur sur le scénario.',
+            path: ['scenes', sceneIndex, 'puzzles', puzzleIndex, 'failurePenaltySeconds'],
+          })
+        }
+      })
       scene.hotspots.forEach((hotspot, hotspotIndex) => {
         if (!hotspot.useItemId) return
         const path = ['scenes', sceneIndex, 'hotspots', hotspotIndex, 'useItemId']

@@ -18,6 +18,7 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
   const [codeAnswer, setCodeAnswer] = useState('')
   const [wheelValues, setWheelValues] = useState<number[]>([])
   const [feedback, setFeedback] = useState<'idle' | 'error'>('idle')
+  const [penaltySeconds, setPenaltySeconds] = useState(0)
 
   if (!puzzle) return null
 
@@ -27,6 +28,7 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
     setCodeAnswer('')
     setWheelValues([])
     setFeedback('idle')
+    setPenaltySeconds(0)
   }
 
   function handleClose() {
@@ -51,6 +53,7 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
     } else {
       audioManager.playEngineSfx('error')
       setFeedback('error')
+      setPenaltySeconds(result.penaltySeconds)
     }
   }
 
@@ -208,7 +211,10 @@ export function PuzzleModal({ puzzle, onClose, onSolved }: PuzzleModalProps) {
           )}
 
           {feedback === 'error' && (
-            <p className={styles.errorText}>{puzzle.hint ?? 'Ce n\u2019est pas la bonne réponse, essayez encore.'}</p>
+            <div className={styles.errorText} role="status">
+              {penaltySeconds > 0 && <strong>Temps perdu : -{penaltySeconds} s.</strong>}
+              <span>{puzzle.hint ?? 'Ce n\u2019est pas la bonne réponse, essayez encore.'}</span>
+            </div>
           )}
         </motion.div>
       </motion.div>

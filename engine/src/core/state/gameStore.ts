@@ -15,7 +15,12 @@ export interface ScenarioProgress {
   attemptsByPuzzleId: Record<string, number>
   startedAt: number
   finishedAt: number | null
+  timerDeadlineAt: number | null
+  pausedAt: number | null
+  outcome: GameOutcome
 }
+
+export type GameOutcome = 'won' | 'lost' | null
 
 function createEmptyProgress(introSceneId: string): ScenarioProgress {
   return {
@@ -28,6 +33,9 @@ function createEmptyProgress(introSceneId: string): ScenarioProgress {
     attemptsByPuzzleId: {},
     startedAt: Date.now(),
     finishedAt: null,
+    timerDeadlineAt: null,
+    pausedAt: null,
+    outcome: null,
   }
 }
 
@@ -41,8 +49,17 @@ export interface GameState {
   resetProgress: () => void
   unloadScenario: () => void
 
+  startTimer: (now?: number) => void
+  pauseTimer: (now?: number) => void
+  resumeTimer: (now?: number) => void
+  checkTimerExpired: (now?: number) => boolean
+
   goToScene: (sceneId: string) => void
-  attemptPuzzle: (puzzleId: string, answer: unknown) => { success: boolean }
+  attemptPuzzle: (puzzleId: string, answer: unknown) => {
+    success: boolean
+    penaltySeconds: number
+    outcome: GameOutcome
+  }
   collectItem: (itemId: string) => boolean
   activateHotspotWithItem: (hotspotId: string, itemId: string) => boolean
   revealClue: (clueId: string) => void
@@ -53,9 +70,15 @@ export interface GameState {
   getCurrentProgress: () => ScenarioProgress | null
 }
 
-type PersistedScenarioProgress = Omit<ScenarioProgress, 'consumedItemIds' | 'usedHotspotIds'> & {
+type PersistedScenarioProgress = Omit<
+  ScenarioProgress,
+  'consumedItemIds' | 'usedHotspotIds' | 'timerDeadlineAt' | 'pausedAt' | 'outcome'
+> & {
   consumedItemIds?: string[]
   usedHotspotIds?: string[]
+  timerDeadlineAt?: number | null
+  pausedAt?: number | null
+  outcome?: GameOutcome
 }
 
 interface PersistedGameState {
@@ -63,9 +86,8 @@ interface PersistedGameState {
   progressByScenario: Record<string, PersistedScenarioProgress>
 }
 
-export function migratePersistedGameState(state: unknown, version: number): PersistedGameState {
+export function migratePersistedGameState(state: unknown, _version: number): PersistedGameState {
   const persisted = state as PersistedGameState
-  if (version >= 1) return persisted
   return {
     ...persisted,
     progressByScenario: Object.fromEntries(
@@ -75,10 +97,17 @@ export function migratePersistedGameState(state: unknown, version: number): Pers
           ...progress,
           consumedItemIds: progress.consumedItemIds ?? [],
           usedHotspotIds: progress.usedHotspotIds ?? [],
+          timerDeadlineAt: progress.timerDeadlineAt ?? null,
+          pausedAt: progress.pausedAt ?? null,
+          outcome: progress.outcome ?? null,
         },
       ]),
     ),
   }
+}
+
+function isInteractionBlocked(progress: ScenarioProgress): boolean {
+  return progress.pausedAt !== null || progress.outcome !== null
 }
 
 function updateCurrentProgress(
@@ -133,6 +162,9 @@ export const useGameStore = create<GameState>()(
                   attemptsByPuzzleId: Object.fromEntries(
                     Object.entries(existing.attemptsByPuzzleId).filter(([id]) => puzzleIds.has(id)),
                   ),
+                  timerDeadlineAt: existing.timerDeadlineAt ?? null,
+                  pausedAt: existing.pausedAt ?? null,
+                  outcome: existing.outcome ?? null,
                 }
               })()
             : createEmptyProgress(scenario.introSceneId)
@@ -160,29 +192,120 @@ export const useGameStore = create<GameState>()(
         }))
       },
 
-      goToScene: (sceneId) =>
+      startTimer: (now = Date.now()) =>
         set((state) => {
-          if (!state.scenario || !findScene(state.scenario.scenes, sceneId)) return {}
-          return updateCurrentProgress(state, (p) => ({ ...p, currentSceneId: sceneId }))
+          if (!state.scenario?.timer) return {}
+          return updateCurrentProgress(state, (progress) => {
+            if (progress.timerDeadlineAt !== null || progress.outcome !== null) return progress
+            return {
+              ...progress,
+              startedAt: now,
+              timerDeadlineAt: now + state.scenario!.timer!.durationSeconds * 1000,
+            }
+          })
         }),
 
+      pauseTimer: (now = Date.now()) => {
+        const state = get()
+        const progress = state.getCurrentProgress()
+        if (!state.scenario?.timer || !progress || progress.timerDeadlineAt === null || isInteractionBlocked(progress)) return
+        if (state.checkTimerExpired(now)) return
+        set((currentState) =>
+          updateCurrentProgress(currentState, (currentProgress) => ({ ...currentProgress, pausedAt: now })),
+        )
+      },
+
+      resumeTimer: (now = Date.now()) =>
+        set((state) =>
+          updateCurrentProgress(state, (progress) => {
+            if (progress.pausedAt === null || progress.timerDeadlineAt === null || progress.outcome !== null) {
+              return progress
+            }
+            return {
+              ...progress,
+              timerDeadlineAt: progress.timerDeadlineAt + Math.max(0, now - progress.pausedAt),
+              pausedAt: null,
+            }
+          }),
+        ),
+
+      checkTimerExpired: (now = Date.now()) => {
+        const state = get()
+        const progress = state.getCurrentProgress()
+        if (
+          !state.scenario?.timer ||
+          !progress ||
+          progress.timerDeadlineAt === null ||
+          progress.pausedAt !== null ||
+          progress.outcome !== null ||
+          progress.timerDeadlineAt > now
+        ) {
+          return progress?.outcome === 'lost'
+        }
+        set((currentState) =>
+          updateCurrentProgress(currentState, (currentProgress) => ({
+            ...currentProgress,
+            outcome: 'lost',
+            finishedAt: now,
+          })),
+        )
+        return true
+      },
+
+      goToScene: (sceneId) => {
+        const now = Date.now()
+        if (get().checkTimerExpired(now)) return
+        set((state) => {
+          const progress = state.getCurrentProgress()
+          if (!state.scenario || !progress || isInteractionBlocked(progress) || !findScene(state.scenario.scenes, sceneId)) {
+            return {}
+          }
+          const won = state.scenario.timer?.victorySceneId === sceneId
+          return updateCurrentProgress(state, (currentProgress) => ({
+            ...currentProgress,
+            currentSceneId: sceneId,
+            outcome: won ? 'won' : currentProgress.outcome,
+            finishedAt: won ? now : currentProgress.finishedAt,
+          }))
+        })
+      },
+
       attemptPuzzle: (puzzleId, answer) => {
+        const now = Date.now()
+        if (get().checkTimerExpired(now)) return { success: false, penaltySeconds: 0, outcome: 'lost' }
         const state = get()
         const progress = state.getCurrentProgress()
         const scene =
           state.scenario && progress ? findScene(state.scenario.scenes, progress.currentSceneId) : undefined
         const puzzle = scene?.puzzles.find((p) => p.id === puzzleId)
-        if (!puzzle || !progress) return { success: false }
+        if (!puzzle || !progress || isInteractionBlocked(progress)) {
+          return { success: false, penaltySeconds: 0, outcome: progress?.outcome ?? null }
+        }
 
         const alreadySolved = progress.solvedPuzzleIds.includes(puzzleId)
-        if (alreadySolved) return { success: true }
+        if (alreadySolved) return { success: true, penaltySeconds: 0, outcome: progress.outcome }
         const result = checkPuzzleAnswer(puzzle, answer)
+        const penaltySeconds = result.success || progress.timerDeadlineAt === null
+          ? 0
+          : (puzzle.failurePenaltySeconds ?? 0)
+        let outcome: GameOutcome = progress.outcome
 
         set((s) =>
           updateCurrentProgress(s, (p) => {
             const attempts = { ...p.attemptsByPuzzleId, [puzzleId]: (p.attemptsByPuzzleId[puzzleId] ?? 0) + 1 }
             if (!result.success) {
-              return { ...p, attemptsByPuzzleId: attempts }
+              const timerDeadlineAt = p.timerDeadlineAt === null
+                ? null
+                : p.timerDeadlineAt - penaltySeconds * 1000
+              const lost = timerDeadlineAt !== null && timerDeadlineAt <= now
+              outcome = lost ? 'lost' : p.outcome
+              return {
+                ...p,
+                attemptsByPuzzleId: attempts,
+                timerDeadlineAt,
+                outcome,
+                finishedAt: lost ? now : p.finishedAt,
+              }
             }
             const rewards = puzzle.rewards
             return {
@@ -199,15 +322,17 @@ export const useGameStore = create<GameState>()(
             }
           }),
         )
-        return { success: result.success }
+        return { success: result.success, penaltySeconds, outcome }
       },
 
       collectItem: (itemId) => {
+        if (get().checkTimerExpired()) return false
         const state = get()
         const progress = state.getCurrentProgress()
         if (
           !state.scenario?.items.some((item) => item.id === itemId) ||
           !progress ||
+          isInteractionBlocked(progress) ||
           progress.collectedItemIds.includes(itemId) ||
           progress.consumedItemIds.includes(itemId)
         ) {
@@ -223,6 +348,7 @@ export const useGameStore = create<GameState>()(
       },
 
       activateHotspotWithItem: (hotspotId, itemId) => {
+        if (get().checkTimerExpired()) return false
         const state = get()
         const progress = state.getCurrentProgress()
         const scene =
@@ -230,6 +356,7 @@ export const useGameStore = create<GameState>()(
         const hotspot = scene?.hotspots.find((candidate) => candidate.id === hotspotId)
         if (
           !progress ||
+          isInteractionBlocked(progress) ||
           !hotspot ||
           hotspot.useItemId !== itemId ||
           progress.usedHotspotIds.includes(hotspotId) ||
@@ -248,13 +375,17 @@ export const useGameStore = create<GameState>()(
         return true
       },
 
-      revealClue: (clueId) =>
+      revealClue: (clueId) => {
+        if (get().checkTimerExpired()) return
         set((state) =>
           updateCurrentProgress(state, (p) => ({
             ...p,
-            unlockedClueIds: [...new Set([...p.unlockedClueIds, clueId])],
+            unlockedClueIds: isInteractionBlocked(p)
+              ? p.unlockedClueIds
+              : [...new Set([...p.unlockedClueIds, clueId])],
           })),
-        ),
+        )
+      },
 
       getCurrentProgress: () => {
         const state = get()
@@ -306,7 +437,7 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: 'escapegame-save',
-      version: 1,
+      version: 2,
       migrate: migratePersistedGameState,
       storage: createJSONStorage(() => localStorage),
       // Le scénario complet (JSON) n'est pas persisté : seule la progression

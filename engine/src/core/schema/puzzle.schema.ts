@@ -21,6 +21,8 @@ const BasePuzzleSchema = z.object({
   hint: z.string().optional(),
   /** Nombre max de tentatives avant affichage d'un indice (optionnel) */
   maxAttempts: z.number().int().positive().optional(),
+  /** Temps retiré du minuteur après chaque mauvaise réponse */
+  failurePenaltySeconds: z.number().int().positive().optional(),
   /** Récompense accordée en cas de succès : id(s) d'indice ou d'item d'inventaire à débloquer */
   rewards: z
     .object({

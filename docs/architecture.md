@@ -74,6 +74,12 @@ déblocages historiques tout en retirant un objet utilisé de l'inventaire. La
 sauvegarde Zustand est versionnée et migre les progressions antérieures à
 l'ajout de ces champs.
 
+Pour les scénarios chronométrés, la progression persiste une échéance absolue
+(`timerDeadlineAt`), l'instant éventuel de pause (`pausedAt`) et le résultat
+(`outcome`). Le temps restant est toujours recalculé depuis l'échéance afin de
+rester exact après une suspension mobile ou un rechargement. Une reprise de
+pause décale l'échéance de la durée passée en pause.
+
 ## Responsive & tactile
 
 - CSS mobile-first (`engine/src/styles/global.css`), breakpoints à 600px

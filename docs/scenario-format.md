@@ -64,11 +64,25 @@ bas) pour que le scénario apparaisse dans l'écran de sélection.
   "estimatedDurationMinutes": 15,
   "thumbnail": "assets/images/thumbnail.png",
   "theme": "theme.css",              // optionnel, nom du fichier CSS custom
+  "timer": {                           // optionnel : rend la partie chronométrée
+    "durationSeconds": 3600,
+    "victorySceneId": "scene-finale"
+  },
   "introSceneId": "scene-1",         // id de la première scène jouée
   "items": [ /* voir Objets d'inventaire */ ],
   "scenes": [ /* voir Scènes, au moins une */ ]
 }
 ```
+
+Quand `timer` est présent, le compte à rebours démarre au clic sur
+« Commencer l'enquête » et continue même si l'onglet ou le navigateur est
+fermé. Le joueur peut le mettre explicitement en pause ; la scène est alors
+masquée et la partie reste en pause jusqu'à une reprise explicite, y compris
+après un rechargement. Atteindre zéro fait perdre la partie. Entrer dans
+`victorySceneId` arrête définitivement le minuteur et marque la victoire.
+
+`estimatedDurationMinutes` reste une estimation éditoriale et n'active jamais
+le minuteur.
 
 ## Scènes
 
@@ -180,6 +194,7 @@ Champs communs à tous les puzzles :
   "prompt": "Texte de l'énigme affiché à l'utilisateur",
   "hint": "Indice optionnel affiché en cas d'échec",
   "maxAttempts": 3,              // optionnel
+  "failurePenaltySeconds": 30,   // optionnel : temps retiré à chaque mauvaise réponse
   "rewards": {                    // optionnel, débloque des éléments en cas de succès
     "unlockClues": ["clue-x"],
     "unlockItems": ["item-x"],
@@ -187,6 +202,10 @@ Champs communs à tous les puzzles :
   }
 }
 ```
+
+`failurePenaltySeconds` est réservé aux scénarios qui déclarent un `timer`.
+La pénalité est appliquée à chaque réponse incorrecte et peut provoquer une
+défaite immédiate si elle consomme tout le temps restant.
 
 **1. `text-match`** — réponse texte libre, comparaison insensible à la
 casse et aux accents par défaut :
