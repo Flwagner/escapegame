@@ -52,28 +52,11 @@
   white-space: pre-wrap;
 }
 
-.scanButton {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: zoom-in;
-}
-
 .scanImage {
   display: block;
   width: 100%;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset;
-}
-
-.expandHint {
-  display: block;
-  margin-top: var(--eg-space-1);
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--eg-color-text-muted);
 }
 
 .docLink {

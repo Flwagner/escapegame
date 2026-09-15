@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { resolveScenarioAssetUrl } from '../../core/loader/scenarioLoader'
 import type { Clue } from '../../types/scenario'
-import { Lightbox } from '../Lightbox/Lightbox'
 import { isImageAsset } from './assetType'
 import styles from './DocumentViewer.module.css'
 
@@ -17,7 +15,6 @@ interface DocumentViewerProps {
  * par les données JSON du scénario (`documentStyle`).
  */
 export function DocumentViewer({ clue, scenarioPath }: DocumentViewerProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
   const style = clue.documentStyle ?? (clue.type === 'document' ? 'scan' : 'letter')
   const assetUrl = clue.type === 'document' ? resolveScenarioAssetUrl(scenarioPath, clue.content) : null
   const isImage = clue.type === 'document' && isImageAsset(clue.content)
@@ -27,20 +24,7 @@ export function DocumentViewer({ clue, scenarioPath }: DocumentViewerProps) {
       {clue.type === 'text' && <p className={styles.text}>{clue.content}</p>}
 
       {clue.type === 'document' && assetUrl && isImage && (
-        <>
-          <button
-            type="button"
-            className={`${styles.scanButton} eg-tap-target`}
-            onClick={() => setLightboxOpen(true)}
-            aria-label="Agrandir le document"
-          >
-            <img className={styles.scanImage} src={assetUrl} alt={clue.alt ?? clue.title} />
-          </button>
-          <span className={styles.expandHint}>🔍 Agrandir</span>
-          {lightboxOpen && (
-            <Lightbox src={assetUrl} alt={clue.alt ?? clue.title} onClose={() => setLightboxOpen(false)} />
-          )}
-        </>
+        <img className={styles.scanImage} src={assetUrl} alt={clue.alt ?? clue.title} />
       )}
 
       {clue.type === 'document' && assetUrl && !isImage && (

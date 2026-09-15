@@ -35,9 +35,6 @@ du code du moteur.
   d'interaction utilisateur). Fournit aussi des SFX d'interface génériques
   (`playEngineSfx`, fichiers dans `engine/public/sfx/`, voir
   `public/sfx/LICENSE.md`), indépendants de tout scénario.
-- `engine/src/components/Lightbox/` — visionneuse plein écran avec
-  zoom/pan (pinch, molette, double-tap), utilisée pour les indices image
-  et les fonds de scène (bouton loupe).
 - `engine/src/components/DocumentViewer/` — rendu "papier" (texture,
   ombre, bords irréguliers) pour les indices `text`/`document`, voir
   `documentStyle` dans `scenario-format.md`.

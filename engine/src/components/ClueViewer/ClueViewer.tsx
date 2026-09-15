@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
 import { resolveScenarioAssetUrl } from '../../core/loader/scenarioLoader'
 import { DocumentViewer } from '../DocumentViewer/DocumentViewer'
-import { Lightbox } from '../Lightbox/Lightbox'
 import type { Clue } from '../../types/scenario'
 import styles from './ClueViewer.module.css'
 
@@ -13,8 +11,6 @@ interface ClueViewerProps {
 }
 
 export function ClueViewer({ clue, scenarioPath, onClose }: ClueViewerProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-
   if (!clue) return null
 
   const imageUrl = clue.type === 'image' ? resolveScenarioAssetUrl(scenarioPath, clue.content) : null
@@ -43,14 +39,7 @@ export function ClueViewer({ clue, scenarioPath, onClose }: ClueViewerProps) {
           {clue.type === 'text' && <DocumentViewer clue={clue} scenarioPath={scenarioPath} />}
 
           {clue.type === 'image' && imageUrl && (
-            <button
-              type="button"
-              className={`${styles.imageButton} eg-tap-target`}
-              onClick={() => setLightboxOpen(true)}
-              aria-label="Agrandir l'image"
-            >
-              <img className={styles.image} src={imageUrl} alt={clue.alt ?? clue.title} />
-            </button>
+            <img className={styles.image} src={imageUrl} alt={clue.alt ?? clue.title} />
           )}
 
           {clue.type === 'audio' && (
@@ -60,9 +49,6 @@ export function ClueViewer({ clue, scenarioPath, onClose }: ClueViewerProps) {
           {clue.type === 'document' && <DocumentViewer clue={clue} scenarioPath={scenarioPath} />}
         </motion.div>
       </motion.div>
-      {lightboxOpen && imageUrl && (
-        <Lightbox src={imageUrl} alt={clue.alt ?? clue.title} onClose={() => setLightboxOpen(false)} />
-      )}
     </AnimatePresence>
   )
 }

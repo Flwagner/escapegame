@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { resolveScenarioAssetUrl } from '../../core/loader/scenarioLoader'
 import { useGameStore } from '../../core/state/gameStore'
-import { clampPan, clampScale } from '../Lightbox/zoomMath'
 import type { Hotspot, Scene } from '../../types/scenario'
 import { getContainedSize } from './sceneGeometry'
+import { clampPan, clampScale } from './sceneZoomMath'
 import styles from './SceneView.module.css'
 
 const HotspotDebugOverlay = import.meta.env.DEV

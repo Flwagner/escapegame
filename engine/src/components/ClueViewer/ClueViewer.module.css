@@ -36,20 +36,11 @@
   padding-right: var(--eg-space-4);
 }
 
-.imageButton {
+.image {
   display: block;
   width: 100%;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: zoom-in;
-}
-
-.image {
   max-width: 100%;
   border-radius: var(--eg-radius);
-  touch-action: pinch-zoom;
-  display: block;
 }
 
 .audio {

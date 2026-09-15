@@ -158,11 +158,10 @@ Rendu par type :
   - `typed` : rapport tapé à la machine, police monospace.
   - `scan` (défaut pour `document`) : scan/photo posée sur un fond papier ;
     si `content` pointe vers une image (png/jpg/webp/gif/svg/avif), elle
-    s'affiche inline avec un bouton "Agrandir" (zoom/pan plein écran) ;
+    s'affiche directement dans le cadre ;
     sinon (ex: PDF), un bouton "Ouvrir le document" ouvre le fichier dans
     un nouvel onglet.
-- `image` s'affiche dans la modale d'indice avec un zoom/pan plein écran
-  au tap (pinch, molette, double-tap/double-clic pour zoomer).
+- `image` s'affiche directement dans la modale d'indice.
 - `audio` utilise le lecteur natif du navigateur (`<audio controls>`),
   jamais de lecture automatique.
 
