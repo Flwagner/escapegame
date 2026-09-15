@@ -14,5 +14,4 @@
   <path d="M150 760 H750 L710 940 H190 Z" fill="#d9d1b8" stroke="#333" stroke-width="4"/>
   <text x="450" y="825" text-anchor="middle" font-family="monospace" font-size="25" fill="#711717">NE JAMAIS COUPER LE COURANT</text>
   <text x="450" y="865" text-anchor="middle" font-family="monospace" font-size="25" fill="#711717">AVANT LE BLOCAGE MECANIQUE</text>
-  <path d="M230 1010 C360 960 520 1070 680 1000" fill="none" stroke="#7d1515" stroke-width="15" opacity="0.45"/>
 </svg>

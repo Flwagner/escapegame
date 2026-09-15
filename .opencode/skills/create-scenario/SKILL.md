@@ -268,6 +268,15 @@ documents devant rester tres lisibles, MP3 pour l'audio et PDF uniquement si
 l'ouverture dans un nouvel onglet est acceptable. Tous les chemins doivent
 etre locaux et relatifs au dossier du scenario.
 
+Pour les documents produits localement, chaque element graphique doit avoir
+une fonction identifiable : information d'enigme, structure du document ou
+decoration clairement intentionnelle et coherente. Ne pas ajouter de forme
+isolee, gribouillis, cercle, soulignement ou pictogramme generique uniquement
+pour remplir un espace. Aucun element decoratif ne doit chevaucher du texte,
+ressembler a une annotation porteuse d'un indice ou attirer davantage
+l'attention que le contenu utile. Garder une marge visible entre textes,
+illustrations et bordures.
+
 Les images de scene sont affichees avec un cadrage de type `cover`. Conserver
 les objets interactifs dans une zone sure centrale et verifier l'alignement
 des hotspots sur des formats mobile et desktop. Ne pas placer une information
@@ -365,6 +374,9 @@ scenario est valide uniquement parce que `npm run build` reussit.
 - Verifier que chaque chemin reference existe dans le dossier du scenario.
 - Verifier que chaque fichier est non vide et possede le bon type reel.
 - Ouvrir ou decoder les images, sons et documents.
+- Inspecter visuellement chaque document dans son rendu final, en entier puis
+  agrandi, et supprimer toute forme parasite, superposition, coupure ou marque
+  ambigue qui ne transmet pas une information volontaire.
 - Verifier l'absence de 404 et d'erreur de decodage dans le navigateur.
 - Verifier que l'audio ne demarre jamais avant une interaction utilisateur.
 

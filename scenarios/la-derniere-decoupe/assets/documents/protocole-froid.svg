@@ -19,5 +19,4 @@
     <text x="125" y="885">- Aucun circuit ne peut etre saute.</text>
   </g>
   <text x="450" y="1050" text-anchor="middle" font-family="cursive" font-size="34" fill="#7b1111" transform="rotate(-3 450 1050)">Les derniers chiffres ne mentent jamais.</text>
-  <circle cx="770" cy="1080" r="45" fill="none" stroke="#7b1111" stroke-width="6" opacity="0.75"/>
 </svg>
