@@ -311,6 +311,15 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
     return (
       <div className={`scenario-${scenario.id} ${styles.pauseScreen}`}>
         {themeHref && <ThemeInjector href={themeHref} />}
+        <button
+          type="button"
+          className={`${styles.screenBackButton} eg-tap-target`}
+          onClick={handleQuit}
+          aria-label="Retour au choix des scénarios"
+          title="Retour au choix des scénarios"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
         <GameTimer
           deadlineAt={progress.timerDeadlineAt}
           pausedAt={progress.pausedAt}
@@ -327,9 +336,6 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
           <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleConfirmedRestart}>
             Recommencer
           </button>
-          <button type="button" className={`${styles.secondaryButton} eg-tap-target`} onClick={handleQuit}>
-            Quitter
-          </button>
         </div>
       </div>
     )
@@ -339,6 +345,15 @@ function PlayScreenSession({ scenarioId }: { scenarioId?: string }) {
     return (
       <div className={`scenario-${scenario.id} ${styles.startScreen}`}>
         {themeHref && <ThemeInjector href={themeHref} />}
+        <button
+          type="button"
+          className={`${styles.screenBackButton} eg-tap-target`}
+          onClick={handleQuit}
+          aria-label="Retour au choix des scénarios"
+          title="Retour au choix des scénarios"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
         <h1>{scenario.title}</h1>
         {scenario.description && <p className={styles.description}>{scenario.description}</p>}
         {progress.timerDeadlineAt !== null && (

@@ -73,13 +73,35 @@
   padding: var(--eg-space-3);
 }
 
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--eg-space-2);
+  padding: 0 var(--eg-space-3) var(--eg-space-3);
+}
+
+.resumeButton,
 .restartButton {
-  margin: 0 var(--eg-space-3) var(--eg-space-3);
-  border: 1px solid var(--eg-color-danger);
+  min-width: 0;
   border-radius: calc(var(--eg-radius) / 2);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resumeButton {
+  border: 1px solid var(--eg-color-accent);
+  background: var(--eg-color-accent);
+  color: #1a1a1a;
+}
+
+.restartButton {
+  border: 1px solid var(--eg-color-danger);
   background: transparent;
   color: var(--eg-color-text);
-  cursor: pointer;
+}
+
+.resumeButton:active {
+  opacity: 0.8;
 }
 
 .restartButton:active {
@@ -100,21 +122,39 @@
 .meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--eg-space-1);
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--eg-color-surface-alt);
+.metaItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.78rem;
   color: var(--eg-color-text-muted);
 }
 
-.badgeContinue {
-  composes: badge;
-  background: var(--eg-color-accent);
-  color: #1a1a1a;
+.metaLabel {
+  color: var(--eg-color-text);
+  font-weight: 600;
+}
+
+.stars {
+  color: var(--eg-color-accent);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.emptyStars {
+  color: var(--eg-color-text-muted);
+  opacity: 0.35;
+}
+
+.atmosphere,
+.duration {
+  flex-basis: 100%;
+  margin-top: 2px;
 }
 
 .error {

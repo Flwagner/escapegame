@@ -38,6 +38,7 @@ bas) pour que le scénario apparaisse dans l'écran de sélection.
       "title": "Titre affiché",
       "description": "Résumé court affiché sur la carte de sélection",
       "difficulty": "easy | medium | hard",
+      "atmosphere": "Mystère gothique",
       "estimatedDurationMinutes": 15,
       "thumbnail": "assets/images/thumbnail.png",
       "path": "mon-scenario"
@@ -48,6 +49,7 @@ bas) pour que le scénario apparaisse dans l'écran de sélection.
 
 - `path` = nom du dossier dans `scenarios/`.
 - `thumbnail` est un chemin **relatif** au dossier du scénario.
+- `atmosphere` est un libellé éditorial court affiché sur la carte de sélection.
 - Ajouter une nouvelle entrée = ajouter un objet dans le tableau, jamais
   supprimer/modifier les entrées des autres scénarios.
 
@@ -55,16 +57,17 @@ bas) pour que le scénario apparaisse dans l'écran de sélection.
 
 ```jsonc
 {
-  "schemaVersion": 1,               // toujours 1 actuellement, ne pas changer
+  "schemaVersion": 2,               // toujours 2 actuellement, ne pas changer
   "id": "mon-scenario",              // doit correspondre au manifest.json
   "title": "Titre de l'enquête",
   "description": "Texte d'introduction affiché avant de démarrer",
   "author": "optionnel",
   "difficulty": "easy | medium | hard",
+  "atmosphere": "Mystère gothique", // optionnel, libellé court
   "estimatedDurationMinutes": 15,
   "thumbnail": "assets/images/thumbnail.png",
   "theme": "theme.css",              // optionnel, nom du fichier CSS custom
-  "timer": {                           // optionnel : rend la partie chronométrée
+  "timer": {                           // obligatoire : toutes les parties sont chronométrées
     "durationSeconds": 3600,
     "victorySceneId": "scene-finale"
   },
@@ -74,7 +77,7 @@ bas) pour que le scénario apparaisse dans l'écran de sélection.
 }
 ```
 
-Quand `timer` est présent, le compte à rebours démarre au clic sur
+Le compte à rebours démarre au clic sur
 « Commencer l'enquête » et continue même si l'onglet ou le navigateur est
 fermé. Le joueur peut le mettre explicitement en pause ; la scène est alors
 masquée et la partie reste en pause jusqu'à une reprise explicite, y compris

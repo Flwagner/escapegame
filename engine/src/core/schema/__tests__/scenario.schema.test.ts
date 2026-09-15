@@ -4,10 +4,11 @@ import { ScenarioSchema } from '../scenario.schema'
 describe('ScenarioSchema', () => {
   it('valide un scénario minimal correct', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [
         {
           id: 'scene-1',
@@ -23,10 +24,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette un scénario sans scène', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [],
     })
     expect(result.success).toBe(false)
@@ -34,10 +36,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette un mauvais schemaVersion', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 2,
+      schemaVersion: 1,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [{ id: 'scene-1', title: 'S1', hotspots: [], clues: [], puzzles: [] }],
     })
     expect(result.success).toBe(false)
@@ -45,10 +48,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette un cadenas dont le nombre de roues ne correspond pas à la combinaison', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [{
         id: 'scene-1',
         title: 'S1',
@@ -66,10 +70,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette une réponse à choix multiple qui référence une option inconnue', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [{
         id: 'scene-1',
         title: 'S1',
@@ -87,10 +92,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette une séquence qui ne contient pas chaque élément une fois', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [{
         id: 'scene-1',
         title: 'S1',
@@ -108,10 +114,11 @@ describe('ScenarioSchema', () => {
 
   it('accepte un hotspot qui utilise un objet déclaré', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       items: [{ id: 'cle', name: 'Clé' }],
       scenes: [{
         id: 'scene-1',
@@ -133,10 +140,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette un hotspot qui utilise un objet inconnu', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       scenes: [{
         id: 'scene-1',
         title: 'S1',
@@ -165,10 +173,11 @@ describe('ScenarioSchema', () => {
       useItemId: 'cle',
     }
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       items: [{ id: 'cle', name: 'Clé' }],
       scenes: [{
         id: 'scene-1',
@@ -185,10 +194,11 @@ describe('ScenarioSchema', () => {
 
   it('rejette les identifiants dupliqués parmi les hotspots utilisant un objet', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',
+      timer: { durationSeconds: 600, victorySceneId: 'scene-1' },
       items: [{ id: 'cle-1', name: 'Clé 1' }, { id: 'cle-2', name: 'Clé 2' }],
       scenes: [{
         id: 'scene-1',
@@ -211,7 +221,7 @@ describe('ScenarioSchema', () => {
 
   it('accepte un minuteur et une pénalité associés à une scène finale existante', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo-chrono',
       title: 'Démo chronométrée',
       introSceneId: 'scene-1',
@@ -237,7 +247,7 @@ describe('ScenarioSchema', () => {
 
   it('rejette un minuteur dont la scène finale est inconnue', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo-chrono',
       title: 'Démo chronométrée',
       introSceneId: 'scene-1',
@@ -248,9 +258,9 @@ describe('ScenarioSchema', () => {
     expect(result.success).toBe(false)
   })
 
-  it('rejette une pénalité de temps sans minuteur', () => {
+  it('rejette un scénario sans minuteur', () => {
     const result = ScenarioSchema.safeParse({
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: 'demo',
       title: 'Démo',
       introSceneId: 'scene-1',

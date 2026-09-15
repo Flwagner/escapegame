@@ -1,13 +1,18 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "le-dernier-cercle",
   "title": "Le Dernier Cercle",
   "description": "Une séance spirite improvisée réveille Élise Valombre. Avant que la dernière bougie ne s'éteigne, achevez le rituel et libérez l'esprit prisonnier du manoir.",
   "author": "Escape Game",
   "difficulty": "medium",
+  "atmosphere": "Occulte et gothique",
   "estimatedDurationMinutes": 15,
   "thumbnail": "assets/images/thumbnail.webp",
   "theme": "theme.css",
+  "timer": {
+    "durationSeconds": 900,
+    "victorySceneId": "scene-aube"
+  },
   "introSceneId": "salon-spirite",
   "items": [
     {

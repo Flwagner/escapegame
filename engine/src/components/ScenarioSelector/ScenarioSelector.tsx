@@ -5,6 +5,12 @@ import { clearScenarioSave, hasSavedProgress } from '../../core/state/persist'
 import type { Manifest, ManifestEntry } from '../../types/scenario'
 import styles from './ScenarioSelector.module.css'
 
+const difficultyDetails = {
+  easy: { label: 'Facile', stars: 1 },
+  medium: { label: 'Moyenne', stars: 2 },
+  hard: { label: 'Difficile', stars: 3 },
+} as const
+
 export function ScenarioSelector() {
   const navigate = useNavigate()
   const [manifest, setManifest] = useState<Manifest | null>(null)
@@ -44,6 +50,7 @@ export function ScenarioSelector() {
       <div className={styles.grid}>
         {manifest.scenarios.map((entry: ManifestEntry) => {
           const hasProgress = hasSavedProgress(entry.id)
+          const difficulty = entry.difficulty ? difficultyDetails[entry.difficulty] : null
           return (
             <article key={entry.id} className={styles.card}>
               <button
@@ -65,22 +72,53 @@ export function ScenarioSelector() {
                   <h2 className={styles.cardTitle}>{entry.title}</h2>
                   {entry.description && <p className={styles.cardDescription}>{entry.description}</p>}
                   <div className={styles.meta}>
-                    {entry.difficulty && <span className={styles.badge}>{entry.difficulty}</span>}
-                    {entry.estimatedDurationMinutes && (
-                      <span className={styles.badge}>{entry.estimatedDurationMinutes} min</span>
+                    {difficulty && (
+                      <span className={styles.metaItem}>
+                        <span className={styles.metaLabel}>Difficulté :</span>
+                        <span
+                          className={styles.stars}
+                          aria-label={`${difficulty.label}, ${difficulty.stars} étoile${difficulty.stars > 1 ? 's' : ''} sur 3`}
+                          title={difficulty.label}
+                        >
+                          <span aria-hidden="true">{'★'.repeat(difficulty.stars)}</span>
+                          <span className={styles.emptyStars} aria-hidden="true">
+                            {'★'.repeat(3 - difficulty.stars)}
+                          </span>
+                        </span>
+                      </span>
                     )}
-                    {hasProgress && <span className={styles.badgeContinue}>Reprendre</span>}
+                    {entry.atmosphere && (
+                      <span className={`${styles.metaItem} ${styles.atmosphere}`}>
+                        <span className={styles.metaLabel}>Ambiance :</span>
+                        <span>{entry.atmosphere}</span>
+                      </span>
+                    )}
+                    {entry.estimatedDurationMinutes && (
+                      <span className={`${styles.metaItem} ${styles.duration}`}>
+                        <span className={styles.metaLabel}>Durée :</span>
+                        <span>{entry.estimatedDurationMinutes} min</span>
+                      </span>
+                    )}
                   </div>
                 </div>
               </button>
               {hasProgress && (
-                <button
-                  type="button"
-                  className={`${styles.restartButton} eg-tap-target`}
-                  onClick={() => restartScenario(entry)}
-                >
-                  Recommencer depuis le début
-                </button>
+                <div className={styles.actions}>
+                  <button
+                    type="button"
+                    className={`${styles.resumeButton} eg-tap-target`}
+                    onClick={() => navigate(`/play/${entry.id}`)}
+                  >
+                    Reprendre
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.restartButton} eg-tap-target`}
+                    onClick={() => restartScenario(entry)}
+                  >
+                    Recommencer
+                  </button>
+                </div>
               )}
             </article>
           )

@@ -3,10 +3,11 @@ import type { Scenario } from '../../../types/scenario'
 import { migratePersistedGameState, useGameStore } from '../gameStore'
 
 const scenario: Scenario = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: 'demo',
   title: 'Démo',
   introSceneId: 'scene-1',
+  timer: { durationSeconds: 300, victorySceneId: 'scene-2' },
   items: [],
   scenes: [
     { id: 'scene-1', title: 'Scène 1', hotspots: [], clues: [], puzzles: [] },
@@ -15,10 +16,11 @@ const scenario: Scenario = {
 }
 
 const inventoryScenario: Scenario = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: 'inventory-demo',
   title: 'Inventaire',
   introSceneId: 'scene-1',
+  timer: { durationSeconds: 300, victorySceneId: 'scene-2' },
   items: [{ id: 'cle', name: 'Clé' }],
   scenes: [
     {
@@ -52,7 +54,7 @@ const inventoryScenario: Scenario = {
 }
 
 const timedScenario: Scenario = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: 'timed-demo',
   title: 'Chronomètre',
   introSceneId: 'scene-1',

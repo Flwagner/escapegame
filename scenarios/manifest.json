@@ -5,6 +5,7 @@
       "title": "Le Dernier Cercle",
       "description": "Une séance spirite improvisée réveille Élise Valombre. Avant que la dernière bougie ne s'éteigne, achevez le rituel et libérez l'esprit prisonnier du manoir.",
       "difficulty": "medium",
+      "atmosphere": "Occulte et gothique",
       "estimatedDurationMinutes": 15,
       "thumbnail": "assets/images/thumbnail.webp",
       "path": "le-dernier-cercle"
@@ -14,6 +15,7 @@
       "title": "La Dernière Découpe",
       "description": "Vous reprenez connaissance dans la chambre froide d'une boucherie isolée. Le propriétaire vous a laissé vingt minutes avant son retour. Fouillez ses procédures, déjouez ses serrures et échappez-vous. Avertissement : ambiance horrifique, viande, sang suggéré et menace de mort. Chaque mauvaise réponse retire du temps.",
       "difficulty": "hard",
+      "atmosphere": "Horreur et tension",
       "estimatedDurationMinutes": 20,
       "thumbnail": "assets/images/thumbnail.jpg",
       "path": "la-derniere-decoupe"

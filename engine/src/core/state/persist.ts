@@ -13,7 +13,18 @@ export function clearScenarioSave(scenarioId: string): void {
 }
 
 export function hasSavedProgress(scenarioId: string): boolean {
-  return Boolean(useGameStore.getState().progressByScenario[scenarioId])
+  const progress = useGameStore.getState().progressByScenario[scenarioId]
+  if (!progress) return false
+
+  return progress.timerDeadlineAt !== null
+    || progress.finishedAt !== null
+    || progress.outcome !== null
+    || progress.solvedPuzzleIds.length > 0
+    || progress.collectedItemIds.length > 0
+    || progress.consumedItemIds.length > 0
+    || progress.usedHotspotIds.length > 0
+    || progress.unlockedClueIds.length > 0
+    || Object.keys(progress.attemptsByPuzzleId).length > 0
 }
 
 export function clearAllSaves(): void {

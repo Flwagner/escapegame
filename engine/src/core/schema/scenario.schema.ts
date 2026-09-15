@@ -5,32 +5,32 @@ import { SceneSchema } from './scene.schema'
 export const ScenarioSchema = z
   .object({
     /** Version du format, pour permettre des migrations futures sans casser les scénarios existants */
-    schemaVersion: z.literal(1),
+    schemaVersion: z.literal(2),
     id: z.string().min(1),
     title: z.string().min(1),
     description: z.string().optional(),
     author: z.string().optional(),
     /** Difficulté indicative affichée dans le sélecteur */
     difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+    /** Ambiance éditoriale courte affichée dans le sélecteur */
+    atmosphere: z.string().min(1).optional(),
     estimatedDurationMinutes: z.number().int().positive().optional(),
     /** Miniature affichée sur l'écran de sélection, chemin relatif à assets/images/ */
     thumbnail: z.string().optional(),
     /** Chemin relatif au CSS custom du scénario (ex: "theme.css") */
     theme: z.string().optional(),
     /** Limite de temps et scène qui arrête le minuteur en cas de victoire */
-    timer: z
-      .object({
-        durationSeconds: z.number().int().positive(),
-        victorySceneId: z.string().min(1),
-      })
-      .optional(),
+    timer: z.object({
+      durationSeconds: z.number().int().positive(),
+      victorySceneId: z.string().min(1),
+    }),
     introSceneId: z.string().min(1),
     items: z.array(InventoryItemSchema).default([]),
     scenes: z.array(SceneSchema).min(1),
   })
   .superRefine((scenario, ctx) => {
     const sceneIds = new Set(scenario.scenes.map((scene) => scene.id))
-    if (scenario.timer && !sceneIds.has(scenario.timer.victorySceneId)) {
+    if (!sceneIds.has(scenario.timer.victorySceneId)) {
       ctx.addIssue({
         code: 'custom',
         message: `La scène finale "${scenario.timer.victorySceneId}" n'est pas déclarée.`,
@@ -42,15 +42,6 @@ export const ScenarioSchema = z
     const usedItemIds = new Set<string>()
     const itemUseHotspotIds = new Set<string>()
     scenario.scenes.forEach((scene, sceneIndex) => {
-      scene.puzzles.forEach((puzzle, puzzleIndex) => {
-        if (puzzle.failurePenaltySeconds && !scenario.timer) {
-          ctx.addIssue({
-            code: 'custom',
-            message: 'Une pénalité de temps nécessite un minuteur sur le scénario.',
-            path: ['scenes', sceneIndex, 'puzzles', puzzleIndex, 'failurePenaltySeconds'],
-          })
-        }
-      })
       scene.hotspots.forEach((hotspot, hotspotIndex) => {
         if (!hotspot.useItemId) return
         const path = ['scenes', sceneIndex, 'hotspots', hotspotIndex, 'useItemId']
@@ -87,6 +78,7 @@ export const ManifestEntrySchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+  atmosphere: z.string().min(1).optional(),
   estimatedDurationMinutes: z.number().int().positive().optional(),
   thumbnail: z.string().optional(),
   /** Dossier du scénario dans /scenarios (ex: "exemple-scenario-1") */

@@ -6,7 +6,16 @@ import { ScenarioSelector } from '../ScenarioSelector'
 
 vi.mock('../../../core/loader/scenarioLoader', () => ({
   loadManifest: () => Promise.resolve({
-    scenarios: [{ id: 'demo', path: 'demo', title: 'Enquête démo' }],
+    scenarios: [
+      {
+        id: 'demo',
+        path: 'demo',
+        title: 'Enquête démo',
+        difficulty: 'medium',
+        atmosphere: 'Mystère gothique',
+        estimatedDurationMinutes: 20,
+      },
+    ],
   }),
 }))
 
@@ -46,7 +55,7 @@ describe('ScenarioSelector', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(await screen.findByRole('button', { name: 'Recommencer depuis le début' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Recommencer' }))
 
     expect(window.confirm).toHaveBeenCalled()
     expect(useGameStore.getState().progressByScenario.demo).toBeUndefined()
@@ -61,8 +70,65 @@ describe('ScenarioSelector', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.click(await screen.findByRole('button', { name: 'Recommencer depuis le début' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Recommencer' }))
 
     expect(useGameStore.getState().progressByScenario.demo).toBeDefined()
+  })
+
+  it('présente la difficulté en étoiles et libelle l’ambiance', async () => {
+    render(
+      <MemoryRouter>
+        <ScenarioSelector />
+      </MemoryRouter>,
+    )
+
+    expect(await screen.findByLabelText('Moyenne, 2 étoiles sur 3')).toBeTruthy()
+    expect(screen.getByText('Difficulté :')).toBeTruthy()
+    expect(screen.getByText('Ambiance :')).toBeTruthy()
+    expect(screen.getByText('Mystère gothique')).toBeTruthy()
+    expect(screen.getByText('Durée :')).toBeTruthy()
+    expect(screen.getByText('20 min')).toBeTruthy()
+  })
+
+  it('affiche les actions de reprise et de recommencement ensemble', async () => {
+    render(
+      <MemoryRouter>
+        <ScenarioSelector />
+      </MemoryRouter>,
+    )
+
+    expect(await screen.findByRole('button', { name: 'Reprendre' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Recommencer' })).toBeTruthy()
+  })
+
+  it('ne considère pas une partie ouverte mais jamais commencée comme sauvegardée', async () => {
+    useGameStore.setState({
+      progressByScenario: {
+        demo: {
+          currentSceneId: 'scene-1',
+          solvedPuzzleIds: [],
+          collectedItemIds: [],
+          consumedItemIds: [],
+          usedHotspotIds: [],
+          unlockedClueIds: [],
+          attemptsByPuzzleId: {},
+          startedAt: 1,
+          finishedAt: null,
+          timerDeadlineAt: null,
+          pausedAt: null,
+          outcome: null,
+        },
+      },
+    })
+
+    render(
+      <MemoryRouter>
+        <ScenarioSelector />
+      </MemoryRouter>,
+    )
+
+    expect(await screen.findByRole('button', { name: 'Commencer : Enquête démo' })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Reprendre' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Recommencer' })).toBeNull()
   })
 })
