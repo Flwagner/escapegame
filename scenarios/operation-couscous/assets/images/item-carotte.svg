@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Carotte croquante</title>
+  <rect width="240" height="240" rx="48" fill="#fff7dd"/>
+  <path d="M124 79c-16-7-39 0-46 17-8 22 29 86 42 103 16-20 54-82 43-104-7-15-24-21-39-16z" fill="#f47736" stroke="#173149" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M121 81c-24-20-18-44-13-55 17 12 25 27 20 48 5-25 22-35 34-40 3 20-7 39-28 51" fill="#52a85d" stroke="#173149" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M97 119l23 8m-8 28 22 8" stroke="#cf4e28" stroke-width="7" stroke-linecap="round"/>
+</svg>

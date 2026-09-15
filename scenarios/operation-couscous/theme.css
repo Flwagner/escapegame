@@ -1,0 +1,45 @@
+.scenario-operation-couscous {
+  color-scheme: dark;
+  color: #fff9e8;
+  --eg-color-bg: #102a43;
+  --eg-color-surface: #173f5f;
+  --eg-color-surface-alt: #285d78;
+  --eg-color-surface-raised: #1f506f;
+  --eg-color-text: #fff9e8;
+  --eg-color-text-muted: #d2e8ef;
+  --eg-color-accent: #ffd43b;
+  --eg-color-accent-hover: #ffe273;
+  --eg-color-danger: #ff8995;
+  --eg-color-success: #8de0ad;
+  --eg-color-border: #70c6d1;
+  --eg-font-body: "Trebuchet MS", Arial, sans-serif;
+  --eg-font-heading: "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --eg-radius: 18px;
+  --eg-shadow: 0 14px 32px rgb(4 20 32 / 48%);
+}
+
+.scenario-operation-couscous :focus-visible {
+  outline: 4px solid #ffd43b;
+  outline-offset: 4px;
+}
+
+.scenario-operation-couscous button {
+  font-weight: 800;
+}
+
+.scenario-operation-couscous [data-scene-id="chambre-heloise"] {
+  --eg-scene-image-filter: saturate(1.04) contrast(1.02) brightness(0.94);
+  --eg-scene-backdrop-filter: blur(18px) brightness(0.42) saturate(1.05);
+}
+
+.scenario-operation-couscous [data-scene-id="salon-en-finale"] {
+  --eg-scene-image-filter: saturate(1.04) contrast(1.03) brightness(0.94);
+  --eg-scene-backdrop-filter: blur(18px) brightness(0.42) saturate(1.05);
+}
+
+.scenario-operation-couscous [data-scene-id="cuisine-en-desordre"],
+.scenario-operation-couscous [data-scene-id="jardin-des-cachettes"],
+.scenario-operation-couscous [data-scene-id="retour-a-la-cage"] {
+  --eg-scene-image-filter: saturate(1.04) contrast(1.03) brightness(0.94);
+  --eg-scene-backdrop-filter: blur(18px) brightness(0.42) saturate(1.05);
+}

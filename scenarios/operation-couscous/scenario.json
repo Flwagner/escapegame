@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 2,
+  "id": "operation-couscous",
+  "title": "Opération Couscous",
+  "description": "Héloïse, 5 ans, a laissé s'échapper son lapin Couscous. Papa termine sa partie de Rocket League dans 20 minutes : suis les traces, rassemble ses affaires préférées et ramène vite le petit fugitif dans sa cage !",
+  "author": "Escape Game",
+  "difficulty": "medium",
+  "atmosphere": "Comédie mouvementée",
+  "estimatedDurationMinutes": 20,
+  "thumbnail": "assets/images/thumbnail.webp",
+  "theme": "theme.css",
+  "timer": {
+    "durationSeconds": 1200,
+    "victorySceneId": "retour-a-la-cage"
+  },
+  "introSceneId": "chambre-heloise",
+  "items": [
+    {
+      "id": "clochette-jaune",
+      "name": "Clochette jaune",
+      "description": "Couscous reconnaît ce petit tintement à tous les coups.",
+      "icon": "assets/images/item-clochette.svg"
+    },
+    {
+      "id": "carotte-croquante",
+      "name": "Carotte croquante",
+      "description": "La friandise préférée de Couscous, avec un plumet bien vert.",
+      "icon": "assets/images/item-carotte.svg"
+    },
+    {
+      "id": "bol-bleu",
+      "name": "Bol bleu",
+      "description": "Le bol de Couscous. Son nom est écrit dessous.",
+      "icon": "assets/images/item-bol.svg"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "chambre-heloise",
+      "title": "La chambre d'Héloïse",
+      "narrative": "Catastrophe à moustaches ! La cage est grande ouverte et Couscous a disparu. De petites traces blanches traversent la chambre, tandis que le chrono de papa vient de commencer.",
+      "background": "assets/images/scene-chambre.webp",
+      "ambientSound": "assets/audio/ambiance-course.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-cage-ouverte",
+          "x": 43,
+          "y": 45,
+          "width": 16,
+          "height": 27,
+          "label": "Petit enclos ouvert près du lit",
+          "action": { "kind": "show-clue", "clueId": "fiche-retour-couscous" }
+        },
+        {
+          "id": "hotspot-traces-chambre",
+          "x": 16,
+          "y": 72,
+          "width": 41,
+          "height": 17,
+          "label": "Petites traces dans la chambre",
+          "action": { "kind": "show-clue", "clueId": "plan-traces-chambre" }
+        },
+        {
+          "id": "hotspot-enquete-traces",
+          "x": 23,
+          "y": 49,
+          "width": 22,
+          "height": 17,
+          "label": "Jouets bousculés près de la cheminée",
+          "action": { "kind": "open-puzzle", "puzzleId": "trajet-dans-la-chambre" }
+        },
+        {
+          "id": "hotspot-porte-salon",
+          "x": 0,
+          "y": 31,
+          "width": 13,
+          "height": 49,
+          "label": "Sortie près de la commode",
+          "action": { "kind": "go-to-scene", "sceneId": "salon-en-finale" },
+          "requiresSolvedPuzzleIds": ["trajet-dans-la-chambre"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "fiche-retour-couscous",
+          "type": "document",
+          "title": "La fiche de retour au calme",
+          "content": "assets/documents/fiche-retour-couscous.svg",
+          "alt": "Fiche illustrée indiquant l'ordre pour faire revenir Couscous : poser le bol bleu, s'accroupir, secouer la clochette jaune puis l'appeler doucement.",
+          "documentStyle": "scan"
+        },
+        {
+          "id": "plan-traces-chambre",
+          "type": "document",
+          "title": "Le trajet dans la chambre",
+          "content": "assets/documents/plan-traces-chambre.svg",
+          "alt": "Plan montrant des poils sur le chausson, un cube renversé, une trace sur le cartable puis des empreintes devant la porte.",
+          "documentStyle": "scan"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "trajet-dans-la-chambre",
+          "type": "sequence",
+          "prompt": "Les traces se chevauchent ! Observe le plan et remets les quatre étapes de la fuite dans l'ordre, du départ près de la cage jusqu'à la porte.",
+          "hint": "Suis la ligne pointillée depuis la cage : elle passe d'abord par ce qui se porte au pied.",
+          "items": [
+            { "id": "chausson", "label": "Le chausson étoilé" },
+            { "id": "cube", "label": "Le cube renversé" },
+            { "id": "cartable", "label": "Le cartable rose" },
+            { "id": "porte", "label": "La porte du salon" }
+          ],
+          "correctOrder": ["chausson", "cube", "cartable", "porte"],
+          "rewards": {
+            "unlockItems": ["clochette-jaune"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "salon-en-finale",
+      "title": "Le salon en pleine finale",
+      "narrative": "Papa dispute une prolongation très sérieuse sur Rocket League. Sans quitter l'écran des yeux, il lance : « J'ai entendu un petit ding, puis la boîte à friandises ! »",
+      "background": "assets/images/scene-salon.webp",
+      "ambientSound": "assets/audio/ambiance-course.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-chambre",
+          "x": 18,
+          "y": 28,
+          "width": 13,
+          "height": 27,
+          "label": "Passage vers la chambre, côté fenêtre",
+          "action": { "kind": "go-to-scene", "sceneId": "chambre-heloise" }
+        },
+        {
+          "id": "hotspot-tableau-friandises",
+          "x": 0,
+          "y": 55,
+          "width": 16,
+          "height": 25,
+          "label": "Coussin aux motifs de friandises",
+          "action": { "kind": "show-clue", "clueId": "tableau-friandises" }
+        },
+        {
+          "id": "hotspot-boite-friandises",
+          "x": 73,
+          "y": 63,
+          "width": 22,
+          "height": 22,
+          "label": "Boîte à code sur le meuble télé",
+          "action": { "kind": "open-puzzle", "puzzleId": "code-friandises" }
+        },
+        {
+          "id": "hotspot-porte-cuisine",
+          "x": 84,
+          "y": 19,
+          "width": 16,
+          "height": 42,
+          "label": "Passage à droite du téléviseur",
+          "action": { "kind": "go-to-scene", "sceneId": "cuisine-en-desordre" },
+          "requiresSolvedPuzzleIds": ["code-friandises"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "tableau-friandises",
+          "type": "document",
+          "title": "Le tableau des friandises",
+          "content": "assets/documents/tableau-friandises.svg",
+          "alt": "Tableau associant la salade au chiffre 2, la carotte au chiffre 4 et la fraise au chiffre 1, avec une flèche salade puis carotte puis fraise.",
+          "documentStyle": "scan"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "code-friandises",
+          "type": "code-pad",
+          "prompt": "Le cadenas montre, dans cet ordre : une salade, une carotte et une fraise. Quel code à trois chiffres ouvre la boîte ?",
+          "hint": "Lis la valeur de chaque aliment sur le tableau, en gardant l'ordre dessiné sur le cadenas.",
+          "code": "241",
+          "rewards": {
+            "unlockItems": ["carotte-croquante"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cuisine-en-desordre",
+      "title": "La cuisine en désordre",
+      "narrative": "Une minuscule tempête semble avoir traversé la cuisine : farine au sol, torchon de travers et basilic qui tremblote. Couscous est forcément passé par ici.",
+      "background": "assets/images/scene-cuisine.webp",
+      "ambientSound": "assets/audio/ambiance-course.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-salon",
+          "x": 0,
+          "y": 20,
+          "width": 13,
+          "height": 58,
+          "label": "Passage vers le salon à gauche",
+          "action": { "kind": "go-to-scene", "sceneId": "salon-en-finale" }
+        },
+        {
+          "id": "hotspot-indices-cuisine",
+          "x": 13,
+          "y": 49,
+          "width": 26,
+          "height": 31,
+          "label": "Plan de travail et placards",
+          "action": { "kind": "show-clue", "clueId": "rapport-cuisine" }
+        },
+        {
+          "id": "hotspot-choisir-sortie",
+          "x": 44,
+          "y": 49,
+          "width": 25,
+          "height": 31,
+          "label": "Table de l'enquête",
+          "action": { "kind": "open-puzzle", "puzzleId": "direction-couscous" }
+        },
+        {
+          "id": "hotspot-porte-jardin",
+          "x": 78,
+          "y": 43,
+          "width": 20,
+          "height": 38,
+          "label": "Baie vers le jardin derrière le canapé",
+          "action": { "kind": "go-to-scene", "sceneId": "jardin-des-cachettes" },
+          "requiresSolvedPuzzleIds": ["direction-couscous"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "rapport-cuisine",
+          "type": "document",
+          "title": "Rapport d'Héloïse, super-détective",
+          "content": "assets/documents/rapport-cuisine.svg",
+          "alt": "Trois observations : le placard est fermé et sans trace, le basilic porte une marque de dents, et des empreintes traversent la farine jusqu'à la porte du jardin entrouverte.",
+          "documentStyle": "scan"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "direction-couscous",
+          "type": "multiple-choice",
+          "prompt": "Croise les trois observations du rapport. Où Couscous est-il parti après avoir goûté le basilic ?",
+          "hint": "Les empreintes dans la farine donnent une direction certaine. Cherche aussi quelle sortie n'est pas fermée.",
+          "options": [
+            { "id": "placard", "label": "Dans le placard fermé" },
+            { "id": "salon", "label": "De nouveau vers le salon" },
+            { "id": "jardin", "label": "Par la porte du jardin" },
+            { "id": "four", "label": "Derrière le four" }
+          ],
+          "correctOptionIds": ["jardin"],
+          "rewards": {
+            "unlockItems": ["bol-bleu"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jardin-des-cachettes",
+      "title": "Le jardin des cachettes",
+      "narrative": "Le grand massif blanc remue et une petite branche craque : Couscous est caché là-dedans, prêt à bondir au moindre faux mouvement. C'est le moment d'appliquer exactement sa fiche de retour au calme.",
+      "background": "assets/images/scene-jardin.webp",
+      "ambientSound": "assets/audio/ambiance-course.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-cuisine",
+          "x": 0,
+          "y": 39,
+          "width": 13,
+          "height": 45,
+          "label": "Chemin du retour vers la cuisine",
+          "action": { "kind": "go-to-scene", "sceneId": "cuisine-en-desordre" }
+        },
+        {
+          "id": "hotspot-buisson-couscous",
+          "x": 55,
+          "y": 38,
+          "width": 29,
+          "height": 40,
+          "label": "Buisson où se cache Couscous",
+          "action": { "kind": "open-puzzle", "puzzleId": "rituel-du-retour" },
+          "requiresItemIds": ["clochette-jaune", "carotte-croquante", "bol-bleu"],
+          "useItemId": "carotte-croquante"
+        },
+        {
+          "id": "hotspot-chemin-maison",
+          "x": 25,
+          "y": 54,
+          "width": 22,
+          "height": 35,
+          "label": "Couscous bondit hors des fleurs",
+          "action": { "kind": "go-to-scene", "sceneId": "retour-a-la-cage" },
+          "requiresSolvedPuzzleIds": ["rituel-du-retour"]
+        }
+      ],
+      "clues": [],
+      "puzzles": [
+        {
+          "id": "rituel-du-retour",
+          "type": "sequence",
+          "prompt": "La carotte attire son attention. Retrouve la fiche près de la cage si besoin, puis remets les quatre gestes dans l'ordre pour rassurer Couscous.",
+          "hint": "Commence par préparer son objet bleu. Le bruit ne vient qu'après t'être mise à sa hauteur.",
+          "items": [
+            { "id": "poser-bol", "label": "Poser le bol bleu" },
+            { "id": "accroupir", "label": "S'accroupir sans bouger" },
+            { "id": "clochette", "label": "Secouer la clochette jaune" },
+            { "id": "appeler", "label": "Dire doucement « Couscous »" }
+          ],
+          "correctOrder": ["poser-bol", "accroupir", "clochette", "appeler"]
+        }
+      ]
+    },
+    {
+      "id": "retour-a-la-cage",
+      "title": "Mission accomplie !",
+      "narrative": "Couscous croque la carotte, saute dans les bras d'Héloïse et retrouve sa cage juste avant le « VICTOIRE ! » de papa dans le salon. La porte est bien refermée, le lapin est en sécurité et Héloïse reçoit le titre officiel de super-détective des lapins.",
+      "background": "assets/images/scene-victoire.webp",
+      "hotspots": [],
+      "clues": [],
+      "puzzles": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" role="img" aria-labelledby="title desc">
+  <title id="title">Plan des traces dans la chambre</title>
+  <desc id="desc">Une ligne part de la cage et relie le chausson, le cube, le cartable et la porte.</desc>
+  <rect width="1000" height="720" fill="#fff7dd"/>
+  <rect x="35" y="35" width="930" height="650" rx="30" fill="#fff" stroke="#173149" stroke-width="9"/>
+  <text x="500" y="100" text-anchor="middle" font-family="Arial,sans-serif" font-size="42" font-weight="800" fill="#173149">SUR LA PISTE DE COUSCOUS</text>
+  <path d="M830 235C705 180 695 490 525 450S385 175 245 270 175 520 100 565" fill="none" stroke="#f26b4f" stroke-width="12" stroke-dasharray="18 18" stroke-linecap="round"/>
+  <g stroke="#173149" stroke-width="8" stroke-linejoin="round">
+    <rect x="790" y="140" width="130" height="150" rx="18" fill="#d8f1eb"/><path d="M808 190h94m-76-25v100m28-100v100m28-100v100"/><path d="M790 140l-25 35v120" fill="none"/>
+    <path d="M610 430c25-49 87-51 103-6 11 31-26 65-94 66-24 0-25-30-9-60z" fill="#c69be8"/>
+    <rect x="415" y="300" width="108" height="108" rx="12" fill="#ffd43b"/><text x="469" y="372" text-anchor="middle" font-family="Arial" font-size="52" fill="#173149" stroke="none">C</text>
+    <path d="M205 205h110v150H205z" fill="#f4a8b7"/><path d="M225 205c4-65 71-65 70 0M205 247h110" fill="none"/>
+    <path d="M65 405h95v220H65z" fill="#56b9d0"/><circle cx="139" cy="517" r="8" fill="#ffd43b"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#173149" text-anchor="middle">
+    <text x="855" y="330">LA CAGE</text><text x="660" y="530">CHAUSSON</text><text x="469" y="445">CUBE</text><text x="260" y="395">CARTABLE</text><text x="113" y="660">PORTE</text>
+  </g>
+</svg>

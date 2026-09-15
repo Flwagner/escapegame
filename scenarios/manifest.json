@@ -19,6 +19,16 @@
       "estimatedDurationMinutes": 30,
       "thumbnail": "assets/images/thumbnail.jpg",
       "path": "la-derniere-decoupe"
+    },
+    {
+      "id": "operation-couscous",
+      "title": "Opération Couscous",
+      "description": "Héloïse, 5 ans, a laissé s'échapper son lapin Couscous. Papa termine sa partie de Rocket League dans 20 minutes : suis les traces, rassemble ses affaires préférées et ramène vite le petit fugitif dans sa cage !",
+      "difficulty": "medium",
+      "atmosphere": "Comédie mouvementée",
+      "estimatedDurationMinutes": 20,
+      "thumbnail": "assets/images/thumbnail.webp",
+      "path": "operation-couscous"
     }
   ]
 }

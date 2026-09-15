@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 850" role="img" aria-labelledby="title desc">
+  <title id="title">Tableau des friandises de Couscous</title>
+  <desc id="desc">Salade vaut deux, carotte vaut quatre, fraise vaut un. L'ordre est salade, carotte, fraise.</desc>
+  <rect width="900" height="850" fill="#d8f1eb"/>
+  <rect x="55" y="45" width="790" height="760" rx="34" fill="#fffdf1" stroke="#173149" stroke-width="10"/>
+  <text x="450" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="44" font-weight="800" fill="#173149">LES FRIANDISES</text>
+  <g stroke="#173149" stroke-width="8" stroke-linejoin="round">
+    <circle cx="190" cy="300" r="95" fill="#65bd67"/><path d="M130 300q60-90 120 0-60 90-120 0zm60-88v176" fill="none"/>
+    <path d="M405 245c-35-12-67 13-62 49 5 44 53 126 65 142 15-22 65-104 65-145 0-34-35-57-68-46z" fill="#f47736"/><path d="M407 249c-26-34-3-67 4-76 21 22 24 44 4 72 14-35 41-40 54-41-3 31-22 47-50 55" fill="#52a85d"/>
+    <path d="M655 255c-69 12-83 106-7 175 78-62 75-156 7-175z" fill="#ef5465"/><path d="M613 263q42-57 86 0-43 27-86 0" fill="#52a85d"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="78" font-weight="900" fill="#173149" text-anchor="middle"><text x="190" y="555">2</text><text x="410" y="555">4</text><text x="655" y="555">1</text></g>
+  <path d="M150 650h570" stroke="#f26b4f" stroke-width="14" stroke-linecap="round"/><path d="M720 650l-42-30v60z" fill="#f26b4f"/>
+  <text x="450" y="730" text-anchor="middle" font-family="Arial,sans-serif" font-size="29" font-weight="700" fill="#4c6472">Lis de gauche à droite</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Bol bleu de Couscous</title>
+  <rect width="240" height="240" rx="48" fill="#ffe5e0"/>
+  <path d="M43 91h154c-5 65-30 96-77 96S48 156 43 91z" fill="#56b9d0" stroke="#173149" stroke-width="9" stroke-linejoin="round"/>
+  <ellipse cx="120" cy="92" rx="77" ry="25" fill="#9ce3e8" stroke="#173149" stroke-width="9"/>
+  <ellipse cx="120" cy="92" rx="52" ry="13" fill="#d8ad6b"/>
+  <text x="120" y="151" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="21" fill="#173149">COUSCOUS</text>
+</svg>

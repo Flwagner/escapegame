@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Fiche de retour au calme de Couscous</title>
+  <desc id="desc">Quatre étapes numérotées : bol bleu, s'accroupir, clochette jaune, appeler Couscous doucement.</desc>
+  <rect width="900" height="1050" fill="#d8f1eb"/>
+  <rect x="55" y="45" width="790" height="960" rx="34" fill="#fffdf1" stroke="#173149" stroke-width="10"/>
+  <text x="450" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="45" font-weight="800" fill="#173149">POUR RASSURER COUSCOUS</text>
+  <text x="450" y="168" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#4c6472">Toujours dans cet ordre !</text>
+  <g font-family="Arial,sans-serif" font-weight="700" fill="#173149">
+    <circle cx="130" cy="280" r="54" fill="#f26b4f"/><text x="130" y="297" text-anchor="middle" font-size="48" fill="white">1</text>
+    <path d="M250 241h180c-7 82-34 114-90 114s-83-32-90-114z" fill="#56b9d0" stroke="#173149" stroke-width="8"/><text x="520" y="300" font-size="34">POSER LE BOL BLEU</text>
+    <circle cx="130" cy="480" r="54" fill="#f26b4f"/><text x="130" y="497" text-anchor="middle" font-size="48" fill="white">2</text>
+    <circle cx="328" cy="435" r="35" fill="#ffd7bb" stroke="#173149" stroke-width="7"/><path d="M328 470v75m-65 35 65-35 68 35m-68-67-58 40m58-40 56 38" fill="none" stroke="#173149" stroke-width="11" stroke-linecap="round"/><text x="520" y="500" font-size="34">S'ACCROUPIR</text>
+    <circle cx="130" cy="680" r="54" fill="#f26b4f"/><text x="130" y="697" text-anchor="middle" font-size="48" fill="white">3</text>
+    <path d="M278 705h110l-17-28v-50c0-26-17-45-38-45s-38 19-38 45v50z" fill="#ffd43b" stroke="#173149" stroke-width="8"/><circle cx="333" cy="721" r="14" fill="#f26b4f"/><text x="520" y="700" font-size="34">SECOUER LA CLOCHETTE</text>
+    <circle cx="130" cy="880" r="54" fill="#f26b4f"/><text x="130" y="897" text-anchor="middle" font-size="48" fill="white">4</text>
+    <path d="M244 825h190v95H333l-48 39 12-39h-53z" fill="#fff" stroke="#173149" stroke-width="8" stroke-linejoin="round"/><text x="338" y="885" text-anchor="middle" font-size="23">COUSCOUS...</text><text x="520" y="900" font-size="34">L'APPELER DOUCEMENT</text>
+  </g>
+</svg>

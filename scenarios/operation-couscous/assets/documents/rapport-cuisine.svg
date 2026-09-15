@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Rapport de la cuisine</title>
+  <desc id="desc">Le placard fermé n'a pas de trace, le basilic a été grignoté, et des empreintes traversent la farine vers la porte du jardin entrouverte.</desc>
+  <rect width="900" height="1050" fill="#f8dfe3"/>
+  <rect x="55" y="45" width="790" height="960" rx="34" fill="#fffdf1" stroke="#173149" stroke-width="10"/>
+  <text x="450" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="41" font-weight="800" fill="#173149">RAPPORT DE SUPER-DÉTECTIVE</text>
+  <g font-family="Arial,sans-serif" fill="#173149">
+    <circle cx="140" cy="280" r="50" fill="#56b9d0"/><text x="140" y="297" text-anchor="middle" font-size="47" font-weight="800" fill="white">1</text>
+    <rect x="250" y="205" width="190" height="150" fill="#e9b36b" stroke="#173149" stroke-width="8"/><circle cx="405" cy="280" r="8" fill="#173149"/><text x="490" y="264" font-size="29" font-weight="700">PLACARD FERMÉ</text><text x="490" y="305" font-size="25">Aucune trace devant.</text>
+    <circle cx="140" cy="525" r="50" fill="#56b9d0"/><text x="140" y="542" text-anchor="middle" font-size="47" font-weight="800" fill="white">2</text>
+    <rect x="285" y="515" width="125" height="90" rx="12" fill="#d47e55" stroke="#173149" stroke-width="8"/><path d="M346 515v-70m0 42-50-45m50 16 55-45m-55 14-10-63" fill="none" stroke="#52a85d" stroke-width="17" stroke-linecap="round"/><path d="M380 450l31 13" stroke="#f26b4f" stroke-width="14"/><text x="490" y="515" font-size="29" font-weight="700">BASILIC GRIGNOTÉ</text><text x="490" y="556" font-size="25">Une petite marque de dents.</text>
+    <circle cx="140" cy="775" r="50" fill="#56b9d0"/><text x="140" y="792" text-anchor="middle" font-size="47" font-weight="800" fill="white">3</text>
+    <path d="M245 700h215v170H245z" fill="#f3eadb" stroke="#173149" stroke-width="8"/><path d="M273 790q25-37 50 0t50 0t50 0" fill="none" stroke="#a58b75" stroke-width="12" stroke-linecap="round"/>
+    <path d="M490 690h130v190H490z" fill="#95ccdf" stroke="#173149" stroke-width="8"/><path d="M620 690l70-45v190l-70 45" fill="#78b969" stroke="#173149" stroke-width="8"/>
+    <text x="704" y="745" font-size="29" font-weight="700">TRACES</text><text x="704" y="786" font-size="25">Farine → porte</text><text x="704" y="823" font-size="25">du jardin ouverte !</text>
+  </g>
+</svg>

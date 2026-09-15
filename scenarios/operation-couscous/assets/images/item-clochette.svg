@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Clochette jaune</title>
+  <rect width="240" height="240" rx="48" fill="#dff6f0"/>
+  <path d="M72 151h96l-15-25V96c0-22-13-40-33-44-20 4-33 22-33 44v30z" fill="#ffd43b" stroke="#173149" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M104 50c0-19 32-19 32 0" fill="none" stroke="#173149" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="120" cy="169" r="15" fill="#f26b4f" stroke="#173149" stroke-width="8"/>
+  <path d="M50 82l-18-13m158 13 18-13M48 118H25m190 0h-23" stroke="#f26b4f" stroke-width="9" stroke-linecap="round"/>
+</svg>
