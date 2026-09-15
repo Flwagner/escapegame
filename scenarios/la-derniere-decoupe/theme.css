@@ -1,0 +1,45 @@
+.scenario-la-derniere-decoupe {
+  --eg-color-bg: #090706;
+  --eg-color-surface: #171110;
+  --eg-color-surface-raised: #241918;
+  --eg-color-text: #eee5d8;
+  --eg-color-text-muted: #b4a295;
+  --eg-color-accent: #a81919;
+  --eg-color-accent-hover: #d12a22;
+  --eg-color-danger: #ef4035;
+  --eg-color-border: #5d312d;
+  --eg-font-body: "Trebuchet MS", Arial, sans-serif;
+  --eg-font-heading: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --eg-radius: 1px;
+  --eg-shadow: 0 18px 48px rgb(0 0 0 / 72%);
+}
+
+.scenario-la-derniere-decoupe :focus-visible {
+  outline-color: #ff655b;
+  outline-offset: 4px;
+}
+
+.scenario-la-derniere-decoupe button {
+  letter-spacing: 0.045em;
+}
+
+.scenario-la-derniere-decoupe [data-scene-id="chambre-froide"] {
+  --eg-scene-image-filter: contrast(1.18) brightness(0.62) saturate(0.62) hue-rotate(160deg);
+  --eg-scene-backdrop-filter: blur(20px) brightness(0.2) saturate(0.5);
+}
+
+.scenario-la-derniere-decoupe [data-scene-id="salle-decoupe"] {
+  --eg-scene-image-filter: sepia(0.18) contrast(1.28) brightness(0.5) saturate(0.78);
+  --eg-scene-backdrop-filter: blur(20px) brightness(0.17) sepia(0.3);
+}
+
+.scenario-la-derniere-decoupe [data-scene-id="bureau-boucher"],
+.scenario-la-derniere-decoupe [data-scene-id="couloir-service"] {
+  --eg-scene-image-filter: sepia(0.4) contrast(1.22) brightness(0.48) saturate(0.74);
+  --eg-scene-backdrop-filter: blur(22px) brightness(0.16) sepia(0.4);
+}
+
+.scenario-la-derniere-decoupe [data-scene-id="dehors"] {
+  --eg-scene-image-filter: contrast(1.24) brightness(0.58) saturate(0.45);
+  --eg-scene-backdrop-filter: blur(20px) brightness(0.2) saturate(0.35);
+}

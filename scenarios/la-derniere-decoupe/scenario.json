@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "id": "la-derniere-decoupe",
+  "title": "La Dernière Découpe",
+  "description": "Vous reprenez connaissance dans la chambre froide d'une boucherie isolée. Le propriétaire vous a laissé vingt minutes avant son retour. Fouillez ses procédures, déjouez ses serrures et échappez-vous. Avertissement : ambiance horrifique, viande, sang suggéré et menace de mort. Chaque mauvaise réponse retire du temps.",
+  "author": "Escape Game",
+  "difficulty": "hard",
+  "estimatedDurationMinutes": 20,
+  "thumbnail": "assets/images/thumbnail.jpg",
+  "theme": "theme.css",
+  "timer": {
+    "durationSeconds": 1200,
+    "victorySceneId": "dehors"
+  },
+  "introSceneId": "chambre-froide",
+  "items": [
+    {
+      "id": "pince-coupante",
+      "name": "Pince coupante",
+      "description": "Une lourde pince tachée de rouille, assez forte pour sectionner la chaîne de la porte.",
+      "icon": "assets/images/item-pince.svg"
+    },
+    {
+      "id": "cle-bureau",
+      "name": "Clé du bureau",
+      "description": "Une petite clé en laiton portant l'étiquette BUREAU.",
+      "icon": "assets/images/item-cle-bureau.svg"
+    },
+    {
+      "id": "fusible-porcelaine",
+      "name": "Fusible en porcelaine",
+      "description": "Un ancien fusible marqué 16 A. Il manque précisément au tableau du couloir.",
+      "icon": "assets/images/item-fusible.svg"
+    },
+    {
+      "id": "cle-sortie",
+      "name": "Clé de la sortie",
+      "description": "Une clé d'acier longue et froide. La lumière de la rue n'est plus très loin.",
+      "icon": "assets/images/item-cle-sortie.svg"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "chambre-froide",
+      "title": "La chambre froide",
+      "narrative": "Le froid mord vos poignets. Derrière les vitrines, des quartiers de viande pendent dans une lumière blafarde. Une chaîne condamne la seule issue et un moteur tousse dans le mur.",
+      "background": "assets/images/scene-chambre-froide.jpg",
+      "ambientSound": "assets/audio/ambiance-chambre-froide.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-protocole-froid",
+          "x": 3,
+          "y": 25,
+          "width": 15,
+          "height": 30,
+          "label": "Fiche plastifiée",
+          "action": { "kind": "show-clue", "clueId": "protocole-froid" }
+        },
+        {
+          "id": "hotspot-tableau-froid",
+          "x": 82,
+          "y": 24,
+          "width": 16,
+          "height": 34,
+          "label": "Tableau électrique",
+          "action": { "kind": "open-puzzle", "puzzleId": "reveil-circuits" }
+        },
+        {
+          "id": "hotspot-chaine-chambre",
+          "x": 39,
+          "y": 12,
+          "width": 22,
+          "height": 72,
+          "label": "Porte vitrée enchaînée",
+          "action": { "kind": "go-to-scene", "sceneId": "salle-decoupe" },
+          "requiresItemIds": ["pince-coupante"],
+          "useItemId": "pince-coupante"
+        }
+      ],
+      "clues": [
+        {
+          "id": "protocole-froid",
+          "type": "document",
+          "title": "Protocole de redémarrage",
+          "content": "assets/documents/protocole-froid.svg",
+          "alt": "Fiche listant quatre circuits : lumière L-17, ventilation V-03, résistance R-26 et compresseur C-41. Elle précise que la lumière précède l'air, que la résistance suit immédiatement l'air et que le compresseur démarre en dernier.",
+          "documentStyle": "scan"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "reveil-circuits",
+          "type": "sequence",
+          "prompt": "Remettez les quatre circuits dans l'ordre de redémarrage. Une erreur retire 20 secondes.",
+          "hint": "La fiche plastifiée donne trois contraintes suffisantes : lumière avant air, résistance juste après air, froid en dernier.",
+          "failurePenaltySeconds": 20,
+          "items": [
+            { "id": "circuit-lumiere", "label": "Lumière L-17" },
+            { "id": "circuit-ventilation", "label": "Ventilation V-03" },
+            { "id": "circuit-resistance", "label": "Résistance R-26" },
+            { "id": "circuit-compresseur", "label": "Compresseur C-41" }
+          ],
+          "correctOrder": ["circuit-lumiere", "circuit-ventilation", "circuit-resistance", "circuit-compresseur"],
+          "rewards": {
+            "unlockItems": ["pince-coupante"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "salle-decoupe",
+      "title": "La salle de découpe",
+      "narrative": "La chaîne cède. Des crochets grincent au-dessus du billot et la scie vibre encore. Sur le comptoir, les notes du boucher mêlent procédures de sécurité et comptabilité morbide.",
+      "background": "assets/images/scene-salle-decoupe.jpg",
+      "ambientSound": "assets/audio/ambiance-decoupe.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-froid",
+          "x": 1,
+          "y": 26,
+          "width": 14,
+          "height": 48,
+          "label": "Retour vers la chambre froide",
+          "action": { "kind": "go-to-scene", "sceneId": "chambre-froide" }
+        },
+        {
+          "id": "hotspot-fiche-rail",
+          "x": 45,
+          "y": 58,
+          "width": 15,
+          "height": 18,
+          "label": "Consigne sous verre",
+          "action": { "kind": "show-clue", "clueId": "fiche-securite-rail" }
+        },
+        {
+          "id": "hotspot-bordereau",
+          "x": 67,
+          "y": 62,
+          "width": 16,
+          "height": 18,
+          "label": "Bordereau des crochets",
+          "action": { "kind": "show-clue", "clueId": "bordereau-crochets" }
+        },
+        {
+          "id": "hotspot-commande-rail",
+          "x": 59,
+          "y": 30,
+          "width": 26,
+          "height": 22,
+          "label": "Commande du rail suspendu",
+          "action": { "kind": "open-puzzle", "puzzleId": "neutraliser-rail" }
+        },
+        {
+          "id": "hotspot-porte-bureau",
+          "x": 12,
+          "y": 18,
+          "width": 15,
+          "height": 48,
+          "label": "Porte du bureau",
+          "action": { "kind": "go-to-scene", "sceneId": "bureau-boucher" },
+          "requiresItemIds": ["cle-bureau"],
+          "useItemId": "cle-bureau"
+        }
+      ],
+      "clues": [
+        {
+          "id": "fiche-securite-rail",
+          "type": "document",
+          "title": "Procédure d'arrêt du rail",
+          "content": "assets/documents/fiche-securite-rail.svg",
+          "alt": "Procédure en quatre étapes : appuyer sur l'arrêt d'urgence, purger la pression, bloquer les crochets, puis couper l'alimentation générale.",
+          "documentStyle": "scan"
+        },
+        {
+          "id": "bordereau-crochets",
+          "type": "document",
+          "title": "Bordereau des crochets",
+          "content": "assets/documents/bordereau-crochets.svg",
+          "alt": "Tableau indiquant jarret 5 kg crochet 7, épaule 8 kg crochet 3, poitrine 11 kg crochet 1 et flanc 13 kg crochet 9.",
+          "documentStyle": "scan"
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "neutraliser-rail",
+          "type": "sequence",
+          "prompt": "Neutralisez le rail sans déclencher la scie. Une erreur retire 20 secondes.",
+          "hint": "La procédure sous verre distingue l'arrêt de la machine, la purge, l'immobilisation mécanique et la coupure finale.",
+          "failurePenaltySeconds": 20,
+          "items": [
+            { "id": "arret-urgence", "label": "Enfoncer l'arrêt d'urgence" },
+            { "id": "purge-pression", "label": "Ouvrir la vanne de purge" },
+            { "id": "frein-crochets", "label": "Engager le frein des crochets" },
+            { "id": "coupe-generale", "label": "Couper l'alimentation générale" }
+          ],
+          "correctOrder": ["arret-urgence", "purge-pression", "frein-crochets", "coupe-generale"],
+          "rewards": {
+            "unlockItems": ["cle-bureau"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "bureau-boucher",
+      "title": "Le bureau du boucher",
+      "narrative": "Le luxe du bureau tranche avec les pièces carrelées. Des coupures de presse couvrent le mur. Sur le grand bureau, un coffre à clavier attend sous une note écrite d'une main fébrile.",
+      "background": "assets/images/scene-bureau.jpg",
+      "ambientSound": "assets/audio/ambiance-decoupe.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-decoupe",
+          "x": 1,
+          "y": 32,
+          "width": 14,
+          "height": 44,
+          "label": "Retour vers la salle de découpe",
+          "action": { "kind": "go-to-scene", "sceneId": "salle-decoupe" }
+        },
+        {
+          "id": "hotspot-note-coffre",
+          "x": 51,
+          "y": 58,
+          "width": 17,
+          "height": 16,
+          "label": "Note sur le bureau",
+          "action": { "kind": "show-clue", "clueId": "note-coffre" }
+        },
+        {
+          "id": "hotspot-coffre-bureau",
+          "x": 73,
+          "y": 51,
+          "width": 17,
+          "height": 24,
+          "label": "Coffre à clavier",
+          "action": { "kind": "open-puzzle", "puzzleId": "code-coffre" }
+        },
+        {
+          "id": "hotspot-note-cadran",
+          "x": 15,
+          "y": 21,
+          "width": 15,
+          "height": 25,
+          "label": "Note épinglée au mur",
+          "action": { "kind": "show-clue", "clueId": "note-cadran" },
+          "requiresSolvedPuzzleIds": ["code-coffre"]
+        },
+        {
+          "id": "hotspot-porte-couloir",
+          "x": 36,
+          "y": 8,
+          "width": 18,
+          "height": 48,
+          "label": "Porte vers le couloir de service",
+          "action": { "kind": "go-to-scene", "sceneId": "couloir-service" },
+          "requiresItemIds": ["fusible-porcelaine"]
+        }
+      ],
+      "clues": [
+        {
+          "id": "note-coffre",
+          "type": "text",
+          "title": "Mémo du boucher",
+          "content": "LE COFFRE : quatre chiffres. Prendre les numéros des crochets, de la pièce la plus légère à la plus lourde. Le bordereau reste dans la salle de découpe.",
+          "documentStyle": "typed"
+        },
+        {
+          "id": "note-cadran",
+          "type": "text",
+          "title": "Note cachée dans le coffre",
+          "content": "Pour la serrure du couloir : reprendre les quatre circuits de la chambre froide dans l'ordre exact de leur réveil. Ne garder que le dernier chiffre de chaque référence.",
+          "documentStyle": "letter",
+          "unlockedByPuzzleIds": ["code-coffre"]
+        }
+      ],
+      "puzzles": [
+        {
+          "id": "code-coffre",
+          "type": "code-pad",
+          "prompt": "Entrez les quatre chiffres du coffre. Une erreur retire 30 secondes.",
+          "hint": "Le mémo donne la règle. Relevez les poids et les numéros sur le bordereau de la salle de découpe, puis classez les pièces par poids croissant.",
+          "failurePenaltySeconds": 30,
+          "code": "7319",
+          "rewards": {
+            "unlockClues": ["note-cadran"],
+            "unlockItems": ["fusible-porcelaine"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "couloir-service",
+      "title": "Le couloir de service",
+      "narrative": "Le couloir mène à une porte extérieure, mais son verrou électromécanique est mort. Un logement vide bâille dans le tableau et quatre molettes portent des traces de doigts brunies.",
+      "background": "assets/images/scene-couloir.jpg",
+      "ambientSound": "assets/audio/ambiance-couloir.mp3",
+      "hotspots": [
+        {
+          "id": "hotspot-retour-bureau",
+          "x": 1,
+          "y": 30,
+          "width": 14,
+          "height": 48,
+          "label": "Retour vers le bureau",
+          "action": { "kind": "go-to-scene", "sceneId": "bureau-boucher" }
+        },
+        {
+          "id": "hotspot-tableau-couloir",
+          "x": 73,
+          "y": 27,
+          "width": 18,
+          "height": 34,
+          "label": "Tableau et serrure à molettes",
+          "action": { "kind": "open-puzzle", "puzzleId": "serrure-couloir" },
+          "useItemId": "fusible-porcelaine"
+        },
+        {
+          "id": "hotspot-porte-sortie",
+          "x": 35,
+          "y": 28,
+          "width": 21,
+          "height": 48,
+          "label": "Porte de service",
+          "action": { "kind": "go-to-scene", "sceneId": "dehors" },
+          "requiresItemIds": ["cle-sortie"],
+          "useItemId": "cle-sortie"
+        }
+      ],
+      "clues": [],
+      "puzzles": [
+        {
+          "id": "serrure-couloir",
+          "type": "combination-lock",
+          "prompt": "Réglez les quatre molettes selon la note cachée dans le coffre. Une erreur retire 30 secondes.",
+          "hint": "Ordre des circuits : lumière, ventilation, résistance, compresseur. Leurs références se terminaient respectivement par 7, 3, 6 et 1.",
+          "failurePenaltySeconds": 30,
+          "wheels": 4,
+          "combination": [7, 3, 6, 1],
+          "rewards": {
+            "unlockItems": ["cle-sortie"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dehors",
+      "title": "L'air libre",
+      "narrative": "La clé tourne au moment où des phares balaient la façade. Vous bondissez dehors et disparaissez derrière les bâtiments. Dans votre dos, la boucherie reste noire. Cette nuit, vous ne serez pas la dernière découpe.",
+      "background": "assets/images/scene-sortie.jpg",
+      "hotspots": [],
+      "clues": [],
+      "puzzles": []
+    }
+  ]
+}

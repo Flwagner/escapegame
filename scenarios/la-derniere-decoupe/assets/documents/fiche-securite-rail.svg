@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#c8c3b3"/>
+  <rect x="48" y="48" width="804" height="1104" fill="#eee9d8" stroke="#252525" stroke-width="6"/>
+  <rect x="82" y="82" width="736" height="120" fill="#222"/>
+  <text x="450" y="135" text-anchor="middle" font-family="sans-serif" font-size="35" font-weight="bold" fill="#f3eada">RAIL DE MANUTENTION</text>
+  <text x="450" y="180" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#efb3aa">ARRET D'URGENCE</text>
+  <g font-family="monospace" fill="#222">
+    <text x="110" y="290" font-size="30" font-weight="bold">ORDRE OBLIGATOIRE</text>
+    <text x="125" y="385" font-size="28">1. ENFONCER L'ARRET D'URGENCE</text>
+    <text x="125" y="480" font-size="28">2. OUVRIR LA VANNE DE PURGE</text>
+    <text x="125" y="575" font-size="28">3. ENGAGER LE FREIN DES CROCHETS</text>
+    <text x="125" y="670" font-size="28">4. COUPER L'ALIMENTATION GENERALE</text>
+  </g>
+  <path d="M150 760 H750 L710 940 H190 Z" fill="#d9d1b8" stroke="#333" stroke-width="4"/>
+  <text x="450" y="825" text-anchor="middle" font-family="monospace" font-size="25" fill="#711717">NE JAMAIS COUPER LE COURANT</text>
+  <text x="450" y="865" text-anchor="middle" font-family="monospace" font-size="25" fill="#711717">AVANT LE BLOCAGE MECANIQUE</text>
+  <path d="M230 1010 C360 960 520 1070 680 1000" fill="none" stroke="#7d1515" stroke-width="15" opacity="0.45"/>
+</svg>

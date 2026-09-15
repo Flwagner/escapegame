@@ -8,6 +8,15 @@
       "estimatedDurationMinutes": 15,
       "thumbnail": "assets/images/thumbnail.webp",
       "path": "le-dernier-cercle"
+    },
+    {
+      "id": "la-derniere-decoupe",
+      "title": "La Dernière Découpe",
+      "description": "Vous reprenez connaissance dans la chambre froide d'une boucherie isolée. Le propriétaire vous a laissé vingt minutes avant son retour. Fouillez ses procédures, déjouez ses serrures et échappez-vous. Avertissement : ambiance horrifique, viande, sang suggéré et menace de mort. Chaque mauvaise réponse retire du temps.",
+      "difficulty": "hard",
+      "estimatedDurationMinutes": 20,
+      "thumbnail": "assets/images/thumbnail.jpg",
+      "path": "la-derniere-decoupe"
     }
   ]
 }

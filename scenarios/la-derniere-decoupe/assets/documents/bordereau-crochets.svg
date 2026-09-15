@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#d3ccb8"/>
+  <rect x="45" y="45" width="810" height="1110" fill="#f1ead6" stroke="#36332d" stroke-width="5"/>
+  <text x="450" y="125" text-anchor="middle" font-family="monospace" font-size="38" font-weight="bold" fill="#292621">BORDEREAU - LOT 13</text>
+  <text x="450" y="172" text-anchor="middle" font-family="monospace" font-size="23" fill="#6d1717">PESAGE / RAIL NORD</text>
+  <g stroke="#444" stroke-width="3" fill="none">
+    <rect x="95" y="235" width="710" height="520"/>
+    <line x1="95" y1="320" x2="805" y2="320"/>
+    <line x1="95" y1="430" x2="805" y2="430"/>
+    <line x1="95" y1="540" x2="805" y2="540"/>
+    <line x1="95" y1="650" x2="805" y2="650"/>
+    <line x1="430" y1="235" x2="430" y2="755"/>
+    <line x1="620" y1="235" x2="620" y2="755"/>
+  </g>
+  <g font-family="monospace" font-size="27" fill="#292621">
+    <text x="130" y="290">PIECE</text><text x="485" y="290">POIDS</text><text x="665" y="290">CROCHET</text>
+    <text x="130" y="390">JARRET</text><text x="500" y="390">5 kg</text><text x="700" y="390">7</text>
+    <text x="130" y="500">EPAULE</text><text x="500" y="500">8 kg</text><text x="700" y="500">3</text>
+    <text x="130" y="610">POITRINE</text><text x="485" y="610">11 kg</text><text x="700" y="610">1</text>
+    <text x="130" y="720">FLANC</text><text x="485" y="720">13 kg</text><text x="700" y="720">9</text>
+  </g>
+  <text x="450" y="875" text-anchor="middle" font-family="cursive" font-size="36" fill="#791515" transform="rotate(-2 450 875)">Du plus leger au plus lourd.</text>
+  <text x="450" y="940" text-anchor="middle" font-family="cursive" font-size="30" fill="#791515" transform="rotate(-2 450 940)">Toujours dans cet ordre.</text>
+  <path d="M160 1035 Q330 970 470 1045 T760 1015" fill="none" stroke="#741313" stroke-width="18" opacity="0.35"/>
+</svg>

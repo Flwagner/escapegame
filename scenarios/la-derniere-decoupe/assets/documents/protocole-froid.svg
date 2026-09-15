@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#d8d2bf"/>
+  <rect x="42" y="42" width="816" height="1116" fill="#eee8d6" stroke="#4b4a43" stroke-width="5"/>
+  <text x="450" y="120" text-anchor="middle" font-family="monospace" font-size="40" font-weight="bold" fill="#252522">CHAMBRE FROIDE 2</text>
+  <text x="450" y="168" text-anchor="middle" font-family="monospace" font-size="25" fill="#7c1717">PROTOCOLE DE REDEMARRAGE</text>
+  <line x1="90" y1="205" x2="810" y2="205" stroke="#444" stroke-width="3"/>
+  <g font-family="monospace" font-size="29" fill="#292825">
+    <text x="110" y="280">LUMIERE ............... L-17</text>
+    <text x="110" y="345">VENTILATION ........... V-03</text>
+    <text x="110" y="410">RESISTANCE DEGIVRAGE .. R-26</text>
+    <text x="110" y="475">COMPRESSEUR ........... C-41</text>
+  </g>
+  <rect x="92" y="540" width="716" height="420" fill="#ddd6c2" stroke="#555" stroke-width="3"/>
+  <g font-family="monospace" font-size="27" fill="#292825">
+    <text x="125" y="615">REGLES IMPERATIVES :</text>
+    <text x="125" y="690">- Voir avant de chasser l'air.</text>
+    <text x="125" y="755">- Chauffer aussitot apres l'air.</text>
+    <text x="125" y="820">- Ne reveiller le froid qu'en dernier.</text>
+    <text x="125" y="885">- Aucun circuit ne peut etre saute.</text>
+  </g>
+  <text x="450" y="1050" text-anchor="middle" font-family="cursive" font-size="34" fill="#7b1111" transform="rotate(-3 450 1050)">Les derniers chiffres ne mentent jamais.</text>
+  <circle cx="770" cy="1080" r="45" fill="none" stroke="#7b1111" stroke-width="6" opacity="0.75"/>
+</svg>
